@@ -11,7 +11,7 @@ Pensando nisso, criamos o projeto Kofi, que tem como objetivo auxiliar cafeteria
 
 ## Tecnologias Utilizadas
 
-A COMBINAR. Previsto: HTML, CSS, JAVA/JavaScript
+A COMBINAR. Previsto: HTML, CSS, JAVA/JavaScript.
  
 ## Objetivo 📍
 
