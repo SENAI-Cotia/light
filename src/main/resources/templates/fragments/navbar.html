@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
 </head>
 <body>
-  
+
+<nav th:fragment="navbar">
+    <div>
+        <img th:src="@{/assets/icons/logo-menu.svg}" alt="Logo Kofi Control">
+    </div>
+    <div>
+        <ul>
+            <li>
+                <img th:src="@{/assets/icons/coffee-bean.svg}" alt="">
+                <span>Dashboard</span>
+            </li>
+            <li>
+                <img th:src="@{/assets/icons/tea-cup.svg}" alt="">
+                <span>Cardápio</span>
+            </li>
+            <li>
+                <img th:src="@{/assets/icons/coffee-beans.svg}" alt="">
+                <span>Atendimento</span>
+            </li>
+            <li>
+                <img th:src="@{/assets/icons/cooking-pot.svg}" alt="">
+                <span>Cozinha</span>
+            </li>
+        </ul>
+    </div>
+    <div>
+
+    </div>
+</nav>
+
 </body>
 </html>
