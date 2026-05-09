@@ -5,25 +5,25 @@
 </head>
 <body>
 
-<nav th:fragment="navbar">
-    <div>
+<nav th:fragment="navbar" class="menu-container">
+    <div class="menu-logo">
         <img th:src="@{/assets/icons/logo-menu.svg}" alt="Logo Kofi Control">
     </div>
     <div>
         <ul>
-            <li>
+            <li class="menu-item">
                 <img th:src="@{/assets/icons/coffee-bean.svg}" alt="">
                 <span>Dashboard</span>
             </li>
-            <li>
+            <li class="menu-item">
                 <img th:src="@{/assets/icons/tea-cup.svg}" alt="">
                 <span>Cardápio</span>
             </li>
-            <li>
+            <li class="menu-item">
                 <img th:src="@{/assets/icons/coffee-beans.svg}" alt="">
                 <span>Atendimento</span>
             </li>
-            <li>
+            <li class="menu-item">
                 <img th:src="@{/assets/icons/cooking-pot.svg}" alt="">
                 <span>Cozinha</span>
             </li>
