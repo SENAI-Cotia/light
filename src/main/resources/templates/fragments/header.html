@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+<body>
+
+<header th:fragment="header(logo, title)" class="page-title">
+    <img th:src="@{'/assets/icons/' + ${logo} + '.svg'}" alt="">
+    <h1 th:text="${title}"></h1>
+</header>
+
+</body>
+</html>

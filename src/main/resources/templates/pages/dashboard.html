@@ -8,8 +8,13 @@
     <!--    <link rel="stylesheet" th:href="@{/css/dashboard.css}">-->
 </head>
 <body>
+<aside>
+    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+</aside>
 
-<th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
-<main><h1>Dashboard</h1></main>
+<main>
+    <th:block th:insert="~{fragments/header:: header('coffee-bean-dark', 'DASHBOARD')}"></th:block>
+</main>
+
 </body>
 </html>
