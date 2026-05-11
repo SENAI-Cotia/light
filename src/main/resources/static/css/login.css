@@ -1,0 +1,45 @@
+:root {
+    --hot-brown: #41210A;
+    --dark-hot-brown: #3A1D08;
+    --white: #FFFFFF;
+    --earth-brown: #8B7357;
+    --dark-mountain: #6A6863;
+    --mountain: #AAA396;
+    --vanilla: #F1EADA;
+    --tobacco: #B59E7D;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', Times New Roman;
+    list-style: none;
+}
+
+.body-login {
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.fundo {
+    /* border: 10px dashed black; */
+    /* padding: 25px; */
+    height: 95vh;
+    width: 70vw;
+    background-size: cover;
+    background-origin: padding-box;
+    background-image: url("/assets/images/keyboard-logo.svg");
+    background-repeat: no-repeat;
+    background-position: left;
+    /* font-family: Arial, sans-serif; */
+}
+
+.login-container {
+    height: 95vh;
+    width: 50vw;
+    background-color: var(--hot-brown);
+    border-radius: 10px;
+}
