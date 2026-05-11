@@ -9,25 +9,30 @@
     <div class="menu-logo">
         <img th:src="@{/assets/icons/logo-menu.svg}" alt="Logo Kofi Control">
     </div>
-    <div>
+    <div class="menu-pages">
         <ul>
             <li class="menu-item">
                 <img th:src="@{/assets/icons/coffee-bean.svg}" alt="">
-                <span>Dashboard</span>
+                <a th:href="@{/dashboard}">Dashboard</a>
             </li>
             <li class="menu-item">
                 <img th:src="@{/assets/icons/tea-cup.svg}" alt="">
-                <span>Cardápio</span>
+                <a th:href="@{/cardapio}">Cardápio</a>
             </li>
             <li class="menu-item">
                 <img th:src="@{/assets/icons/bell.svg}" alt="">
-                <span>Atendimento</span>
+                <a th:href="@{/atendimento}">Atendimento</a>
             </li>
             <li class="menu-item">
                 <img th:src="@{/assets/icons/pot.svg}" alt="">
-                <span>Cozinha</span>
+                <a th:href="@{/cozinha}">Cozinha</a>
             </li>
         </ul>
+
+        <div class="sidebar-config">
+            <img th:src="@{/assets/icons/config.svg}" alt="">
+            <a th:href="@{/configuracoes}">Configurações</a>
+        </div>
     </div>
     <div>
 

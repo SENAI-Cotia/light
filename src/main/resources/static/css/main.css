@@ -21,6 +21,11 @@
     list-style: none;
 }
 
+a, a:visited{
+    text-decoration: none;
+    color: var(--vanilla);
+}
+
 @font-face {
     font-family: 'Nunito';
     src: url("/assets/fonts/Nunito/Nunito.ttf") format("truetype");
@@ -42,6 +47,7 @@ body {
     display: flex;
     flex-direction: row;
     padding: 1rem;
+    overflow: hidden;
 }
 
 main {
