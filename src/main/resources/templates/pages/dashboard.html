@@ -5,9 +5,16 @@
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Dashboard')}"></th:block>
 
     <!-- page specific stuff goes here -->
-    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <!--    <link rel="stylesheet" th:href="@{/css/dashboard.css}">-->
 </head>
 <body>
-<h1>Dashboard</h1>
+<aside>
+    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+</aside>
+
+<main>
+    <th:block th:insert="~{fragments/header:: header('coffee-bean-dark', 'DASHBOARD')}"></th:block>
+</main>
+
 </body>
 </html>
