@@ -48,7 +48,7 @@
     color: var(--white);
 }
 
-.logo-header { /*não faço ideia de como mudar a cor disso */
+.logo-header {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -56,7 +56,7 @@
 }
 
 .coffee-icon {
-    width: 60px;
+    width: 267px;
 }
 
 .brand-text {
@@ -70,7 +70,12 @@
 }
 
 .welcome-section h1 {
-    font-size: 2.2rem;
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.welcome-section p {
+    font-size: 1.67rem;
     margin-bottom: 10px;
 }
 
