@@ -9,7 +9,9 @@
 </head>
 <body>
 <aside>
-    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+    <div th:replace="~{fragments/navbar :: menu-toggle}"></div>
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
 </aside>
 
 <main>
