@@ -25,20 +25,22 @@
 }
 
 .fundo {
-    height: 95vh;
+    height: 90vh;
     width: 70vw;
     background-size: cover;
     background-origin: padding-box;
     background-image: url("../assets/images/keyboard-logo.svg");
     background-repeat: no-repeat;
     background-position: left;
+    margin-top: 40px;
+    margin-left: 40px;
 }
 
 .login-container {
     height: 95vh;
-    width: 40vw;
+    width: 95vw;
     background-color: var(--hot-brown);
-    border-radius: 40px;
+    border-radius: 30px;
     margin: auto 20px auto 0;
     display: flex;
     flex-direction: column;
@@ -92,11 +94,12 @@
 
 .input-group label {
     margin-bottom: 8px;
-    font-size: 0.9rem;
+    font-size: 2rem;
 }
 
 .input-group input {
     height: 45px;
+    width: 20rem;
     border-radius: 25px; /* Bordas arredondadas dos campos */
     border: none;
     background-color: var(--vanilla);
@@ -111,7 +114,7 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 30px;
-    font-size: 0.85rem;
+    font-size: 1.2rem;
 }
 
 .btn-entrar {
