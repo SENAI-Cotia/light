@@ -4,6 +4,15 @@
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Configurações')}"></th:block>
 </head>
 <body>
-<h1>Configurações</h1>
+
+<aside>
+    <div th:replace="~{fragments/navbar :: menu-toggle}"></div>
+
+    <div th:replace="~{fragments/navbar :: navbar('configuracoes')}"></div>
+</aside>
+
+<main>
+    <th:block th:insert="~{fragments/header:: header('config-dark', 'CONFIGURAÇÕES')}"></th:block>
+</main>
 </body>
 </html>

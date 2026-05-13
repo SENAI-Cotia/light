@@ -4,9 +4,15 @@
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Cozinha')}"></th:block>
 </head>
 <body>
-<!--<aside>-->
-<!--    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>-->
-<!--</aside>-->
-<h1>Cozinha</h1>
+
+<aside>
+    <div th:replace="~{fragments/navbar :: menu-toggle}"></div>
+
+    <div th:replace="~{fragments/navbar :: navbar('cozinha')}"></div>
+</aside>
+
+<main>
+    <th:block th:insert="~{fragments/header:: header('POT-dark', 'COZINHA')}"></th:block>
+</main>
 </body>
 </html>

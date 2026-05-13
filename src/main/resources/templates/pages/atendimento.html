@@ -4,6 +4,15 @@
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Atendimento')}"></th:block>
 </head>
 <body>
-<h1>Atendimento</h1>
+
+<aside>
+    <div th:replace="~{fragments/navbar :: menu-toggle}"></div>
+
+    <div th:replace="~{fragments/navbar :: navbar('atendimento')}"></div>
+</aside>
+
+<main>
+    <th:block th:insert="~{fragments/header:: header('bell-dark', 'ATENDIMENTO')}"></th:block>
+</main>
 </body>
 </html>

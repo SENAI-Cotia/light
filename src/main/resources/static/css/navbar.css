@@ -19,6 +19,12 @@ button {
     margin-bottom: 1.5rem;
 }
 
+.menu-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
 .menu-item {
     width: 100%;
     padding: 1rem;
@@ -35,8 +41,18 @@ button {
     }
 }
 
-.menu-item:hover {
+.menu-link:hover, .menu-link.active {
     background-color: var(--dark-hot-brown);
+
+    img {
+        transition: all .3s linear;
+        opacity: 0.5;
+    }
+
+    a {
+        transition: all .3s linear;
+        color: var(--earth-brown);
+    }
 }
 
 
@@ -99,7 +115,7 @@ button {
         height: 100vh;
         z-index: 1000;
         transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border-radius: 0px 10px 10px 0;
+        border-radius: 0 10px 10px 0;
     }
 
     .menu-container.menu-open {

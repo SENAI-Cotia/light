@@ -1,0 +1,75 @@
+.cardapio-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+
+    .quick-actions {
+        background-color: var(--white);
+        padding: 1rem .5rem;
+        border-radius: .5rem;
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+        min-width: 100%;
+
+        .search-bar {
+            border: 1px solid var(--vanilla);
+            border-radius: .5rem;
+            width: 100%;
+
+            display: flex;
+            gap: .5rem;
+            /*align-items: center;*/
+
+            .search-button {
+                border: 1px solid var(--vanilla);
+                border-radius: .5rem;
+                min-height: 100%;
+                width: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                img {
+                    height: 30px;
+                }
+            }
+
+            input {
+                border: none;
+                width: 100%;
+                padding: 1rem;
+            }
+        }
+
+        .create-product {
+            background-color: var(--vanilla);
+            border-radius: .5rem;
+            min-height: 100%;
+            transition: all .3s linear;
+            cursor: pointer;
+            padding: 0 1rem;
+            white-space: nowrap;
+
+            &:hover {
+                background-color: var(--tobacco);
+            }
+        }
+    }
+
+    .products-table {
+        background-color: var(--white);
+        border-radius: .5rem;
+
+        /*Remover após terminar*/
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        h3 {
+            opacity: .7;
+        }
+    }
+}

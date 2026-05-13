@@ -4,6 +4,33 @@
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Cardápio')}"></th:block>
 </head>
 <body>
-<h1>Cardápio</h1>
+
+<aside>
+    <div th:replace="~{fragments/navbar :: menu-toggle}"></div>
+
+    <div th:replace="~{fragments/navbar :: navbar('cardapio')}"></div>
+</aside>
+
+<main>
+    <th:block th:insert="~{fragments/header:: header('tea-cup-dark', 'CARDÁPIO')}"></th:block>
+
+    <div class="cardapio-info">
+        <div class="quick-actions">
+            <div class="search-bar">
+                <button class="search-button" type="button">
+                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto" />
+                </button>
+
+                <input name="search" placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
+            </div>
+
+            <button type="button" class="create-product">Cadastrar produto</button>
+        </div>
+
+        <div class="products-table">
+            <h3>Em desenvolvimento...</h3>
+        </div>
+    </div>
+</main>
 </body>
 </html>
