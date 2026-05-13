@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+<body>
+
+<button th:fragment="menu-toggle"
+        class="menu-display-btn"
+        id="menu-toggle">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
+         fill="none" stroke="#41210A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path id="path1" d="M4 7h24"/>
+        <path id="path2" d="M4 16h24"/>
+        <path id="path3" d="M4 25h24"/>
+    </svg>
+</button>
+
+<nav th:fragment="navbar"
+     class="menu-container"
+     id="main-nav">
+
+    <div class="menu-logo">
+        <img th:src="@{/assets/icons/logo-menu.svg}" alt="Logo Kofi Control">
+    </div>
+    <div class="menu-pages">
+        <ul>
+            <li class="menu-item">
+                <img th:src="@{/assets/icons/coffee-bean.svg}" alt="">
+                <a th:href="@{/dashboard}">Dashboard</a>
+            </li>
+            <li class="menu-item">
+                <img th:src="@{/assets/icons/tea-cup.svg}" alt="">
+                <a th:href="@{/cardapio}">Cardápio</a>
+            </li>
+            <li class="menu-item">
+                <img th:src="@{/assets/icons/bell.svg}" alt="">
+                <a th:href="@{/atendimento}">Atendimento</a>
+            </li>
+            <li class="menu-item">
+                <img th:src="@{/assets/icons/pot.svg}" alt="">
+                <a th:href="@{/cozinha}">Cozinha</a>
+            </li>
+        </ul>
+
+        <div class="menu-config">
+            <img th:src="@{/assets/icons/config.svg}" alt="">
+            <a th:href="@{/configuracoes}">Configurações</a>
+        </div>
+    </div>
+    <div class="">
+
+    </div>
+</nav>
+
+</body>
+</html>

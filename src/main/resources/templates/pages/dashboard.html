@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Dashboard')}"></th:block>
+</head>
+<body>
+<aside>
+    <div th:replace="~{fragments/navbar :: menu-toggle}"></div>
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+</aside>
+
+<main>
+    <th:block th:insert="~{fragments/header:: header('coffee-bean-dark', 'DASHBOARD')}"></th:block>
+
+    <div class="dash-info">
+        <div class="monthly-total">
+            <div><img th:src="@{/assets/coffee-pot.png}" alt=""></div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

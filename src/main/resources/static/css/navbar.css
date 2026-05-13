@@ -1,0 +1,109 @@
+button {
+  all: unset;
+  cursor: pointer; /* Recommended to keep interactivity obvious */
+}
+
+.menu-container {
+    padding: 1rem;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: var(--hot-brown);
+    width: fit-content;
+    border-radius: 10px;
+}
+
+.menu-logo {
+    margin-bottom: 1.5rem;
+}
+
+.menu-item {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    color: var(--vanilla);
+    gap: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+
+    img {
+        height: 1.7rem;
+    }
+}
+
+.menu-item:hover {
+    background-color: var(--dark-hot-brown);
+}
+
+
+.menu-config {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 25px;
+    justify-self: center;
+    border-radius: 5px;
+    gap: 1rem;
+    font-size: 1.2rem;
+    padding: 1rem;
+}
+
+.menu-config:hover {
+   background-color: var(--dark-hot-brown);
+}
+
+
+.menu-display-btn {
+    display: none;
+}
+
+
+@media (max-width: 992px){
+    .menu-display-btn {
+        position: absolute;
+        left: 16px;
+        top: 24px;
+        display: block;
+        z-index: 1001;
+    }
+
+    .menu-display-btn svg {
+        transition: stroke 0.3s ease;
+    }
+
+    .menu-display-btn path {
+        transition: d 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    }
+
+    .menu-display-btn.open svg {
+        stroke: var(--vanilla);
+    }
+
+    .menu-display-btn #path2 {
+        transition: opacity 0.3s;
+    }
+
+    .menu-display-btn.open #path2 {
+        opacity: 0;
+    }
+
+    .menu-container {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 250px;
+        height: 100vh;
+        z-index: 1000;
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 0px 10px 10px 0;
+    }
+
+    .menu-container.menu-open {
+        left: 0;
+    }
+
+}
