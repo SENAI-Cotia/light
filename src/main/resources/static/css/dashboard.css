@@ -1,0 +1,66 @@
+/*.dash-info >  {
+    border: 1px solid red;
+}
+*/
+
+.dash-info {
+    background-color: var(--white);
+    width: 100%;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    .icon {
+        flex-basis: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            height: auto;
+            max-width: 100%;
+        }
+    }
+
+    .monthly-content {
+        flex-basis: 70%;
+        padding-left: 20px;
+    }
+
+    .divider {
+        width: 4px;
+        background-color: var(--vanilla);
+        height: 70%;
+        align-self: stretch;
+        border-radius: 10px;
+        flex-shrink: 0;
+        margin: 10px 0;
+    }
+
+    .total-earned {
+
+        h2 {
+            font-size: 1.8rem;
+        }
+
+        p{
+            font-size: 1.2rem;
+        }
+
+        h3 {
+            font-size: 2.5rem;
+        }
+    }
+
+    .container {
+        display: flex;
+
+        .average-ticket {
+            background-color: var(--vanilla);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+    }
+}

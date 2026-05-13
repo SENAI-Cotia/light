@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Cozinha')"></th:block>
+    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Cozinha')}"></th:block>
 </head>
 <body>
-<h1>Cozinha</h1>
+
+<aside>
+    <div th:replace="~{fragments/navbar :: menu-toggle}"></div>
+
+    <div th:replace="~{fragments/navbar :: navbar('cozinha')}"></div>
+</aside>
+
+<main>
+    <th:block th:insert="~{fragments/header:: header('POT-dark', 'COZINHA')}"></th:block>
+</main>
 </body>
 </html>

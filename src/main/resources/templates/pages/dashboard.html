@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- pages/dashboard.html -->
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Dashboard')}"></th:block>
-
-    <!-- page specific stuff goes here -->
-    <!--    <link rel="stylesheet" th:href="@{/css/dashboard.css}">-->
 </head>
 <body>
 <aside>
-    <th:block th:insert="~{fragments/navbar :: navbar}"></th:block>
+    <div th:replace="~{fragments/navbar :: menu-toggle}"></div>
+
+    <div th:replace="~{fragments/navbar :: navbar('dashboard')}"></div>
 </aside>
 
 <main>
     <th:block th:insert="~{fragments/header:: header('coffee-bean-dark', 'DASHBOARD')}"></th:block>
+
+    <div class="dash-info">
+        <div class="icon">
+            <div><img th:src="@{/assets/images/coffee-pot.svg}" alt=""></div>
+        </div>
+        <div class="divider"></div>
+        <div class="monthly-content">
+            <div class="total-earned">
+                <h2>Total faturado</h2>
+                <p>mês: abril</p>
+                <h3>R$1.200,00</h3>
+            </div>
+            <div class="container">
+                <div class="average-ticket"><p>ticket médio</p><p>R$79,00</p></div>
+                <div class="highest-ticket"><p>maior pedido</p><p>R$109,00</p></div>
+            </div>
+        </div>
+    </div>
 </main>
 
 </body>
