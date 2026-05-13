@@ -28,7 +28,6 @@ a, a:visited{
     text-decoration: none;
     color: var(--vanilla);
 }
-
 body {
     background-color: var(--vanilla);
     height: 100vh;
@@ -68,7 +67,6 @@ header {
 
     .page-title {
         justify-content: center;
-        padding-bottom: 1rem;
     }
 
 }
