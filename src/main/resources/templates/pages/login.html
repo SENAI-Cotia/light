@@ -36,6 +36,8 @@
             <label for="keep-connected">Me manter conectado</label>
         </div>
 
+        <p class="msg-error" th:if="${param.error}">Usuário ou senha inválidos.</p>
+
         <button type="submit" class="btn-entrar">Entrar</button>
 
         <a href="#" class="forgot-link">Esqueceu a senha?</a>

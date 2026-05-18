@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class RootController {
 
-	@GetMapping
+	@GetMapping("/")
 	public String index(Model model) {
+		return "redirect:/login";
+	}
+
+	@GetMapping("/login")
+	public String login(Model model) {
 		return "pages/login";
 	}
 
