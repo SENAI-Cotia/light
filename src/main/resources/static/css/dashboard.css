@@ -4,6 +4,7 @@
 
 .dashboard-main {
     font-family: 'Nunito Sans', sans-serif;
+    gap: 0;
 }
 
 .revenue-card {
