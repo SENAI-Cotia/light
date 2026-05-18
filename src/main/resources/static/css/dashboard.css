@@ -1,4 +1,80 @@
-.dash-info {
+.revenue-card > * {
+    border: 1px solid red;
+}
+
+.dashboard-main {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.revenue-card {
     background-color: var(--white);
     width: 100%;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    /*align-items: center;*/
+    position: relative;
+
+    .icon {
+        flex-basis: 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            height: auto;
+            max-width: 100%;
+        }
+    }
+
+    .monthly-content {
+        display: flex;
+        flex-direction: column;
+        padding-left: clamp(1rem, 2.5vw, 1.3rem);
+        position: relative;
+        flex-basis: 65%;
+        gap: clamp(.5rem, 2.5vw, 1rem);
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10%;
+            height: 80%;
+            width: 4px;
+            background-color: var(--vanilla);
+            border-radius: 10px;
+        }
+    }
+
+    .total-earned {
+
+        h2 {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+        }
+
+        p{
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+        }
+    }
+
+    .container {
+        display: flex;
+        gap: 1.5rem;
+
+        p {
+            font-size: clamp(.8rem, 2.5vw, 1.2rem);
+        }
+
+        .average-ticket, .highest-ticket {
+            background-color: var(--vanilla);
+            padding: clamp(.3rem, 2.5vw, .8rem);
+            border-radius: 10px;
+        }
+    }
 }

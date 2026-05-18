@@ -2,6 +2,8 @@ package br.com.kofi.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name =  "categorias")
 
@@ -19,6 +21,9 @@ public class Categoria {
 
     @Column(nullable = false)
     private boolean ativo = true;
+
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Produto> produtos;
 
     public Categoria() {
     }

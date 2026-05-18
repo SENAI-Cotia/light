@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- pages/dashboard.html -->
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Login')}"></th:block>
-
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
 </head>
-<body>
-<h1>Login</h1>
+<body class="body-login">
+
+<div class="fundo">
+    <img th:src="@{/assets/images/keyboard-logo.svg}" alt="">
+</div>
+
+<div class="login-container">
+    <div class="logo-header">
+        <img th:src="@{/assets/icons/short-line-logo.svg}" alt="Logo" class="coffee-icon">
+    </div>
+
+    <div class="welcome-section">
+        <h1>Bem-vindo de volta :)</h1>
+        <p>Hora de abrir o caixa</p>
+    </div>
+
+    <form th:action="@{/login}" method="post" class="login-form">
+        <div class="input-group">
+            <label for="login">Login</label>
+            <input type="text" id="login" name="username" required>
+        </div>
+
+        <div class="input-group">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="password" required>
+        </div>
+
+        <div class="remember-me">
+            <input type="checkbox" id="keep-connected" name="remember">
+            <label for="keep-connected">Me manter conectado</label>
+        </div>
+
+        <p class="msg-error" th:if="${param.error}">Usuário ou senha inválidos.</p>
+
+        <button type="submit" class="btn-entrar">Entrar</button>
+
+        <a href="#" class="forgot-link">Esqueceu a senha?</a>
+    </form>
+</div>
+
 </body>
 </html>

@@ -16,7 +16,7 @@
     </svg>
 </button>
 
-<nav th:fragment="navbar"
+<nav th:fragment="navbar(currentPage)"
      class="menu-container"
      id="main-nav">
 
@@ -24,33 +24,32 @@
         <img th:src="@{/assets/icons/logo-menu.svg}" alt="Logo Kofi Control">
     </div>
     <div class="menu-pages">
-        <ul>
-            <li class="menu-item">
+        <ul class="menu-items-container">
+            <li class="menu-item menu-link" th:classappend="${currentPage == 'dashboard'} ? 'active'">
                 <img th:src="@{/assets/icons/coffee-bean.svg}" alt="">
                 <a th:href="@{/dashboard}">Dashboard</a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item menu-link" th:classappend="${currentPage == 'cardapio'} ? 'active'">
                 <img th:src="@{/assets/icons/tea-cup.svg}" alt="">
                 <a th:href="@{/cardapio}">Cardápio</a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item menu-link" th:classappend="${currentPage == 'atendimento'} ? 'active'">
                 <img th:src="@{/assets/icons/bell.svg}" alt="">
                 <a th:href="@{/atendimento}">Atendimento</a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item menu-link" th:classappend="${currentPage == 'cozinha'} ? 'active'">
                 <img th:src="@{/assets/icons/pot.svg}" alt="">
                 <a th:href="@{/cozinha}">Cozinha</a>
             </li>
         </ul>
 
-        <div class="menu-config">
+        <div class="menu-config menu-link" th:classappend="${currentPage == 'configuracoes'} ? 'active'">
             <img th:src="@{/assets/icons/config.svg}" alt="">
             <a th:href="@{/configuracoes}">Configurações</a>
         </div>
     </div>
-    <div class="">
 
-    </div>
+<!--    TODO: Botão para logout -->
 </nav>
 
 </body>

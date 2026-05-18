@@ -1,6 +1,9 @@
+@import url(fonts.css);
+@import url(cardapio.css);
 @import url(navbar.css);
 @import url(login.css);
 @import url(dashboard.css);
+@import url(atendimento.css);
 
 :root {
     --hot-brown: #41210A;
@@ -13,12 +16,10 @@
     --tobacco: #B59E7D;
 }
 
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Nunito', Times New Roman;
     list-style: none;
 }
 
@@ -26,42 +27,90 @@ a, a:visited{
     text-decoration: none;
     color: var(--vanilla);
 }
-
-@font-face {
-    font-family: 'Nunito';
-    src: url("/assets/fonts/Nunito/Nunito.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family:'Nunito Sans';
-    src: url("/assets/fonts/Nunito_Sans/NunitoSans.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
-
 body {
+    font-family: 'Nunito Sans', sans-serif;
     background-color: var(--vanilla);
     height: 100vh;
     display: flex;
     flex-direction: row;
     padding: 1rem;
-    overflow: hidden;
+    /*overflow: hidden;*/
+}
+
+.primary-element {
+    background-color: var(--hot-brown);
+    color: var(--white);
+
+    border-radius: .5rem;
+    transition: all .3s linear;
+    cursor: pointer;
+    padding: 0 1rem;
+
+    white-space: nowrap;
+    height: 55px;
+
+    &:hover {
+        background-color: var(--tobacco);
+    }
+}
+
+.secondary-element {
+    background-color: var(--vanilla);
+    color: var(--hot-brown);
+
+    border-radius: .5rem;
+    transition: all .3s linear;
+    cursor: pointer;
+    padding: 0 1rem;
+
+    white-space: nowrap;
+    height: 45px;
+
+    &:hover {
+        background-color: var(--earth-brown);
+        color: var(--white);
+    }
+}
+
+select.secondary-element {
+    font-size: 1rem;
+    border: none;
+
+    option {
+       font-size: 1rem;
+    }
 }
 
 main {
-    width: stretch;
-    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    /*padding: 0 0 2rem 1rem; <- esse espaçamento é para teste de melhor UI*/
+    padding: 0 0 0 1rem;
     color: var(--hot-brown);
+
+    width: stretch;
+    height: stretch;
+
+    overflow: hidden;
+
+    .scrollable-container {
+        height: stretch;
+
+        .main-scrollable-container-child {
+            overflow: auto;
+
+            max-height: stretch;
+            height: stretch;
+        }
+    }
 }
 
 header {
+    font-family: "Nunito", sans-serif;
     display: flex;
     gap: .5rem;
     padding-top: .5rem;
-
+    margin-bottom: 1.5rem;
 
     img {
         width: 2rem;
@@ -74,14 +123,20 @@ header {
 
 @media (max-width: 992px){
 
+    body {
+        overflow: auto;
+    }
+
     main {
         padding-left: 0;
         gap: 2rem;
+
+        max-height: unset;
+        overflow: unset;
     }
 
     .page-title {
         justify-content: center;
-        padding-bottom: 1rem;
     }
 
 }

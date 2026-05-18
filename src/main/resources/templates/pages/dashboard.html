@@ -2,23 +2,96 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Dashboard')}"></th:block>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <aside>
     <div th:replace="~{fragments/navbar :: menu-toggle}"></div>
 
-    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div th:replace="~{fragments/navbar :: navbar('dashboard')}"></div>
 </aside>
 
-<main>
+<main class="dashboard-main">
     <th:block th:insert="~{fragments/header:: header('coffee-bean-dark', 'DASHBOARD')}"></th:block>
 
-    <div class="dash-info">
-        <div class="monthly-total">
-            <div><img th:src="@{/assets/coffee-pot.png}" alt=""></div>
+    <div class="revenue-card">
+        <div class="icon">
+            <img th:src="@{/assets/images/coffee-pot.svg}" alt="">
+        </div>
+        <div class="monthly-content">
+            <div class="total-earned">
+                <h2>Total faturado</h2>
+                <p>mês: abril</p>
+                <h3>R$1.200,00</h3>
+            </div>
+            <div class="container">
+                <div class="average-ticket"><p>ticket médio</p>
+                    <p>R$79,00</p></div>
+                <div class="highest-ticket"><p>maior pedido</p>
+                    <p>R$109,00</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dish-status">
+        <div class="late-dishes"><p>Pratos em atraso</p></div>
+        <div class="in-prepare"><p>Pratos em preparo</p></div>
+    </div>
+
+    <div class="orders-graph">
+        <div>
+            <canvas id="kofiChart"></canvas>
         </div>
     </div>
 </main>
 
 </body>
+
+<!--<script>-->
+<!--    new Chart(document.getElementById('kofiChart'), {-->
+<!--        type: 'line',-->
+<!--        data: {-->
+<!--            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],-->
+<!--            datasets: [{-->
+<!--                label: 'Monthly Sales',-->
+<!--                data: [12, 19, 3, 5, 2],-->
+<!--                borderColor: '#3b2a1a',-->
+<!--                borderWidth: 3,-->
+<!--                pointRadius: 0,-->
+<!--                pointHoverRadius: 0,-->
+<!--                tension: 0.4,-->
+<!--                fill: false-->
+<!--            }]-->
+<!--        },-->
+<!--        options: {-->
+<!--            responsive: true,-->
+<!--            maintainAspectRatio: false,-->
+<!--            plugins: {-->
+<!--                legend: { display: false },-->
+<!--                tooltip: {-->
+<!--                    backgroundColor: '#3b2a1a',-->
+<!--                    titleColor: '#f5ede0',-->
+<!--                    bodyColor: '#f5ede0',-->
+<!--                    padding: 10,-->
+<!--                    cornerRadius: 6,-->
+<!--                    displayColors: false-->
+<!--                }-->
+<!--            },-->
+<!--            scales: {-->
+<!--                x: {-->
+<!--                    grid: { color: 'rgba(59,42,26,0.12)', lineWidth: 1 },-->
+<!--                    border: { display: false },-->
+<!--                    ticks: { color: '#3b2a1a', font: { size: 13 } }-->
+<!--                },-->
+<!--                y: {-->
+<!--                    grid: { color: 'rgba(59,42,26,0.12)', lineWidth: 1 },-->
+<!--                    border: { display: false },-->
+<!--                    ticks: { color: '#3b2a1a', font: { size: 13 }, stepSize: 5 },-->
+<!--                    beginAtZero: true-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+
 </html>
