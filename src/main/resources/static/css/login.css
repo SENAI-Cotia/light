@@ -165,10 +165,17 @@
 
 @media (max-width: 992px) {
 
+.body-login {
+justify-content: center;
+padding: 0;
+}
+
 .login-container {
-    min-width: 92vw;
+    position: relative;
     right: auto;
-    left: auto;
+    margin: 0;
+    width: 90%;
+    width: 90vw;
 }
 
 .fundo {
