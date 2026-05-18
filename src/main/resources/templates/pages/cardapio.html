@@ -14,21 +14,128 @@
 <main>
     <th:block th:insert="~{fragments/header:: header('tea-cup-dark', 'CARDÁPIO')}"></th:block>
 
-    <div class="cardapio-info">
+    <div class="cardapio-info scrollable-container">
         <div class="quick-actions">
             <div class="search-bar">
                 <button class="search-button" type="button">
                     <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto" />
                 </button>
 
-                <input name="search" placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
+                <input aria-label="Busca por produtos" name="search" placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
             </div>
 
-            <button type="button" class="create-product">Cadastrar produto</button>
+            <button type="button" class="create-product primary-element">Cadastrar produto</button>
         </div>
 
-        <div class="products-table">
-            <h3>Em desenvolvimento...</h3>
+        <div class="main-scrollable-container-child">
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Estoque</th>
+                        <th>Tempo de preparo</th>
+                        <th>Disponível</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>#1</td>
+                        <td>Ctrl ppucino</td>
+                        <td>R$ 18.50</td>
+                        <td>---</td>
+                        <td>~ 4min</td>
+                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
+                        <td>Bebidas</td>
+                        <td>
+                            <button>
+                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>#1</td>
+                        <td>Ctrl ppucino</td>
+                        <td>R$ 18.50</td>
+                        <td>---</td>
+                        <td>~ 4min</td>
+                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
+                        <td>Bebidas</td>
+                        <td>
+                            <button>
+                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>#1</td>
+                        <td>Ctrl ppucino</td>
+                        <td>R$ 18.50</td>
+                        <td>---</td>
+                        <td>~ 4min</td>
+                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
+                        <td>Bebidas</td>
+                        <td>
+                            <button>
+                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>#1</td>
+                        <td>Ctrl ppucino</td>
+                        <td>R$ 18.50</td>
+                        <td>---</td>
+                        <td>~ 4min</td>
+                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
+                        <td>Bebidas</td>
+                        <td>
+                            <button>
+                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>#1</td>
+                        <td>Ctrl ppucino</td>
+                        <td>R$ 18.50</td>
+                        <td>---</td>
+                        <td>~ 4min</td>
+                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
+                        <td>Bebidas</td>
+                        <td>
+                            <button>
+                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>#1</td>
+                        <td>Ctrl ppucino</td>
+                        <td>R$ 18.50</td>
+                        <td>---</td>
+                        <td>~ 4min</td>
+                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
+                        <td>Bebidas</td>
+                        <td>
+                            <button>
+                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
+                            </button>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
         </div>
     </div>
 </main>

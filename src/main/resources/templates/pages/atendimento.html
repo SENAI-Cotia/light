@@ -13,6 +13,48 @@
 
 <main>
     <th:block th:insert="~{fragments/header:: header('bell-dark', 'ATENDIMENTO')}"></th:block>
+
+    <div class="cardapio-info scrollable-container">
+        <div class="quick-actions">
+            <div class="search-bar">
+                <button class="search-button" type="button">
+                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto" />
+                </button>
+
+                <input aria-label="Busca por produtos" name="search" placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
+            </div>
+
+            <button type="button" class="create-order primary-element">Novo pedido</button>
+        </div>
+
+        <div class="painel-container">
+            <div class="products-container">
+                <div class="products-filter">
+                    <button class="secondary-element ">Todos</button>
+
+                    <button class="secondary-element">Combos</button>
+
+                    <button class="secondary-element" >Promoções</button>
+
+                    <select aria-label="categoria" class="secondary-element">
+                        <option>Categorias</option>
+                        <option>Bebidas</option>
+                        <option>Lanches</option>
+                        <option>Acompanhamentos</option>
+                        <option>Sobremesas</option>
+                    </select>
+                </div>
+
+                <div class="products-list">
+                    <div class="product-card"></div>
+                    <div class="product-card grow-3"></div>
+                    <div class="product-card"></div>
+                </div>
+            </div>
+
+            <div class="current-bill-container"></div>
+        </div>
+    </div>
 </main>
 </body>
 </html>

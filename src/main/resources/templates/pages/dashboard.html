@@ -16,7 +16,7 @@
 
     <div class="revenue-card">
         <div class="icon">
-            <div><img th:src="@{/assets/images/coffee-pot.svg}" alt=""></div>
+            <img th:src="@{/assets/images/coffee-pot.svg}" alt="">
         </div>
         <div class="monthly-content">
             <div class="total-earned">
@@ -34,32 +34,64 @@
     </div>
 
     <div class="dish-status">
-        <div class="late-dishes"><p>Pratos em atraso</p>div</div>
+        <div class="late-dishes"><p>Pratos em atraso</p></div>
         <div class="in-prepare"><p>Pratos em preparo</p></div>
     </div>
 
     <div class="orders-graph">
         <div>
-            <canvas id="myLineChart"></canvas>
+            <canvas id="kofiChart"></canvas>
         </div>
     </div>
 </main>
 
 </body>
 
-<script>
-    const ctx = document.getElementById('myLineChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-        datasets: [{
-          label: 'Monthly Sales',
-          data: [12, 19, 3, 5, 2],
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1 // Smooths the line
-        }]
-      }
-    });
-</script>
+<!--<script>-->
+<!--    new Chart(document.getElementById('kofiChart'), {-->
+<!--        type: 'line',-->
+<!--        data: {-->
+<!--            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],-->
+<!--            datasets: [{-->
+<!--                label: 'Monthly Sales',-->
+<!--                data: [12, 19, 3, 5, 2],-->
+<!--                borderColor: '#3b2a1a',-->
+<!--                borderWidth: 3,-->
+<!--                pointRadius: 0,-->
+<!--                pointHoverRadius: 0,-->
+<!--                tension: 0.4,-->
+<!--                fill: false-->
+<!--            }]-->
+<!--        },-->
+<!--        options: {-->
+<!--            responsive: true,-->
+<!--            maintainAspectRatio: false,-->
+<!--            plugins: {-->
+<!--                legend: { display: false },-->
+<!--                tooltip: {-->
+<!--                    backgroundColor: '#3b2a1a',-->
+<!--                    titleColor: '#f5ede0',-->
+<!--                    bodyColor: '#f5ede0',-->
+<!--                    padding: 10,-->
+<!--                    cornerRadius: 6,-->
+<!--                    displayColors: false-->
+<!--                }-->
+<!--            },-->
+<!--            scales: {-->
+<!--                x: {-->
+<!--                    grid: { color: 'rgba(59,42,26,0.12)', lineWidth: 1 },-->
+<!--                    border: { display: false },-->
+<!--                    ticks: { color: '#3b2a1a', font: { size: 13 } }-->
+<!--                },-->
+<!--                y: {-->
+<!--                    grid: { color: 'rgba(59,42,26,0.12)', lineWidth: 1 },-->
+<!--                    border: { display: false },-->
+<!--                    ticks: { color: '#3b2a1a', font: { size: 13 }, stepSize: 5 },-->
+<!--                    beginAtZero: true-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+
 </html>
