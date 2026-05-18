@@ -10,37 +10,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RootController {
 
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index() {
 		return "redirect:/login";
 	}
 
 	@GetMapping("/login")
-	public String login(Model model) {
+	public String login() {
 		return "pages/login";
 	}
 
 	@GetMapping("/dashboard")
-	public String dashboard(Model model) {
+	public String dashboard() {
 		return "pages/dashboard";
 	}
 
 	@GetMapping("/cardapio")
-	public String cardapio(Model model) {
+	public String cardapio() {
 		return "pages/cardapio";
 	}
 
 	@GetMapping("/atendimento")
-	public String atendimento(Model model) {
+	public String atendimento() {
 		return "pages/atendimento";
 	}
 
 	@GetMapping("/cozinha")
-	public String cozinha(Model model) {
+	public String cozinha() {
 		return "pages/cozinha";
 	}
 
 	@GetMapping("/configuracoes")
-	public String configuracoes(Model model) {
+	public String configuracoes() {
 		return "pages/configuracoes";
 	}
 }
