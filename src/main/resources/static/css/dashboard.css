@@ -1,99 +1,198 @@
-.revenue-card > * {
+.dash-header > * {
     border: 1px solid red;
 }
 
 .dashboard-main {
     font-family: 'Nunito Sans', sans-serif;
     gap: 0;
+    width: 100%;
+    overflow-x: hidden;
 }
 
-.revenue-card {
-    background-color: var(--white);
-    width: 100%;
-    border-radius: 10px;
-    padding: 1rem;
+.dash-header {
     display: flex;
-    flex-direction: row;
-    /*align-items: center;*/
-    position: relative;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    gap: 1rem;
 
-    .icon {
-        flex-basis: 35%;
+    .revenue-card {
+        background-color: var(--white);
+        width: 100%;
+        max-width: 100%;
+        border-radius: 10px;
+        padding: 1rem;
         display: flex;
-        justify-content: center;
-        align-items: center;
-
-        img {
-            height: auto;
-            max-width: 100%;
-        }
-    }
-
-    .monthly-content {
-        display: flex;
-        flex-direction: column;
-        padding-left: clamp(1rem, 2.5vw, 1.3rem);
+        flex: 1;
+        flex-direction: row;
         position: relative;
-        flex-basis: 65%;
-        gap: clamp(.5rem, 2.5vw, 1rem);
 
-        &::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 10%;
-            height: 80%;
-            width: 4px;
-            background-color: var(--vanilla);
-            border-radius: 10px;
-        }
-    }
+        .icon {
+            flex-basis: 40%;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-    .total-earned {
-
-        h2 {
-            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            img {
+                height: auto;
+                max-width: 100%;
+                min-width: 120px;
+            }
         }
 
-        p{
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        .monthly-content {
+            display: flex;
+            flex-direction: column;
+            padding-left: clamp(3rem, 2.5vw, 4rem);
+            position: relative;
+            flex-basis: 60%;
+            gap: clamp(.5rem, 2.5vw, 1rem);
+            justify-content: center;
+
+            &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 10%;
+                height: 80%;
+                width: 4px;
+                background-color: var(--vanilla);
+                border-radius: 10px;
+            }
         }
 
-        h3 {
-            font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+        .total-earned {
+
+            h2 {
+                font-size: clamp(1.2rem, 2.5vw, 1.3rem);
+            }
+
+            p{
+                font-size: clamp(1rem, 2.5vw, 1.1rem);
+            }
+
+            h3 {
+                font-size: clamp(1.5rem, 2.5vw, 2rem);
+            }
         }
-    }
 
-    .ticket-container {
-        display: flex;
-        gap: 1.5rem;
+        .ticket-container {
+            display: flex;
+            gap: .5rem;
 
-        p {
-            font-size: clamp(.8rem, 2.5vw, 1.2rem);
-        }
 
-        .average-ticket, .highest-ticket {
-            background-color: var(--vanilla);
-            padding: clamp(.3rem, 2.5vw, .8rem);
-            border-radius: 10px;
+            p {
+                font-size: clamp(.5rem, 2.5vw, 1rem);
+                /*white-space: nowrap;*/
+            }
+
+            .average-ticket, .highest-ticket {
+                background-color: var(--vanilla);
+                padding: clamp(.3rem, 2.5vw, .5rem);
+                border-radius: 10px;
+            }
         }
     }
 
     .dish-status {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        width: 100%;
+        gap: 1rem;
 
+
+        .late-dishes, .in-prepare {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            flex: 1;
+            padding: 1rem;
+            border-radius: 10px;
+
+            p {
+                font-size: clamp(.9rem, 2vw, 1.2rem);
+                margin-bottom: .8rem;
+                text-align: center;
+                /*white-space: nowrap;*/
+            }
+
+        }
 
 
         .quantity {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            background-color: var(--vanilla);
+            padding: 2rem;
+            border-radius: 10px;
 
+            p {
+                font-weight: 700;
+                margin-bottom: 0rem;
+                font-size: clamp(1.5rem, 2vw, 2rem);
+            }
+
+            img {
+                width: clamp(3rem, 2vw, 4rem);
+                margin-bottom: .8rem;
+            }
         }
 
     }
 
+    .orders-graph {
+        background-color: var(--white);
+        border-radius: 10px;
+        /*display: flex;
+        justify-content: center;
+        align-items: center;*/
+        flex: 2;
+        padding: 1rem;
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+
 }
 
-.late-dishes {
-    background-color: white;
-    border-radius: 10px;
+.orders-list {
+    border: 1px solid black;
+    flex: 4;
+}
 
+.orders-info {
+    border: 1px solid black;
+    flex: 1;
+}
+
+
+@media screen and (min-width: 1100px){
+    .dash-header {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+
+    .dash-header > * {
+        flex: 1 1 0px;
+        min-width: 0;
+    }
+
+    .revenue-card {
+          .icon {
+                flex-basis: 35%;
+            }
+
+            .monthly-content {
+                flex-basis: 65%;
+                padding-left: 0;
+            }
+
+        }
 
 }
