@@ -1,7 +1,7 @@
 :root {
     --hot-brown: #41210A;
     --dark-hot-brown: #3A1D08;
-    --vanilla: #FFFFFF;
+    --white: #FFFFFF;
     --earth-brown: #8B7357;
     --dark-mountain: #6A6863;
     --mountain: #AAA396;
@@ -13,12 +13,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Nunito', Times New Roman;
+    font-family: 'Nunito', sans-serif;
     list-style: none;
 }
 
 .body-login {
     overflow: hidden;
+    position: relative;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -31,7 +32,6 @@
     padding: 2rem 0;
     height: 100vh;
     width: 100vw;
-    object-fit: cover;
     overflow-x: hidden;
 
     img {
@@ -39,59 +39,65 @@
     }
 }
 
-
 .login-container {
-    position: absolute;
-    right: 0;
-    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
     width: 40%;
+    padding-top: clamp(5vh, 8vw, 10vh);
+    position: absolute;
+    overflow: hidden;
+    right: 20px;
+    height: 95vh;
     max-width: 90vw;
     background-color: var(--hot-brown);
     border-radius: 30px;
-    margin: auto 20px auto 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 60px;
+    margin: 0 auto;
     color: var(--vanilla);
+}
+
+.login-container > *:not(.coffee-boy-wrapper) {
+    padding-left: clamp(20px, 4vw, 60px);
+    padding-right: clamp(20px, 4vw, 60px);
+    box-sizing: border-box;
 }
 
 .logo-header {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 40px;
+    margin-bottom: clamp(24px, 3vw, 40px);
 }
 
 .coffee-icon {
-    width: 267px;
+    width: clamp(200px, 15vw, 267px);
+}
+
+.coffee-boy-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .coffee-boy {
-display: none;
-}
-
-.brand-text {
-    font-size: 1.8rem;
-    font-weight: bold;
+    display: none;
 }
 
 .welcome-section {
-    text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: clamp(24px, 3vw, 40px);
 }
 
 .welcome-section h1 {
-    font-size: clamp(1.6rem, 3vw, 2rem);
-    margin-bottom: 10px;
-    text-wrap: no-wrap;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    margin-bottom: clamp(8px, 1vw, 14px);
     color: var(--vanilla);
 }
 
 .welcome-section p {
-    font-size: 2.5rem
-    margin-bottom: 10px;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    margin-bottom: clamp(8px, 1vw, 12px);
 }
 
 .login-form {
@@ -102,24 +108,29 @@ display: none;
 .input-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: clamp(20px, 2vw, 30px);
 }
 
 .input-group label {
-    margin-bottom: 8px;
-    font-size: 2rem;
+    font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+    margin-bottom: clamp(6px, 0.8vw, 10px);
+    text-align: left;
 }
 
 .input-group input {
     width: 100%;
-    height: 50px;
-    border-radius: 25px; /* Bordas arredondadas dos campos */
+    height: clamp(44px, 4vw, 56px);
+    border-radius: clamp(22px, 2vw, 28px);
     border: none;
     background-color: var(--vanilla);
     padding: 0 20px;
-    font-size: 1rem;
+    font-size: clamp(1rem, 1.1vw, 1.15rem);
     color: var(--hot-brown);
     outline: none;
+}
+
+.input-group input:focus {
+    box-shadow: 0 0 0 3px var(--tobacco);
 }
 
 .remember-me {
@@ -128,69 +139,75 @@ display: none;
     gap: 10px;
     margin-bottom: 30px;
     font-size: 1.2rem;
-    cursor: pointer; /* Melhora a experiência do usuário */
     line-height: 1;
 }
 
+.remember-me label {
+    cursor: pointer;
+}
+
 .btn-entrar {
-    width: 100%;
-    height: 45px;
-    border-radius: 25px;
+    width: 80%;
+    height: clamp(42px, 4vw, 54px);
+    border-radius: clamp(21px, 2vw, 27px);
     border: none;
     background-color: var(--vanilla);
     color: var(--hot-brown);
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: clamp(1.1rem, 1.2vw, 1.3rem);
     cursor: pointer;
-    transition: background 0.3s;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-
+    display: block;
+    text-align: center;
+    line-height: clamp(42px, 4vw, 54px);
+    margin-top: clamp(30px, 4vw, 55px);
+    margin-left: auto;
+    margin-right: auto;
+    transition: filter 0.3s;
 }
 
 .btn-entrar:hover {
     filter: brightness(0.9);
 }
 
-.forgot-link {
-    display: block;
+.msg-error {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
     text-align: center;
-    color: var(--vanilla);
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
-.forgot-link:hover {
-    text-decoration: underline;
 }
 
 @media (max-width: 992px) {
 
-.body-login {
-justify-content: center;
-padding: 0;
-}
+    .body-login {
+        justify-content: center;
+        padding: 0;
+    }
 
-.login-container {
-    position: relative;
-    right: auto;
-    margin: 0;
-    width: 90%;
-    width: 90vw;
-}
+    .login-container {
+        position: relative;
+        right: auto;
+        margin: 0;
+        width: 90vw;
+    }
 
-.fundo {
-display: none;
-}
+    .fundo {
+        display: none;
+    }
 
-.coffee-boy {
-display: block;
-width: 100%;
-align-items: center;
-padding-top: 20px;
+    .coffee-boy-wrapper {
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        width: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .coffee-boy {
+        display: block;
+        width: 100%;
+        max-width: 350px;
+    }
 
 }
