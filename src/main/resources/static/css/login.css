@@ -1,7 +1,7 @@
 :root {
     --hot-brown: #41210A;
     --dark-hot-brown: #3A1D08;
-    --white: #FFFFFF;
+    --vanilla: #FFFFFF;
     --earth-brown: #8B7357;
     --dark-mountain: #6A6863;
     --mountain: #AAA396;
@@ -54,7 +54,7 @@
     justify-content: center;
     align-items: center;
     padding: 0 60px;
-    color: var(--white);
+    color: var(--vanilla);
 }
 
 .logo-header {
@@ -68,6 +68,10 @@
     width: 267px;
 }
 
+.coffee-boy {
+display: none;
+}
+
 .brand-text {
     font-size: 1.8rem;
     font-weight: bold;
@@ -79,13 +83,14 @@
 }
 
 .welcome-section h1 {
-    font-size: clamp(2.2rem, 3vw, 3rem);
+    font-size: clamp(1.6rem, 3vw, 2rem);
     margin-bottom: 10px;
     text-wrap: no-wrap;
+    color: var(--vanilla);
 }
 
 .welcome-section p {
-    font-size: 1.67rem;
+    font-size: 2.5rem
     margin-bottom: 10px;
 }
 
@@ -153,7 +158,7 @@
 .forgot-link {
     display: block;
     text-align: center;
-    color: var(--white);
+    color: var(--vanilla);
     text-decoration: none;
     font-size: 1.1rem;
     font-weight: bold;
@@ -165,16 +170,27 @@
 
 @media (max-width: 992px) {
 
+.body-login {
+justify-content: center;
+padding: 0;
+}
+
 .login-container {
-    min-width: 92vw;
+    position: relative;
     right: auto;
-    left: auto;
+    margin: 0;
+    width: 90%;
+    width: 90vw;
 }
 
 .fundo {
 display: none;
 }
 
-
+.coffee-boy {
+display: block;
+width: 100%;
+align-items: center;
+padding-top: 20px;
 
 }
