@@ -1,10 +1,11 @@
 package br.com.kofi.services;
 
+import br.com.kofi.models.Pedido;
+import br.com.kofi.models.Produto;
 import br.com.kofi.models.Usuario;
 import br.com.kofi.models.enums.Papel;
 import br.com.kofi.repositories.UsuarioRepository;
-
-
+import java.util.List;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,31 +17,41 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UsuarioRepository userRepository;
+	@Autowired
+	private UsuarioRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-    public void cadastrar(String nome, String email, String senha, Papel papel){
-        Usuario user = new Usuario();
-        user.setEmail(email);
-        user.setNome(nome);
-        user.setPapel(papel);
-        user.setSenhaHash(passwordEncoder.encode(senha));
+	public List<Usuario> listarTodos() {
+		return userRepository.findAll();
+	}
 
-        userRepository.save(user);
-    }
+	public void cadastrar(String nome, String email, String senha, Papel papel) {
+		Usuario user = new Usuario();
+		user.setEmail(email);
+		user.setNome(nome);
+		user.setPapel(papel);
+		user.setSenhaHash(passwordEncoder.encode(senha));
 
-    @Override
-    public UserDetails loadUserByUsername(@NonNull String email) throws UsernameNotFoundException {
-        Usuario user = userRepository.findByEmail(email)
-                .orElseThrow(()-> new UsernameNotFoundException("Credenciais inválidas"));
+		userRepository.save(user);
+	}
 
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getEmail())
-                .password(user.getSenhaHash())
-                .roles(user.getPapel().toString())
-                .build();
-    }
+	@Override
+	public UserDetails loadUserByUsername(@NonNull String email) throws UsernameNotFoundException {
+		Usuario user = userRepository
+			.findByEmail(email)
+			.orElseThrow(() -> new UsernameNotFoundException("Credenciais inválidas"));
+
+		return org.springframework.security.core.userdetails.User
+			.builder()
+			.username(user.getEmail())
+			.password(user.getSenhaHash())
+			.roles(user.getPapel().toString())
+			.build();
+	}
+
+	public Usuario buscarPorId(Long id) {
+		return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+	}
 }

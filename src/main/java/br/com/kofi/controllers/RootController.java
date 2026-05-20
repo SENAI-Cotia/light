@@ -1,9 +1,11 @@
 package br.com.kofi.controllers;
 
+import br.com.kofi.models.Pedido;
+import br.com.kofi.models.Produto;
+import br.com.kofi.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import br.com.kofi.services.ProdutoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,10 +37,11 @@ public class RootController {
 		return "pages/cardapio"; // aponta para templates/produtos/lista.html
 	}
 
-	@GetMapping("/atendimento")
-	public String atendimento() {
-		return "pages/atendimento";
-	}
+	//	@GetMapping("/atendimento")
+	//	public String atendimento(Model model) {
+	//		model.addAttribute("produtos", produtoService.listarTodos());
+	//		return "pages/atendimento";
+	//	}
 
 	@GetMapping("/cozinha")
 	public String cozinha() {
@@ -49,5 +52,4 @@ public class RootController {
 	public String configuracoes() {
 		return "pages/configuracoes";
 	}
-
 }

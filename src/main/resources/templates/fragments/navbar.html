@@ -46,13 +46,25 @@
             </li>
         </ul>
 
-        <div class="menu-config menu-link" sec:authorize="hasRole('ADMIN')" th:classappend="${currentPage == 'configuracoes'} ? 'active'">
-            <img th:src="@{/assets/icons/config.svg}" alt="">
-            <a th:href="@{/configuracoes}">Configurações</a>
+        <div class="nav-actions">
+            <div class="menu-link" sec:authorize="hasRole('ADMIN')"
+                 th:classappend="${currentPage == 'configuracoes'} ? 'active'">
+                <img th:src="@{/assets/icons/config.svg}" alt="">
+                <a th:href="@{/configuracoes}">Configurações</a>
+            </div>
+
+            <div class="menu-link">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn-logout">
+                        <img th:src="@{/assets/icons/logout.svg}" alt="">
+                        <span>Sair</span>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
-<!--    TODO: Botão para logout -->
+    <!--    TODO: Botão para logout -->
 </nav>
 
 </body>

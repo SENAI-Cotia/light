@@ -73,7 +73,11 @@
             width: stretch;
 
             th {
-                min-width: 150px;
+                min-width: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
             }
         }
 
@@ -83,13 +87,13 @@
             width: stretch;
             height: stretch;
             gap: .5rem;
-            font-size: 1.3rem;
+            font-size: 1rem;
 
             tr {
                 width: 100%;
                 display: flex;
-                gap: 1.5rem;
-                min-height: 70px;
+                gap: 1rem;
+                min-height: 50px;
                 justify-content: space-between;
                 align-items: center;
 
@@ -99,6 +103,17 @@
                 td {
                     width: stretch;
                     text-align: center;
+
+                    img {
+                        width: 1.5rem;
+                    }
+                }
+
+                .actions {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
                 }
             }
         }

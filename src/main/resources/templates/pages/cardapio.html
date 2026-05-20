@@ -18,10 +18,11 @@
         <div class="quick-actions">
             <div class="search-bar">
                 <button class="search-button" type="button">
-                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto" />
+                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto"/>
                 </button>
 
-                <input aria-label="Busca por produtos" name="search" placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
+                <input aria-label="Busca por produtos" name="search"
+                       placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
             </div>
 
             <a th:href="@{/cardapio/novo}" class="create-product primary-element">Cadastrar produto</a>
@@ -30,38 +31,42 @@
         <div class="main-scrollable-container-child">
             <table class="products-table">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Produto</th>
-                        <th>Preço</th>
-                        <th>Estoque</th>
-                        <th>Tempo de preparo</th>
-                        <th>Disponível</th>
-                        <th>Categoria</th>
-                        <th>Ações</th>
-                    </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Produto</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                    <th>Tempo de preparo</th>
+                    <th>Disponível</th>
+                    <th>Categoria</th>
+                    <th>Ações</th>
+                </tr>
                 </thead>
-<!--                    TODO: Arrumar logo lixo-->
-<!--                    TODO: Pop up de confirmação-->
+                <!--                    TODO: Arrumar logo lixo-->
+                <!--                    TODO: Pop up de confirmação-->
                 <tbody>
-                    <tr th:each="produto : ${produtos}">
-                        <td th:text="${produto.id}"></td>
-                        <td th:text="${produto.nome}"></td>
-                        <td th:text="${'R$ ' + produto.preco}"></td>
-                        <td th:text="${produto.estoqueAtual}"></td>
-                        <td th:text="${'~ ' + produto.tempoPreparoMin + 'min'}"></td>
-                        <td><input type="checkbox" th:checked="${produto.disponivel}" aria-label="disponibilidade" /></td>
-                        <td th:text="${produto.categoria}"></td>
-                        <td>
-                            <a th:href="${'/cardapio/' + produto.id + '/editar'}">
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </a>
+                <tr th:each="produto : ${produtos}">
+                    <td th:text="${'#' + produto.id}"></td>
+                    <td th:text="${produto.nome}"></td>
+                    <td th:text="${'R$ ' + produto.preco}"></td>
+                    <td th:text="${produto.estoqueAtual}"></td>
+                    <td th:text="${'~ ' + produto.tempoPreparoMin + 'min'}"></td>
+                    <td>
 
-                            <a th:href="${'/cardapio/' + produto.id + '/deletar'}">
-                                <img alt="delete product button" th:src="@{/assets/icons/pen.svg}" />
-                            </a>
-                        </td>
-                    </tr>
+                        <img th:src="${produto.disponivel} ? @{/assets/icons/check.svg} : @{/assets/icons/unchecked.svg}"
+                             alt="Status Disponibilidade"/>
+                    </td>
+                    <td th:text="${produto.categoria}"></td>
+                    <td class="actions">
+                        <a th:href="${'/cardapio/' + produto.id + '/editar'}">
+                            <img alt="edit product button" th:src="@{/assets/icons/pen.svg}"/>
+                        </a>
+
+                        <a th:href="${'/cardapio/' + produto.id + '/deletar'}">
+                            <img alt="delete product button" th:src="@{/assets/icons/trash.svg}"/>
+                        </a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

@@ -18,13 +18,13 @@
 
             <div class="field">
                 <label for="campo-urlImagem">Foto</label>
-                <input type="text" id="campo-urlImagem"  th:field="*{urlImagem}" name="urlImagem" required>
+                <input type="text" id="campo-urlImagem" th:field="*{urlImagem}" name="urlImagem" required>
             </div>
 
 
             <div class="field">
                 <label for="campo-nome">Nome</label>
-                <input type="text" id="campo-nome"  th:field="*{nome}" name="nome" required>
+                <input type="text" id="campo-nome" th:field="*{nome}" name="nome" required>
             </div>
 
             <div class="field">
@@ -34,17 +34,19 @@
 
             <div class="field">
                 <label for="campo-preco">Preço</label>
-                <input type="number" min="0.10" step="0.10" id="campo-preco"  th:field="*{preco}" name="preco" required>
+                <input type="number" min="0.10" step="0.10" id="campo-preco" th:field="*{preco}" name="preco" required>
             </div>
 
             <div class="field">
                 <label for="campo-estoqueAtual">Estoque</label>
-                <input type="number" min="0" step="1" id="campo-estoqueAtual" th:field="*{estoqueAtual}" name="estoqueAtual" required>
+                <input type="number" min="0" step="1" id="campo-estoqueAtual" th:field="*{estoqueAtual}"
+                       name="estoqueAtual" required>
             </div>
 
             <div class="field">
                 <label for="campo-tempoPreparoMin">Tempo de preparo (minutos)</label>
-                <input type="number" min="1" step="1" id="campo-tempoPreparoMin" th:field="*{tempoPreparoMin}" name="tempoPreparoMin" required>
+                <input type="number" min="1" step="1" id="campo-tempoPreparoMin" th:field="*{tempoPreparoMin}"
+                       name="tempoPreparoMin" required>
             </div>
 
             <div class="field">
@@ -63,7 +65,8 @@
 
             <div class="field">
                 <label for="campo-categoria">Categoria</label>
-                <select id="campo-categoria"  th:field="*{categoria}" name="categoria" class="secondary-element" required>
+                <select id="campo-categoria" th:field="*{categoria}" name="categoria" class="secondary-element"
+                        required>
                     <option value="bebida">Bebidas</option>
                     <option value="lanche">Lanches</option>
                     <option value="acompanhamento">Acompanhamentos</option>
@@ -71,8 +74,8 @@
                 </select>
             </div>
 
-            <button type="reset">Limpar campos</button>
-            <button type="submit">Criar produto</button>
+            <button type="reset">Limpar</button>
+            <button type="submit">Salvar</button>
         </form>
 
     </div>

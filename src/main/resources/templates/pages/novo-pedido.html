@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Novo Pedido')}"></th:block>
+</head>
+<body>
+<aside>
+    <th:block th:insert="~{fragments/navbar :: navbar('atendimento')}"></th:block>
+</aside>
+
+<main>
+    <th:block th:insert="~{fragments/header:: header('tea-cup-dark', 'Novo Pedido')}"></th:block>
+
+    <div>
+
+        <form th:action="@{/atendimento/salvar}" th:object="${pedido}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="field">
+                <label for="campo-observacao-pedido">Observações do pedido</label>
+                <textarea rows="6" id="campo-observacao-pedido" th:field="*{observacao}" name="observacao"
+                          required></textarea>
+            </div>
+
+            <!-- DOING: lógica de listagem e seleção de um produto no pedido -->
+
+            <div th:each="produto : ${produtos}">
+
+                <div>
+                    <!--  TODO: Implementar estilo que remova visualmente o container mas mantenha ele existente e com 100% de altura/largura e afrente de todo o card irmão de detalhes (lógica para seleção do produto via card | evita manipulação com JS) -->
+                    <div class="hidden">
+                        <label>
+                            <input type="checkbox" name="${produto.id}" aria-label="${produto.name}">
+                        </label>
+                    </div>
+
+                    <!-- TODO: adicionar os css, a classe esta aqui apenas para lembrar -->
+                    <div class="product-card">
+                        <div class="product-infos">
+                            <h3 th:text="${produto.nome}"></h3>
+                            <p>R$ XX,XX x X un. = R$ xx,xx</p>
+                            <!-- TODO: calcular com JS ? -->
+
+                            <details>
+                                <summary>Detalhes</summary>
+
+                                <div>
+                                    <p th:text="${'Tempo médio de preparo: ' + produto.tempoPreparoMin + 'min'}"></p>
+                                    <p th:text="${produto.descricao}"></p>
+                                    <p th:text="${'R$' + produto.preco + ' un.'}"></p>
+                                    <p th:text="${'Estoque: ' + produto.estoqueAtual}"></p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- TODO: na estilização e lógica JS, esse container deve ser mostrado SOMENTE quando o card for selecionado -->
+                        <!-- OBS: Revisar essa estrutura de "actions" do produto no pedido -->
+                        <div class="product-actions">
+                            <label>
+                                Qtd.
+                                <input type="number" min="1" step="1" required name="quantidade">
+                            </label>
+
+                            <div class="field">
+                                <label for="campo-observacao">Observações</label>
+                                <textarea rows="6" id="campo-observacao" th:field="*{observacao}" name="observacao"
+                                          required></textarea>
+                            </div>
+
+                            <!-- TODO: Revisar troca do ícone de lixeira para remover o pedido, pelo icone de "check" NO CARD ao ser possível selecionar e des-seleciona-lo -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- TODO: Revisar se a estrutura desse formulário está correta para criação e atualização. (Ponto crítico de análise: cada itemPedido dentro do forms de pedido... quantidade e dados do item pedido devem ser únicas para a criação assim como seu identificador aqui no formulário) -->
+
+            <!-- TODO: concluir adição das demais informações do pedido -->
+
+            <button type="submit">Salvar</button>
+        </form>
+
+    </div>
+</main>
+</body>
+</html>

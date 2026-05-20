@@ -14,17 +14,18 @@
 <main>
     <th:block th:insert="~{fragments/header:: header('bell-dark', 'ATENDIMENTO')}"></th:block>
 
-    <div class="cardapio-info scrollable-container">
+    <div class="cardapio-info">
         <div class="quick-actions">
             <div class="search-bar">
                 <button class="search-button" type="button">
-                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto" />
+                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto"/>
                 </button>
 
-                <input aria-label="Busca por produtos" name="search" placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
+                <input aria-label="Busca por produtos" name="search"
+                       placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
             </div>
 
-            <button type="button" class="create-order primary-element">Novo pedido</button>
+            <a th:href="@{/atendimento/novo}" class="create-product primary-element">Novo pedido</a>
         </div>
 
         <div class="painel-container">
@@ -34,7 +35,7 @@
 
                     <button class="secondary-element">Combos</button>
 
-                    <button class="secondary-element" >Promoções</button>
+                    <button class="secondary-element">Promoções</button>
 
                     <select aria-label="categoria" class="secondary-element">
                         <option>Categorias</option>
@@ -46,11 +47,105 @@
                 </div>
 
                 <div class="products-list">
+                    <div th:each="produto : ${produtos}">
+                        <!-- TODO: adicionar os css, a classe esta aqui apenas para lembrar -->
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img th:src="${produto.urlImagem}" th:alt="${produto.nome}">
+                            </div>
+
+                            <div class="product-infos">
+                                <div class="product-details">
+                                    <h3 th:text="${produto.nome}"></h3>
+                                    <h4 th:text="${'R$' + produto.preco}"></h4>
+                                </div>
+
+                                <button>
+                                    <img th:src="@{/assets/icons/cup.svg}" alt="Adicionar produto ao pedido"/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
             </div>
 
-            <div class="current-bill-container"></div>
+            <div class="current-bill-container">
+
+                <form th:action="@{/atendimento/salvar}" th:object="${pedido}" method="post">
+                    <input type="hidden" th:field="*{id}"/>
+
+                    <div class="field">
+                        <label for="campo-observacao-pedido">Observações do pedido</label>
+                        <textarea rows="6" id="campo-observacao-pedido" th:field="*{observacao}"
+                                  name="observacao"
+                                  required></textarea>
+                    </div>
+
+                    <!-- DOING: lógica de listagem e seleção de um produto no pedido -->
+
+                    <div th:each="produto : ${produtos}">
+
+                        <div>
+                            <!--  TODO: Implementar estilo que remova visualmente o container mas mantenha ele existente e com 100% de altura/largura e afrente de todo o card irmão de detalhes (lógica para seleção do produto via card | evita manipulação com JS) -->
+                            <!--                            <div class="hidden">-->
+                            <!--                                <label>-->
+                            <!--                                    <input type="checkbox" name="${produto.id}" aria-label="${produto.name}">-->
+                            <!--                                </label>-->
+                            <!--                            </div>-->
+
+                            <!-- TODO: adicionar os css, a classe esta aqui apenas para lembrar -->
+                            <div class="product-card">
+                                <div class="product-infos">
+                                    <h3 th:text="${produto.nome}"></h3>
+                                    <p>R$ XX,XX x X un. = R$ xx,xx</p>
+                                    <!-- TODO: calcular com JS ? -->
+
+                                    <details>
+                                        <summary>Detalhes</summary>
+
+                                        <div>
+                                            <p th:text="${'Tempo médio de preparo: ' + produto.tempoPreparoMin + 'min'}"></p>
+                                            <p th:text="${produto.descricao}"></p>
+                                            <p th:text="${'R$' + produto.preco + ' un.'}"></p>
+                                            <p th:text="${'Estoque: ' + produto.estoqueAtual}"></p>
+                                        </div>
+                                    </details>
+                                </div>
+
+                                <!-- TODO: na estilização e lógica JS, esse container deve ser mostrado SOMENTE quando o card for selecionado -->
+                                <!-- OBS: Revisar essa estrutura de "actions" do produto no pedido -->
+                                <div class="product-actions">
+                                    <label>
+                                        Qtd.
+                                        <input type="number" min="1" step="1" required name="quantidade">
+                                    </label>
+
+                                    <div class="field">
+                                        <label for="campo-observacao">Observações</label>
+                                        <textarea rows="6" id="campo-observacao" th:field="*{observacao}"
+                                                  name="observacao"
+                                                  required></textarea>
+                                    </div>
+
+                                    <!-- TODO: Revisar troca do ícone de lixeira para remover o pedido, pelo icone de "check" NO CARD ao ser possível selecionar e des-seleciona-lo -->
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- TODO: Revisar se a estrutura desse formulário está correta para criação e atualização. (Ponto crítico de análise: cada itemPedido dentro do forms de pedido... quantidade e dados do item pedido devem ser únicas para a criação assim como seu identificador aqui no formulário) -->
+
+                    <!-- TODO: concluir adição das demais informações do pedido -->
+
+                    <button type="submit">Salvar</button>
+                </form>
+
+
+            </div>
         </div>
     </div>
 </main>
