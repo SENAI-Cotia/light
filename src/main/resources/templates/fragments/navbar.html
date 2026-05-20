@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <link rel="stylesheet" th:href="@{/css/navbar.css}">
 </head>
@@ -43,7 +46,7 @@
             </li>
         </ul>
 
-        <div class="menu-config menu-link" th:classappend="${currentPage == 'configuracoes'} ? 'active'">
+        <div class="menu-config menu-link" sec:authorize="hasRole('ADMIN')" th:classappend="${currentPage == 'configuracoes'} ? 'active'">
             <img th:src="@{/assets/icons/config.svg}" alt="">
             <a th:href="@{/configuracoes}">Configurações</a>
         </div>

@@ -24,7 +24,7 @@
                 <input aria-label="Busca por produtos" name="search" placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
             </div>
 
-            <button type="button" class="create-product primary-element">Cadastrar produto</button>
+            <a th:href="@{/cardapio/novo}" class="create-product primary-element">Cadastrar produto</a>
         </div>
 
         <div class="main-scrollable-container-child">
@@ -41,99 +41,27 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-
+<!--                    TODO: Arrumar logo lixo-->
+<!--                    TODO: Pop up de confirmação-->
                 <tbody>
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
+                    <tr th:each="produto : ${produtos}">
+                        <td th:text="${produto.id}"></td>
+                        <td th:text="${produto.nome}"></td>
+                        <td th:text="${'R$ ' + produto.preco}"></td>
+                        <td th:text="${produto.estoqueAtual}"></td>
+                        <td th:text="${'~ ' + produto.tempoPreparoMin + 'min'}"></td>
+                        <td><input type="checkbox" th:checked="${produto.disponivel}" aria-label="disponibilidade" /></td>
+                        <td th:text="${produto.categoria}"></td>
                         <td>
-                            <button>
+                            <a th:href="${'/cardapio/' + produto.id + '/editar'}">
                                 <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </button>
+                            </a>
+
+                            <a th:href="${'/cardapio/' + produto.id + '/deletar'}">
+                                <img alt="delete product button" th:src="@{/assets/icons/pen.svg}" />
+                            </a>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
-                        <td>
-                            <button>
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
-                        <td>
-                            <button>
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
-                        <td>
-                            <button>
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
-                        <td>
-                            <button>
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
-                        <td>
-                            <button>
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </button>
-                        </td>
-                    </tr>
-
-
                 </tbody>
             </table>
         </div>
