@@ -31,10 +31,6 @@ public class Pedido {
     @Column
     private String observacao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens = new ArrayList<>();
 
@@ -52,14 +48,13 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Long id, String numeroPedido, StatusPedido status, LocalDateTime criadoEm, LocalDateTime atualizadoEm, String observacao, Usuario usuario, List<ItemPedido> itens) {
+    public Pedido(Long id, String numeroPedido, StatusPedido status, LocalDateTime criadoEm, LocalDateTime atualizadoEm, String observacao, List<ItemPedido> itens) {
         this.id = id;
         this.numeroPedido = numeroPedido;
         this.status = status;
         this.criadoEm = criadoEm;
         this.atualizadoEm = atualizadoEm;
         this.observacao = observacao;
-        this.usuario = usuario;
         this.itens = itens;
     }
 
@@ -109,14 +104,6 @@ public class Pedido {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public List<ItemPedido> getItens() {

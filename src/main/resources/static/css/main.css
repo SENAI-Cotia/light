@@ -1,11 +1,5 @@
 @import url(fonts.css);
-@import url(cardapio.css);
 @import url(navbar.css);
-@import url(login.css);
-@import url(dashboard.css);
-@import url(atendimento.css);
-@import url(cozinha.css);
-@import url(configuracoes.css);
 
 :root {
     --hot-brown: #41210A;
@@ -137,16 +131,90 @@ main {
     width: stretch;
     height: stretch;
 
+    @media (max-width: 992px) {
+        height: fit-content;
+        padding-bottom: 3rem;
+        padding-left: 0;
+        gap: 0rem;
+
+        max-height: unset;
+        overflow: unset;
+    }
+
     overflow: hidden;
 
     .scrollable-container {
-        height: stretch;
+        display: flex; /* ✓ Flexbox */
+
+        /* VERIFICANDO NECESSIDADE */
+        /*flex-direction: column; !* ✓ Verticalmente *!*/
+        /*gap: 1.5rem;*/
+
+        flex: 1; /* ✓ Crescer para ocupar espaço */
+        min-height: 0; /* ✓ CRUCIAL - permite cálculo correto */
 
         .main-scrollable-container-child {
-            overflow: auto;
+            flex: 1; /* ✓ Crescer para preencher espaço */
+            min-height: 0; /* ✓ Permitir cálculo correto */
 
-            max-height: stretch;
-            height: stretch;
+            overflow: auto; /* ✓ Respeitar border-radius */
+            display: flex; /* ✓ Gerenciar filhos */
+            flex-direction: column;
+        }
+
+        @media (max-width: 768px) {
+            flex: none;   /* Deixar de crescer */
+            height: auto; /* Altura normal */
+
+            .main-scrollable-container-child {
+                flex: none;
+                /*overflow: visible;*/
+                height: auto;
+            }
+        }
+    }
+
+
+    .quick-actions {
+        background-color: var(--white);
+        padding: 1rem .5rem;
+        border-radius: .5rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        width: 100%;
+        min-width: 100%;
+
+        .search-bar {
+            border: 1px solid var(--vanilla);
+            border-radius: .5rem;
+            flex-grow: 3;
+            overflow: hidden;
+
+            display: flex;
+            gap: .5rem;
+
+            .search-button {
+                border: 1px solid var(--vanilla);
+                border-radius: .5rem;
+                min-height: 100%;
+                width: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                img {
+                    height: 30px;
+                }
+            }
+
+            input {
+                border: none;
+                width: 100%;
+                padding: .5rem;
+                margin: .3rem 0;
+            }
         }
     }
 }
@@ -171,14 +239,6 @@ header {
 
     body {
         overflow: auto;
-    }
-
-    main {
-        padding-left: 0;
-        gap: 0rem;
-
-        max-height: unset;
-        overflow: unset;
     }
 
     .page-title {

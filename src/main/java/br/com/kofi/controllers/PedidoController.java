@@ -24,29 +24,18 @@ public class PedidoController {
 	@Autowired
 	private ProdutoService produtoService;
 
-	@GetMapping
-	public String listar(Model model) {
-		model.addAttribute("pedido", new Pedido());
-		model.addAttribute("pedidos", pedidoService.listarTodos());
-		model.addAttribute("produtos", produtoService.listarTodos());
-		return "pages/atendimento";
-	}
-
 	@GetMapping("/novo")
 	public String formularioNovo(Model model) {
 		Pedido pedido = new Pedido();
 		pedido.getItens().add(new ItemPedido());
 
 		model.addAttribute("pedido", pedido);
-		model.addAttribute("usuarios", userService.listarTodos());
 		model.addAttribute("produtos", produtoService.listarTodos());
 		return "pages/novo-pedido";
 	}
 
 	@PostMapping("/salvar")
-	public String salvar(@ModelAttribute Pedido pedido, @RequestParam Long usuarioId) {
-		Usuario usuario = userService.buscarPorId(usuarioId);
-		pedido.setUsuario(usuario);
+	public String salvar(@ModelAttribute Pedido pedido) {
 
 		// gera número do pedido se for novo
 		if (pedido.getNumeroPedido() == null || pedido.getNumeroPedido().isEmpty()) {
@@ -60,7 +49,6 @@ public class PedidoController {
 	@GetMapping("/{id}/editar")
 	public String formularioEditar(@PathVariable Long id, Model model) {
 		model.addAttribute("pedido", pedidoService.buscarPorId(id));
-		model.addAttribute("usuarios", userService.listarTodos());
 		model.addAttribute("produtos", produtoService.listarTodos());
 		return "pedidos/formulario";
 	}
@@ -68,10 +56,21 @@ public class PedidoController {
 	@PostMapping("/{id}/deletar")
 	public String deletar(@PathVariable Long id) {
 		pedidoService.deletar(id);
-		return "redirect:/pedidos";
+		return "redirect:/atendimento";
 	}
 
 	private String gerarNumeroPedido() {
 		return String.format("#%04d", (int) (Math.random() * 9999));
+	}
+
+	@GetMapping("/{pedidoId}/itens/{itemId}/remover")
+	public String removerItem(@PathVariable Long pedidoId, @PathVariable Long itemId) {
+		Pedido pedido = pedidoService.buscarPorId(pedidoId);
+
+		// remove o item da lista — o orphanRemoval faz o DELETE no banco automaticamente
+		pedido.getItens().removeIf(item -> item.getId().equals(itemId));
+
+		pedidoService.salvar(pedido);
+		return "redirect:/atendimento/" + pedidoId + "/editar";
 	}
 }

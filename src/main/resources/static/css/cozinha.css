@@ -1,9 +1,30 @@
+@import url(main.css);
+
+main {
+    .scrollable-container {
+        .main-scrollable-container-child {
+            width: 100%;
+            overflow: hidden auto;
+
+            padding: 0 1rem 1rem 0;
+
+            @media (max-width: 992px) {
+                padding: 0 0 1rem 0;
+            }
+        }
+    }
+}
 
 .orders {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 1rem;
     width: 100%;
+    flex: 1;
+    grid-template-columns: repeat(3, 1fr);
+
+    @media (max-width: 992px) {
+        grid-template-columns: 1fr;
+    }
 
     .order-card {
         padding: 1rem;
@@ -14,8 +35,8 @@
         background-color: var(--white);
 
         width: 100%;
-        max-width: 400px;
-        min-height: 400px;
+        /*max-width: 300px;*/
+        min-height: 400px;;
 
         .products {
             min-width: 100%;

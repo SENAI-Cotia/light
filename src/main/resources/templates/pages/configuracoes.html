@@ -1,7 +1,42 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Configurações', 'configuracoes')}"></th:block>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<aside>-->
+<!--    <div th:replace="~{fragments/navbar :: menu-toggle}"></div>-->
+
+<!--    <div th:replace="~{fragments/navbar :: navbar('configuracoes')}"></div>-->
+<!--</aside>-->
+
+<!--<main>-->
+<!--    <th:block th:insert="~{fragments/header:: header('config-dark', 'CONFIGURAÇÕES')}"></th:block>-->
+
+<!--    <div class="adm-container">-->
+<!--        <div class="profile-container">-->
+
+<!--        </div>-->
+
+<!--        <hr class="middle-divisor"/>-->
+
+<!--        <div class="new-user-container">-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</main>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
-    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Configurações')}"></th:block>
+    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Configurações', 'configuracoes')}"></th:block>
 </head>
 <body>
 
@@ -16,13 +51,104 @@
 
     <div class="adm-container">
         <div class="profile-container">
+            <h2 class="section-title">Perfil Administrador</h2>
 
+            <div class="avatar-wrapper">
+                <div class="avatar-placeholder"></div>
+            </div>
+
+            <form class="profile-form">
+                <div class="form-group">
+                    <label for="alterar-usuario">Alterar usuário</label>
+                    <input type="text" id="alterar-usuario" class="form-input" placeholder="" th:value="${#authentication.principal.username}">
+                </div>
+
+                <div class="form-group">
+                    <label for="senha-atual">Senha atual</label>
+                    <input
+                            type="password"
+                            id="senha-atual"
+                            name="currentPassword"
+                            class="form-input"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="nova-senha">Nova senha</label>
+                    <input
+                            type="password"
+                            id="nova-senha"
+                            name="newPassword"
+                            class="form-input"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmar-senha">Confirmar nova senha</label>
+                    <input
+                            type="password"
+                            id="confirmar-senha"
+                            name="confirmPassword"
+                            class="form-input"
+                    >
+                </div>
+
+                <div class="button-group">
+                    <button type="reset" class="">Limpar</button>
+                    <button type="submit" class="primary-element">Salvar</button>
+                </div>
+            </form>
         </div>
 
-        <hr class="middle-divisor"/>
+<!--        <hr class="middle-divisor"/>-->
 
         <div class="new-user-container">
+            <div class="register-section">
+                <h2 class="section-title">Cadastrar usuário</h2>
 
+                <form class="register-form" th:action="@{/cadastrar}" method="post">
+                    <div class="form-group">
+                        <label for="novo-usuario-nome">Nome completo *</label>
+                        <input type="text" id="novo-usuario-nome" class="form-input" required maxlength="100" name="nome" placeholder="Ex: John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="novo-usuario-email">Email *</label>
+                        <input type="email" id="novo-usuario-email" class="form-input" name="email" required placeholder="Ex: john.doe@gmail.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="novo-usuario-senha">Senha *</label>
+                        <input type="password" id="novo-usuario-senha" class="form-input" name="senha" required minlength="6" placeholder="Ex: Minha_senha@9482">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="papel">Perfil de acesso *</label>
+                        <select id="papel" class="secondary-element" name="papel" required>
+                            <option value="">-- Selecione --</option>
+                            <option value="ADMIN">Administrador</option>
+                            <option value="ATENDENTE">Atendente</option>
+                            <option value="COZINHA">Cozinha</option>
+                        </select>
+                    </div>
+
+                    <button type="reset" class="">Limpar campos</button>
+                    <button type="submit" class="primary-element">Salvar</button>
+                </form>
+            </div>
+
+            <div class="users-list-section">
+                <h3 class="users-list-title">Usuários cadastrados</h3>
+
+                <div class="users-list" th:each="usuario : ${usuarios}">
+                    <div class="user-item">
+                        <span class="user-name" th:text="${usuario.nome}"></span>
+                        <button class="" title="Editar usuário">
+                            <img th:src="@{/assets/icons/pen.svg}" alt="Editar usuário">
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>

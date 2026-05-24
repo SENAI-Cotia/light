@@ -2,7 +2,9 @@ package br.com.kofi.controllers;
 
 import br.com.kofi.models.Pedido;
 import br.com.kofi.models.Produto;
+import br.com.kofi.services.PedidoService;
 import br.com.kofi.services.ProdutoService;
+import br.com.kofi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,12 @@ public class RootController {
 
 	@Autowired
 	private ProdutoService produtoService;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private PedidoService pedidoService;
 
 	@GetMapping("/")
 	public String index() {
@@ -34,14 +42,16 @@ public class RootController {
 	@GetMapping("/cardapio")
 	public String cardapio(Model model) {
 		model.addAttribute("produtos", produtoService.listarTodos());
-		return "pages/cardapio"; // aponta para templates/produtos/lista.html
+		return "pages/cardapio";
 	}
 
-	//	@GetMapping("/atendimento")
-	//	public String atendimento(Model model) {
-	//		model.addAttribute("produtos", produtoService.listarTodos());
-	//		return "pages/atendimento";
-	//	}
+	@GetMapping("/atendimento")
+	public String listar(Model model) {
+		model.addAttribute("pedido", new Pedido());
+		model.addAttribute("pedidos", pedidoService.listarTodos());
+		model.addAttribute("produtos", produtoService.listarTodos());
+		return "pages/atendimento";
+	}
 
 	@GetMapping("/cozinha")
 	public String cozinha() {
@@ -49,7 +59,9 @@ public class RootController {
 	}
 
 	@GetMapping("/configuracoes")
-	public String configuracoes() {
+	public String configuracoes(Model model) {
+		model.addAttribute("usuarios", userService.listarTodos());
+
 		return "pages/configuracoes";
 	}
 }

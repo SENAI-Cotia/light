@@ -1,4 +1,6 @@
-.dash-header > * {
+@import url(main.css);
+
+dash-header > * {
     border: 1px solid red;
 }
 

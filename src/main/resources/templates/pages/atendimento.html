@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
-    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Atendimento')}"></th:block>
+    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Atendimento', 'atendimento')}"></th:block>
 </head>
 <body>
 
@@ -14,7 +16,7 @@
 <main>
     <th:block th:insert="~{fragments/header:: header('bell-dark', 'ATENDIMENTO')}"></th:block>
 
-    <div class="cardapio-info">
+    <div class="pedidos-container">
         <div class="quick-actions">
             <div class="search-bar">
                 <button class="search-button" type="button">
@@ -25,17 +27,20 @@
                        placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
             </div>
 
-            <a th:href="@{/atendimento/novo}" class="create-product primary-element">Novo pedido</a>
+            <button type="button" class="create-product primary-element" id="main-content-switcher-button">Listar pedidos</button>
         </div>
 
-        <div class="painel-container">
-            <div class="products-container">
-                <div class="products-filter">
-                    <button class="secondary-element ">Todos</button>
+        <form id="form-pedido" th:action="@{/atendimento/salvar}" method="post" class="painel-container">
+<!--            <input type="hidden" name="usuarioId" th:value=${#authentication.principal.id} />-->
+            <div id="itens-ocultos"></div>
 
-                    <button class="secondary-element">Combos</button>
+            <div class="produtos-container">
+                <div class="produtos-filtro">
+                    <button type="button" class="secondary-element ">Todos</button>
 
-                    <button class="secondary-element">Promoções</button>
+                    <button type="button" class="secondary-element">Combos</button>
+
+                    <button type="button" class="secondary-element">Promoções</button>
 
                     <select aria-label="categoria" class="secondary-element">
                         <option>Categorias</option>
@@ -46,22 +51,28 @@
                     </select>
                 </div>
 
-                <div class="products-list">
+                <div class="produtos-lista">
                     <div th:each="produto : ${produtos}">
                         <!-- TODO: adicionar os css, a classe esta aqui apenas para lembrar -->
-                        <div class="product-card">
-                            <div class="product-image">
+                        <div
+                                class="produto-card"
+                                th:data-id="${produto.id}"
+                                th:data-nome="${produto.nome}"
+                                th:data-preco="${produto.preco}"
+                                th:data-categoria="${produto.categoria}"
+                        >
+                            <div class="produto-imagem">
                                 <img th:src="${produto.urlImagem}" th:alt="${produto.nome}">
                             </div>
 
-                            <div class="product-infos">
-                                <div class="product-details">
+                            <div class="produto-infos">
+                                <div class="produto-detalhes">
                                     <h3 th:text="${produto.nome}"></h3>
                                     <h4 th:text="${'R$' + produto.preco}"></h4>
                                 </div>
 
-                                <button>
-                                    <img th:src="@{/assets/icons/cup.svg}" alt="Adicionar produto ao pedido"/>
+                                <button type="button" onclick="adicionar(this)">
+                                    <img th:src="@{/assets/icons/add-circle.svg}" alt="Adicionar produto ao pedido"/>
                                 </button>
                             </div>
                         </div>
@@ -71,83 +82,181 @@
                 </div>
             </div>
 
-            <div class="current-bill-container">
-
-                <form th:action="@{/atendimento/salvar}" th:object="${pedido}" method="post">
-                    <input type="hidden" th:field="*{id}"/>
-
+            <div class="novo-pedido-container">
+                <h3>Dados do pedido</h3>
                     <div class="field">
                         <label for="campo-observacao-pedido">Observações do pedido</label>
-                        <textarea rows="6" id="campo-observacao-pedido" th:field="*{observacao}"
+                        <textarea rows="6" id="campo-observacao-pedido"
                                   name="observacao"
                                   required></textarea>
                     </div>
 
-                    <!-- DOING: lógica de listagem e seleção de um produto no pedido -->
-
-                    <div th:each="produto : ${produtos}">
-
-                        <div>
-                            <!--  TODO: Implementar estilo que remova visualmente o container mas mantenha ele existente e com 100% de altura/largura e afrente de todo o card irmão de detalhes (lógica para seleção do produto via card | evita manipulação com JS) -->
-                            <!--                            <div class="hidden">-->
-                            <!--                                <label>-->
-                            <!--                                    <input type="checkbox" name="${produto.id}" aria-label="${produto.name}">-->
-                            <!--                                </label>-->
-                            <!--                            </div>-->
-
-                            <!-- TODO: adicionar os css, a classe esta aqui apenas para lembrar -->
-                            <div class="product-card">
-                                <div class="product-infos">
-                                    <h3 th:text="${produto.nome}"></h3>
-                                    <p>R$ XX,XX x X un. = R$ xx,xx</p>
-                                    <!-- TODO: calcular com JS ? -->
-
-                                    <details>
-                                        <summary>Detalhes</summary>
-
-                                        <div>
-                                            <p th:text="${'Tempo médio de preparo: ' + produto.tempoPreparoMin + 'min'}"></p>
-                                            <p th:text="${produto.descricao}"></p>
-                                            <p th:text="${'R$' + produto.preco + ' un.'}"></p>
-                                            <p th:text="${'Estoque: ' + produto.estoqueAtual}"></p>
-                                        </div>
-                                    </details>
-                                </div>
-
-                                <!-- TODO: na estilização e lógica JS, esse container deve ser mostrado SOMENTE quando o card for selecionado -->
-                                <!-- OBS: Revisar essa estrutura de "actions" do produto no pedido -->
-                                <div class="product-actions">
-                                    <label>
-                                        Qtd.
-                                        <input type="number" min="1" step="1" required name="quantidade">
-                                    </label>
-
-                                    <div class="field">
-                                        <label for="campo-observacao">Observações</label>
-                                        <textarea rows="6" id="campo-observacao" th:field="*{observacao}"
-                                                  name="observacao"
-                                                  required></textarea>
-                                    </div>
-
-                                    <!-- TODO: Revisar troca do ícone de lixeira para remover o pedido, pelo icone de "check" NO CARD ao ser possível selecionar e des-seleciona-lo -->
-                                </div>
-                            </div>
-
-                        </div>
-
+                    <div id="lista-selecionados">
+                        <p id="msg-vazia">Nenhum item adicionado.</p>
                     </div>
 
-                    <!-- TODO: Revisar se a estrutura desse formulário está correta para criação e atualização. (Ponto crítico de análise: cada itemPedido dentro do forms de pedido... quantidade e dados do item pedido devem ser únicas para a criação assim como seu identificador aqui no formulário) -->
+                    <div class="totais">
+                        <span>Total: </span>
+                        <span id="valor-total">R$ 00,00</span>
+                    </div>
 
-                    <!-- TODO: concluir adição das demais informações do pedido -->
-
-                    <button type="submit">Salvar</button>
-                </form>
-
-
+                    <div>
+                        <button type="reset">
+                            Cancelar
+                        </button>
+                        <button type="submit">
+                            Confirmar pedido
+                        </button>
+                    </div>
             </div>
+        </form>
+
+        <div class="pedidos-grid hidden">
+            <h2>Listagem</h2>
         </div>
     </div>
+
+    <script defer>
+        const trocarConteudo = document.getElementById("main-content-switcher-button")
+        const painelPedido = document.querySelector(".painel-container")
+        const painelItens = document.querySelector(".pedidos-grid")
+
+        trocarConteudo.addEventListener("click", () => {
+            painelPedido.classList.toggle("hidden")
+            painelItens.classList.toggle("hidden")
+
+            painelPedido.classList.contains("hidden") ? trocarConteudo.innerText = "Novo pedido" : trocarConteudo.innerText = "Listar pedidos"
+        })
+
+
+
+
+
+
+
+
+
+        // Map: produtoId (string) → { id, nome, preco, quantidade }
+        const itensSelecionados = new Map();
+
+        // --- ADICIONAR ---
+        function adicionar(btn) {
+            const card = btn.closest('.produto-card');
+            const id    = card.dataset.id;
+            const nome  = card.dataset.nome;
+            const preco = parseFloat(card.dataset.preco);
+
+            if (itensSelecionados.has(id)) {
+                // já está na lista — só aumenta a quantidade
+                itensSelecionados.get(id).quantidade++;
+            } else {
+                itensSelecionados.set(id, { id, nome, preco, quantidade: 1 });
+            }
+
+            renderizarConta();
+        }
+
+        // --- REMOVER ---
+        function remover(id) {
+            itensSelecionados.delete(id);
+            renderizarConta();
+        }
+
+        // --- MUDAR QUANTIDADE ---
+        function mudarQuantidade(id, valor) {
+            const qtd = parseInt(valor);
+            if (qtd < 1 || isNaN(qtd)) return;
+            itensSelecionados.get(id).quantidade = qtd;
+            renderizarConta();
+        }
+
+        // --- RENDERIZAR A DIREITA ---
+        function renderizarConta() {
+            const lista = document.getElementById('lista-selecionados');
+            const msgVazia = document.getElementById('msg-vazia');
+
+            if (itensSelecionados.size === 0) {
+                lista.innerHTML = '';
+                lista.appendChild(msgVazia);
+                document.getElementById('valor-total').textContent = 'R$ 0,00';
+                return;
+            }
+
+            let total = 0;
+            let html  = '';
+
+            itensSelecionados.forEach(item => {
+                const subtotal = item.preco * item.quantidade;
+                total += subtotal;
+
+                html += `
+            <div class="item-selecionado">
+                <div class="item-info">
+                    <strong>${item.nome}</strong>
+                    <span>R$ ${item.preco.toFixed(2)} x ${item.quantidade} = R$ ${subtotal.toFixed(2)}</span>
+                </div>
+                <div class="item-acoes">
+                    <input type="number" min="1" value="${item.quantidade}"
+                           onchange="mudarQuantidade('${item.id}', this.value)"
+                           style="width: 50px"/>
+                    <button type="button" onclick="remover('${item.id}')">✕</button>
+                </div>
+            </div>
+        `;
+            });
+
+            lista.innerHTML = html;
+            document.getElementById('valor-total').textContent =
+                'R$ ' + total.toFixed(2).replace('.', ',');
+        }
+
+        // --- FILTRO POR CATEGORIA ---
+        function filtrar(categoria) {
+            document.querySelectorAll('.produto-card').forEach(card => {
+                const pertence = categoria === 'todos' || card.dataset.categoria === categoria;
+                card.style.display = pertence ? '' : 'none';
+            });
+
+            document.querySelectorAll('.filtros button').forEach(btn => {
+                btn.classList.toggle('filtro-ativo', btn.textContent === categoria ||
+                    (categoria === 'todos' && btn.textContent === 'Todos'));
+            });
+        }
+
+
+        // SUBMIT
+        const form = document.getElementById('form-pedido');
+        console.log('form:', form);
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (itensSelecionados.size === 0) {
+                alert('Adicione ao menos um produto.');
+                return;
+            }
+
+            const container = document.getElementById('itens-ocultos');
+            container.innerHTML = '';
+
+            let index = 0;
+            itensSelecionados.forEach(item => {
+                criarOculto(container, `itens[${index}].produto.id`, item.id);
+                criarOculto(container, `itens[${index}].quantidade`, item.quantidade);
+                index++;
+            });
+
+            this.submit();
+        });
+
+        function criarOculto(container, name, value) {
+            const input = document.createElement('input');
+            input.type  = 'hidden';
+            input.name  = name;
+            input.value = value;
+            container.appendChild(input);
+        }
+    </script>
 </main>
 </body>
 </html>

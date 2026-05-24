@@ -16,9 +16,6 @@ public class ItemPedido {
     @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 2)
     private BigDecimal precoUnitario;
 
-    @Column
-    private String observacao;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pedido_id", nullable = false)
     private Pedido pedido;
@@ -34,7 +31,6 @@ public class ItemPedido {
         this.id = id;
         this.quantidade = quantidade;
         this.precoUnitario = precoUnitario;
-        this.observacao = observacao;
         this.pedido = pedido;
         this.produto = produto;
     }
@@ -61,14 +57,6 @@ public class ItemPedido {
 
     public void setPrecoUnitario(BigDecimal precoUnitario) {
         this.precoUnitario = precoUnitario;
-    }
-
-    public String getObservacao() {
-        return observacao;
-    }
-
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
     }
 
     public Pedido getPedido() {
