@@ -23,13 +23,13 @@ public class ProdutoController {
 	@PostMapping("/salvar")
 	public String salvar(@ModelAttribute Produto produto) {
 		produtoService.salvar(produto);
-		return "redirect:/cardapio"; // redireciona para a lista após salvar
+		return "redirect:/cardapio";
 	}
 
 	@GetMapping("/{id}/editar")
 	public String formularioEditar(@PathVariable Long id, Model model) {
 		model.addAttribute("produto", produtoService.buscarPorId(id));
-		return "pages/novo-produto"; // reutiliza o mesmo template
+		return "pages/novo-produto";
 	}
 
 	@GetMapping("/{id}/deletar")

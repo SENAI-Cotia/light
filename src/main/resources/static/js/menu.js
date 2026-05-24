@@ -1,5 +1,4 @@
 
-//mobile menu toggle
 const toggle = document.getElementById('menu-toggle');
 const nav = document.getElementById('main-nav');
 const path1  = document.getElementById('path1');

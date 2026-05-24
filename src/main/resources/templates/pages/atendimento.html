@@ -31,88 +31,150 @@
         </div>
 
         <form id="form-pedido" th:action="@{/atendimento/salvar}" method="post" class="painel-container">
-<!--            <input type="hidden" name="usuarioId" th:value=${#authentication.principal.id} />-->
+
             <div id="itens-ocultos"></div>
 
-            <div class="produtos-container">
+            <div class="produtos-container scrollable-container">
                 <div class="produtos-filtro">
-                    <button type="button" class="secondary-element ">Todos</button>
+                    <button type="button" class="secondary-element filtro-btn ativo" data-filtro="todos">Todos</button>
 
-                    <button type="button" class="secondary-element">Combos</button>
+                    <button type="button" class="secondary-element filtro-btn" data-filtro="bebida">Bebidas</button>
 
-                    <button type="button" class="secondary-element">Promoções</button>
+                    <button type="button" class="secondary-element filtro-btn" data-filtro="lanche">Lanches</button>
 
-                    <select aria-label="categoria" class="secondary-element">
-                        <option>Categorias</option>
-                        <option value="bebida">Bebidas</option>
-                        <option value="lanche">Lanches</option>
-                        <option value="acompanhamento">Acompanhamentos</option>
-                        <option value="sobremesa">Sobremesas</option>
-                    </select>
+                    <button type="button" class="secondary-element filtro-btn" data-filtro="acompanhamento">Acompanhamentos</button>
+
+                    <button type="button" class="secondary-element filtro-btn" data-filtro="sobremesa">Sobremesas</button>
                 </div>
 
-                <div class="produtos-lista">
-                    <div th:each="produto : ${produtos}">
-                        <!-- TODO: adicionar os css, a classe esta aqui apenas para lembrar -->
-                        <div
-                                class="produto-card"
-                                th:data-id="${produto.id}"
-                                th:data-nome="${produto.nome}"
-                                th:data-preco="${produto.preco}"
-                                th:data-categoria="${produto.categoria}"
-                        >
-                            <div class="produto-imagem">
-                                <img th:src="${produto.urlImagem}" th:alt="${produto.nome}">
-                            </div>
-
-                            <div class="produto-infos">
-                                <div class="produto-detalhes">
-                                    <h3 th:text="${produto.nome}"></h3>
-                                    <h4 th:text="${'R$' + produto.preco}"></h4>
+                <div class="main-scrollable-container-child">
+                    <div class="produtos-lista">
+                        <div th:each="produto : ${produtos}">
+                            <div
+                                    class="produto-card"
+                                    th:data-id="${produto.id}"
+                                    th:data-nome="${produto.nome}"
+                                    th:data-preco="${produto.preco}"
+                                    th:data-categoria="${produto.categoria}"
+                            >
+                                <div class="produto-imagem">
+                                    <img th:src="${produto.urlImagem}" th:alt="${produto.nome}">
                                 </div>
 
-                                <button type="button" onclick="adicionar(this)">
-                                    <img th:src="@{/assets/icons/add-circle.svg}" alt="Adicionar produto ao pedido"/>
-                                </button>
+                                <div class="produto-infos">
+                                    <div class="produto-detalhes">
+                                        <h3 th:text="${produto.nome}"></h3>
+                                        <h4 th:text="${'R$' + produto.preco}"></h4>
+                                    </div>
+
+                                    <button type="button" onclick="adicionar(this)">
+                                        <img th:src="@{/assets/icons/add-circle.svg}" alt="Adicionar produto ao pedido"/>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
 
             <div class="novo-pedido-container">
                 <h3>Dados do pedido</h3>
-                    <div class="field">
-                        <label for="campo-observacao-pedido">Observações do pedido</label>
-                        <textarea rows="6" id="campo-observacao-pedido"
-                                  name="observacao"
-                                  required></textarea>
+                <div class="field">
+                    <label for="campo-observacao-pedido">Observações do pedido</label>
+                    <textarea rows="2" id="campo-observacao-pedido"
+                              name="observacao"
+                    ></textarea>
+                </div>
+
+                <div id="lista-selecionados">
+                    <p id="msg-vazia">Nenhum item adicionado.</p>
+                </div>
+
+                <div class="totais">
+                    <span>Total: </span>
+                    <span id="valor-total">R$ 0,00</span>
+                </div>
+
+                <div class="forma-pagamento">
+                    <div class="titulo-card">
+                        <h4>Pagamento</h4>
                     </div>
 
-                    <div id="lista-selecionados">
-                        <p id="msg-vazia">Nenhum item adicionado.</p>
+                    <div class="opcoes-pagamento">
+                        <label class="opcao-pagamento">
+                            <input type="radio" name="formaPagamento" value="DINHEIRO" required>
+                            <div class="card-pagamento">
+                                <div class="icon">💵</div>
+                                <span>Dinheiro</span>
+                            </div>
+                        </label>
+
+                        <label class="opcao-pagamento">
+                            <input type="radio" name="formaPagamento" value="CARTAO_DEBITO" required>
+                            <div class="card-pagamento">
+                                <div class="icon">🏧</div>
+                                <span>Débito</span>
+                            </div>
+                        </label>
+
+                        <label class="opcao-pagamento">
+                            <input type="radio" name="formaPagamento" value="PIX" required>
+                            <div class="card-pagamento">
+                                <div class="icon">⚡</div>
+                                <span>Pix</span>
+                            </div>
+                        </label>
+
+                        <label class="opcao-pagamento">
+                            <input type="radio" name="formaPagamento" value="CARTAO_CREDITO" required>
+                            <div class="card-pagamento">
+                                <div class="icon">💳</div>
+                                <span>Crédito</span>
+                            </div>
+                        </label>
                     </div>
 
-                    <div class="totais">
-                        <span>Total: </span>
-                        <span id="valor-total">R$ 00,00</span>
-                    </div>
+                    <!-- Campo hidden para enviar o total -->
+                    <input type="hidden" id="total-pedido" name="valorTotal" value="0">
+                </div>
 
-                    <div>
-                        <button type="reset">
-                            Cancelar
-                        </button>
-                        <button type="submit">
-                            Confirmar pedido
-                        </button>
-                    </div>
+                <div>
+                    <button type="reset">
+                        Cancelar
+                    </button>
+                    <button type="submit">
+                        Confirmar pedido
+                    </button>
+                </div>
             </div>
         </form>
 
         <div class="pedidos-grid hidden">
-            <h2>Listagem</h2>
+            <div class="listagem-container scrollable-container">
+
+                <div class="main-scrollable-container-child">
+                    <table class="pedidos-table">
+                        <thead>
+                        <tr>
+                            <th>Nº pedido</th>
+                            <th>Status</th>
+                            <th>Data de criação</th>
+                            <th>Hora de criação</th>
+                            <th>Valor total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pedido : ${pedidos}">
+                            <td th:text="${pedido.numeroPedido}"></td>
+                            <td th:text="${pedido.status}"></td>
+                            <td th:text="${#temporals.format(pedido.criadoEm, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${#temporals.format(pedido.criadoEm, 'HH:mm')}"></td>
+                            <td th:text="${'R$ ' + #aggregates.sum(pedido.itens.![quantidade * precoUnitario])}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -128,18 +190,28 @@
             painelPedido.classList.contains("hidden") ? trocarConteudo.innerText = "Novo pedido" : trocarConteudo.innerText = "Listar pedidos"
         })
 
+        /* filtro */
+        document.querySelectorAll('.filtro-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const filtro = btn.dataset.filtro;
+                filtrar(filtro);
+
+                // Remove ativo
+                document.querySelectorAll('.filtro-btn').forEach(b => {
+                    b.classList.remove('ativo');
+                });
+
+                // Add ativo
+                btn.classList.add('ativo');
+            });
+        });
 
 
-
-
-
-
-
-
-        // Map: produtoId (string) → { id, nome, preco, quantidade }
         const itensSelecionados = new Map();
 
-        // --- ADICIONAR ---
+
         function adicionar(btn) {
             const card = btn.closest('.produto-card');
             const id    = card.dataset.id;
@@ -147,7 +219,6 @@
             const preco = parseFloat(card.dataset.preco);
 
             if (itensSelecionados.has(id)) {
-                // já está na lista — só aumenta a quantidade
                 itensSelecionados.get(id).quantidade++;
             } else {
                 itensSelecionados.set(id, { id, nome, preco, quantidade: 1 });
@@ -156,13 +227,12 @@
             renderizarConta();
         }
 
-        // --- REMOVER ---
         function remover(id) {
             itensSelecionados.delete(id);
             renderizarConta();
         }
 
-        // --- MUDAR QUANTIDADE ---
+
         function mudarQuantidade(id, valor) {
             const qtd = parseInt(valor);
             if (qtd < 1 || isNaN(qtd)) return;
@@ -170,15 +240,14 @@
             renderizarConta();
         }
 
-        // --- RENDERIZAR A DIREITA ---
+
         function renderizarConta() {
             const lista = document.getElementById('lista-selecionados');
-            const msgVazia = document.getElementById('msg-vazia');
 
             if (itensSelecionados.size === 0) {
-                lista.innerHTML = '';
-                lista.appendChild(msgVazia);
+                lista.innerHTML = '<p id="msg-vazia">Nenhum item adicionado.</p>';
                 document.getElementById('valor-total').textContent = 'R$ 0,00';
+                document.getElementById('total-pedido').value = '0';
                 return;
             }
 
@@ -206,33 +275,33 @@
             });
 
             lista.innerHTML = html;
-            document.getElementById('valor-total').textContent =
-                'R$ ' + total.toFixed(2).replace('.', ',');
+            const totalFormatado = total.toFixed(2).replace('.', ',');
+            document.getElementById('valor-total').textContent = 'R$ ' + totalFormatado;
+            document.getElementById('total-pedido').value = total.toFixed(2);
         }
 
-        // --- FILTRO POR CATEGORIA ---
         function filtrar(categoria) {
             document.querySelectorAll('.produto-card').forEach(card => {
                 const pertence = categoria === 'todos' || card.dataset.categoria === categoria;
                 card.style.display = pertence ? '' : 'none';
             });
-
-            document.querySelectorAll('.filtros button').forEach(btn => {
-                btn.classList.toggle('filtro-ativo', btn.textContent === categoria ||
-                    (categoria === 'todos' && btn.textContent === 'Todos'));
-            });
         }
 
 
-        // SUBMIT
         const form = document.getElementById('form-pedido');
         console.log('form:', form);
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             if (itensSelecionados.size === 0) {
                 alert('Adicione ao menos um produto.');
+                return;
+            }
+
+            const formaPagamentoSelecionada = document.querySelector('input[name="formaPagamento"]:checked');
+            if (!formaPagamentoSelecionada) {
+                alert('Selecione uma forma de pagamento.');
                 return;
             }
 

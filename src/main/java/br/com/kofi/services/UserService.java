@@ -51,7 +51,15 @@ public class UserService implements UserDetailsService {
 			.build();
 	}
 
-	public Usuario buscarPorId(Long id) {
-		return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+	public void alterarSenha(String email, String senhaAtual, String novaSenha) {
+		Usuario user = userRepository.findByEmail(email)
+				.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+		if (!passwordEncoder.matches(senhaAtual, user.getSenhaHash())) {
+			throw new RuntimeException("Senha atual incorreta");
+		}
+
+		user.setSenhaHash(passwordEncoder.encode(novaSenha));
+		userRepository.save(user);
 	}
 }

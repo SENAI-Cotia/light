@@ -46,10 +46,6 @@
             min-width: unset;
         }
 
-        @media (max-width: 480px) {
-        // Additional mobile adjustments if needed
-        }
-
         .section-title {
             font-size: 1.3rem;
             font-weight: 600;
@@ -168,7 +164,7 @@
             }
 
             @media (max-width: 480px) {
-                font-size: 16px; /* Previne zoom em inputs no mobile */
+                font-size: 16px;
             }
         }
 
@@ -268,7 +264,7 @@
                 }
 
                 @media (max-width: 480px) {
-                    font-size: 16px; /* Previne zoom em inputs no mobile */
+                    font-size: 16px;
                 }
             }
 

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
-	// buscar por status
 	List<Pedido> findByStatus(StatusPedido status);
+
 }

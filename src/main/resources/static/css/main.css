@@ -19,8 +19,6 @@
     list-style: none;
 }
 
-/* Customização da scroll-bar */
-
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -43,9 +41,6 @@
   display: none;
 }
 
-
-/*********************/
-
 a, a:visited{
     text-decoration: none;
     color: var(--vanilla);
@@ -57,7 +52,6 @@ body {
     display: flex;
     flex-direction: row;
     padding: 1rem;
-    /*overflow: hidden;*/
 }
 
 .primary-element {
@@ -124,12 +118,11 @@ select.secondary-element {
 main {
     display: flex;
     flex-direction: column;
-    /*padding: 0 0 2rem 1rem; <- esse espaçamento é para teste de melhor UI*/
     padding: 0 0 0 1rem;
     color: var(--hot-brown);
 
-    width: stretch;
-    height: stretch;
+    width: 100%;
+    height: 100%;
 
     @media (max-width: 992px) {
         height: fit-content;
@@ -144,31 +137,26 @@ main {
     overflow: hidden;
 
     .scrollable-container {
-        display: flex; /* ✓ Flexbox */
+        display: flex;
 
-        /* VERIFICANDO NECESSIDADE */
-        /*flex-direction: column; !* ✓ Verticalmente *!*/
-        /*gap: 1.5rem;*/
-
-        flex: 1; /* ✓ Crescer para ocupar espaço */
-        min-height: 0; /* ✓ CRUCIAL - permite cálculo correto */
+        flex: 1;
+        min-height: 0;
 
         .main-scrollable-container-child {
-            flex: 1; /* ✓ Crescer para preencher espaço */
-            min-height: 0; /* ✓ Permitir cálculo correto */
+            flex: 1;
+            min-height: 0;
 
-            overflow: auto; /* ✓ Respeitar border-radius */
-            display: flex; /* ✓ Gerenciar filhos */
+            overflow: auto;
+            display: flex;
             flex-direction: column;
         }
 
         @media (max-width: 768px) {
-            flex: none;   /* Deixar de crescer */
-            height: auto; /* Altura normal */
+            flex: none;
+            height: auto;
 
             .main-scrollable-container-child {
                 flex: none;
-                /*overflow: visible;*/
                 height: auto;
             }
         }

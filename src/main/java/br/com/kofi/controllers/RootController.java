@@ -2,6 +2,7 @@ package br.com.kofi.controllers;
 
 import br.com.kofi.models.Pedido;
 import br.com.kofi.models.Produto;
+import br.com.kofi.models.enums.StatusPedido;
 import br.com.kofi.services.PedidoService;
 import br.com.kofi.services.ProdutoService;
 import br.com.kofi.services.UserService;
@@ -54,7 +55,8 @@ public class RootController {
 	}
 
 	@GetMapping("/cozinha")
-	public String cozinha() {
+	public String cozinha(Model model) {
+		model.addAttribute("pedidos", pedidoService.buscarPorStatus(StatusPedido.PENDENTE));
 		return "pages/cozinha";
 	}
 

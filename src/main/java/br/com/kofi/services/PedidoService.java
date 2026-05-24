@@ -3,6 +3,7 @@ package br.com.kofi.services;
 import br.com.kofi.models.ItemPedido;
 import br.com.kofi.models.Pedido;
 import br.com.kofi.models.Produto;
+import br.com.kofi.models.enums.StatusPedido;
 import br.com.kofi.repositories.PedidoRepository;
 import java.util.List;
 
@@ -27,26 +28,27 @@ public class PedidoService {
 		return pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
 	}
 
-//	public void salvar(Pedido pedido) {
-//		for (ItemPedido item : pedido.getItens()) {
-//			item.setPedido(pedido);
-//		}
-//		pedidoRepository.save(pedido);
-//	}
+	public void finalizar(Long id) {
+		Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido não encontrado: " + id));
+		pedido.setStatus(StatusPedido.PRONTO);
+		pedidoRepository.save(pedido);
+	}
+
+	public List<Pedido> buscarPorStatus(StatusPedido status) {
+		return pedidoRepository.findByStatus(status);
+	}
 
 	public void deletar(Long id) {
 		pedidoRepository.deleteById(id);
-		// orphanRemoval=true no @OneToMany já apaga os itens automaticamente
 	}
 
 	public void salvar(Pedido pedido) {
 		for (ItemPedido item : pedido.getItens()) {
-			item.setPedido(pedido); // conecta o item ao pedido pai
+			item.setPedido(pedido);
 
-			// snapshot do preço — busca o preço atual do produto e fixa no item
 			Produto produto = produtoRepository.findById(item.getProduto().getId())
 					.orElseThrow(() -> new RuntimeException("Produto não encontrado"));
-			item.setPrecoUnitario(produto.getPreco()); // ← preço travado no momento do pedido
+			item.setPrecoUnitario(produto.getPreco());
 		}
 		pedidoRepository.save(pedido);
 	}

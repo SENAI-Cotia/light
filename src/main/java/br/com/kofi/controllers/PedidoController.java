@@ -2,10 +2,8 @@ package br.com.kofi.controllers;
 
 import br.com.kofi.models.ItemPedido;
 import br.com.kofi.models.Pedido;
-import br.com.kofi.models.Usuario;
 import br.com.kofi.services.PedidoService;
 import br.com.kofi.services.ProdutoService;
-import br.com.kofi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,25 +17,13 @@ public class PedidoController {
 	private PedidoService pedidoService;
 
 	@Autowired
-	private UserService userService;
-
-	@Autowired
 	private ProdutoService produtoService;
-
-	@GetMapping("/novo")
-	public String formularioNovo(Model model) {
-		Pedido pedido = new Pedido();
-		pedido.getItens().add(new ItemPedido());
-
-		model.addAttribute("pedido", pedido);
-		model.addAttribute("produtos", produtoService.listarTodos());
-		return "pages/novo-pedido";
-	}
 
 	@PostMapping("/salvar")
 	public String salvar(@ModelAttribute Pedido pedido) {
 
-		// gera número do pedido se for novo
+		System.out.println("AQUI -> " + pedido.getValorTotal());
+
 		if (pedido.getNumeroPedido() == null || pedido.getNumeroPedido().isEmpty()) {
 			pedido.setNumeroPedido(gerarNumeroPedido());
 		}
@@ -46,11 +32,12 @@ public class PedidoController {
 		return "redirect:/atendimento";
 	}
 
-	@GetMapping("/{id}/editar")
-	public String formularioEditar(@PathVariable Long id, Model model) {
-		model.addAttribute("pedido", pedidoService.buscarPorId(id));
-		model.addAttribute("produtos", produtoService.listarTodos());
-		return "pedidos/formulario";
+	@PostMapping("/{id}/concluir")
+	public String formularioConcluir(@PathVariable Long id, Model model) {
+		pedidoService.finalizar(id);
+		model.addAttribute("pedidos", pedidoService.listarTodos());
+
+		return "redirect:/cozinha";
 	}
 
 	@PostMapping("/{id}/deletar")
@@ -61,16 +48,5 @@ public class PedidoController {
 
 	private String gerarNumeroPedido() {
 		return String.format("#%04d", (int) (Math.random() * 9999));
-	}
-
-	@GetMapping("/{pedidoId}/itens/{itemId}/remover")
-	public String removerItem(@PathVariable Long pedidoId, @PathVariable Long itemId) {
-		Pedido pedido = pedidoService.buscarPorId(pedidoId);
-
-		// remove o item da lista — o orphanRemoval faz o DELETE no banco automaticamente
-		pedido.getItens().removeIf(item -> item.getId().equals(itemId));
-
-		pedidoService.salvar(pedido);
-		return "redirect:/atendimento/" + pedidoId + "/editar";
 	}
 }

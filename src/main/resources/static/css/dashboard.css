@@ -86,7 +86,6 @@ dash-header > * {
 
             p {
                 font-size: clamp(.5rem, 2.5vw, 1rem);
-                /*white-space: nowrap;*/
             }
 
             .average-ticket, .highest-ticket {
@@ -117,11 +116,8 @@ dash-header > * {
                 font-size: clamp(.9rem, 2vw, 1.2rem);
                 margin-bottom: .8rem;
                 text-align: center;
-                /*white-space: nowrap;*/
             }
-
         }
-
 
         .quantity {
             display: flex;
@@ -150,9 +146,6 @@ dash-header > * {
     .orders-graph {
         background-color: var(--white);
         border-radius: 10px;
-        /*display: flex;
-        justify-content: center;
-        align-items: center;*/
         flex: 2;
         padding: 1rem;
         position: relative;

@@ -16,73 +16,24 @@
 
     <div class="scrollable-container">
         <div class="main-scrollable-container-child">
-            <div class="orders">
-                <div class="order-card">
-                    <div class="order-detalails">
-                        <h3>Pedido N° X</h3>
-                        <p>Pedido realizado há: Xmin</p>
+            <div class="orders" >
+                <div class="order-card" th:each="pedido : ${pedidos}">
+                    <div class="order-details">
+                        <h3 th:text="${'Pedido n°' + pedido.numeroPedido}"></h3>
+<!--                        <p>Pedido realizado há: Xmin</p>-->
                     </div>
 
-                    <div class="products">
+                    <div class="products" th:each="item : ${pedido.itens}">
                         <div class="product">
-
-                        </div>
-
-                        <div class="product">
-
+                            <span th:text="${item.quantidade + ' x '}"></span>
+                            <span th:text="${item.produto.nome}"></span>
+                            <p th:text="${'Tempo estimado: ' + item.produto.tempoPreparoMin + 'min'}"></p>
                         </div>
                     </div>
-                </div>
 
-                <div class="order-card">
-                    <div class="order-detalails">
-                        <h3>Pedido N° X</h3>
-                        <p>Pedido realizado há: Xmin</p>
-                    </div>
-
-                    <div class="products">
-                        <div class="product">
-
-                        </div>
-
-                        <div class="product">
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="order-card">
-                    <div class="order-detalails">
-                        <h3>Pedido N° X</h3>
-                        <p>Pedido realizado há: Xmin</p>
-                    </div>
-
-                    <div class="products">
-                        <div class="product">
-
-                        </div>
-
-                        <div class="product">
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="order-card">
-                    <div class="order-detalails">
-                        <h3>Pedido N° X</h3>
-                        <p>Pedido realizado há: Xmin</p>
-                    </div>
-
-                    <div class="products">
-                        <div class="product">
-
-                        </div>
-
-                        <div class="product">
-
-                        </div>
-                    </div>
+                    <form th:action="@{|/atendimento/${pedido.id}/concluir|}" method="post">
+                        <button >Concluir pedido!</button>
+                    </form>
                 </div>
 
             </div>
