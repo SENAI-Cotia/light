@@ -168,6 +168,7 @@
                             <th>Data de criação</th>
                             <th>Hora de criação</th>
                             <th>Valor total</th>
+                            <th>Ações</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -177,6 +178,14 @@
                             <td th:text="${#temporals.format(pedido.criadoEm, 'dd/MM/yyyy')}"></td>
                             <td th:text="${#temporals.format(pedido.criadoEm, 'HH:mm')}"></td>
                             <td th:text="${'R$ ' + #aggregates.sum(pedido.itens.![quantidade * precoUnitario])}"></td>
+                            <td class="actions">
+                                <form th:action="@{|/atendimento/${pedido.id}/deletar|}" method="post">
+                                    <button type="submit" class="primary-element" id="btn-deletar">Deletar</button>
+                                </form>
+                                <!--                                <a th:href="${'/atendimento/' + pedido.id + '/deletar'}">-->
+                                <!--                                    <img alt="delete product button" th:src="@{/assets/icons/trash.svg}"/>-->
+                                <!--                                </a>-->
+                            </td>
                         </tr>
                         </tbody>
                     </table>

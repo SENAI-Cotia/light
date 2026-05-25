@@ -2,6 +2,7 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Cardápio', 'cardapio')}"></th:block>
+    <script type="text/javascript" th:src="@{/js/alertas.js}" defer></script>
 </head>
 <body>
 
@@ -15,6 +16,7 @@
     <th:block th:insert="~{fragments/header:: header('tea-cup-dark', 'CARDÁPIO')}"></th:block>
 
     <div class="cardapio-container scrollable-container">
+        <div id="msg-erro" th:if="${erro}" th:text="${erro}"></div>
         <div class="quick-actions">
             <div class="search-bar">
                 <button class="search-button" type="button">
@@ -71,5 +73,6 @@
         </div>
     </div>
 </main>
+
 </body>
 </html>

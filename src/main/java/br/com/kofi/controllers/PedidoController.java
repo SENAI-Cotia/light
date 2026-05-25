@@ -21,7 +21,6 @@ public class PedidoController {
 
 	@PostMapping("/salvar")
 	public String salvar(@ModelAttribute Pedido pedido) {
-
 		System.out.println("AQUI -> " + pedido.getValorTotal());
 
 		if (pedido.getNumeroPedido() == null || pedido.getNumeroPedido().isEmpty()) {

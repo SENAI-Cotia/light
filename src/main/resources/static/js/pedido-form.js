@@ -109,7 +109,6 @@ function filtrar(categoria) {
 
 
 const form = document.getElementById('form-pedido');
-//console.log('form:', form);
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
