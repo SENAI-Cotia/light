@@ -55,7 +55,7 @@ button {
         opacity: 0.5;
     }
 
-    a {
+    span {
         transition: all .3s linear;
         color: var(--earth-brown);
     }

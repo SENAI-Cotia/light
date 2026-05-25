@@ -5,6 +5,7 @@
 >
 <head>
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Configurações', 'configuracoes')}"></th:block>
+    <script type="text/javascript" th:src="@{/js/usuario-form.js}" defer></script>
 </head>
 <body>
 
@@ -22,14 +23,15 @@
             <h2 class="section-title">Perfil Administrador</h2>
 
             <div class="avatar-wrapper">
-                <img class="avatar-placeholder" th:src="@{/assets/icons/logo-btn.svg}" />
+                <img class="avatar-placeholder" th:src="@{/assets/icons/logo-btn.svg}"/>
             </div>
 
             <form class="profile-form" th:action="@{/configuracoes/alterar-senha}" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <div class="form-group">
                     <label for="alterar-usuario">Alterar usuário</label>
-                    <input type="text" id="alterar-usuario" class="form-input" placeholder="" th:value="${#authentication.principal.username}">
+                    <input type="text" id="alterar-usuario" class="form-input" placeholder=""
+                           th:value="${#authentication.principal.username}">
                 </div>
 
                 <div class="form-group">
@@ -83,17 +85,20 @@
 
                     <div class="form-group">
                         <label for="novo-usuario-nome">Nome completo *</label>
-                        <input type="text" id="novo-usuario-nome" class="form-input" required maxlength="100" name="nome" placeholder="Ex: John Doe">
+                        <input type="text" id="novo-usuario-nome" class="form-input" required maxlength="100"
+                               name="nome" placeholder="Ex: João Carlos">
                     </div>
 
                     <div class="form-group">
                         <label for="novo-usuario-email">Email *</label>
-                        <input type="email" id="novo-usuario-email" class="form-input" name="email" required placeholder="Ex: john.doe@gmail.com">
+                        <input type="email" id="novo-usuario-email" class="form-input" name="email" required
+                               placeholder="Ex: email-usuario@gmail.com">
                     </div>
 
                     <div class="form-group">
                         <label for="novo-usuario-senha">Senha *</label>
-                        <input type="password" id="novo-usuario-senha" class="form-input" name="senha" required minlength="6" placeholder="Ex: Minha_senha@9482">
+                        <input type="password" id="novo-usuario-senha" class="form-input" name="senha" required
+                               minlength="6" placeholder="Ex: senha!@9482">
                     </div>
 
                     <div class="form-group">
@@ -106,8 +111,9 @@
                     </div>
 
                     <div class="form-buttons">
-                        <button type="button" class="btn-cancelar hidden secondary-element" id="btn-cancelar">Cancelar</button>
-                        <button type="reset" class="secondary-element"  id="btn-limpar">Limpar campos</button>
+                        <button type="button" class="btn-cancelar hidden secondary-element" id="btn-cancelar">Cancelar
+                        </button>
+                        <button type="reset" class="secondary-element" id="btn-limpar">Limpar campos</button>
                         <button type="submit" class="primary-element" id="btn-salvar">Salvar</button>
                     </div>
                 </form>
@@ -132,103 +138,11 @@
                             <button type="submit" class="primary-element" id="btn-deletar">Deletar</button>
                         </form>
 
-
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script defer>
-        const formulario = document.getElementById('form-usuarios');
-        const tituloFormulario = document.getElementById('titulo-formulario');
-        const usuarioIdInput = document.getElementById('usuario-id');
-        const nomeInput = document.getElementById('novo-usuario-nome');
-        const emailInput = document.getElementById('novo-usuario-email');
-        const senhaInput = document.getElementById('novo-usuario-senha');
-        const papelSelect = document.getElementById('papel');
-        const btnSalvar = document.getElementById('btn-salvar');
-        const btnCancelar = document.getElementById('btn-cancelar');
-        const btnLimpar = document.getElementById('btn-limpar');
-        const botoesEditar = document.querySelectorAll('.btn-editar');
-
-        // Estado padrão de criação
-        const estadoPadrao = {
-            titulo: 'Cadastrar usuário',
-            acao: '/cadastrar',
-            id: '',
-            nome: '',
-            email: '',
-            senha: '',
-            papel: ''
-        };
-
-        // ===== EDITAR USUÁRIO =====
-        botoesEditar.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                const userItem = btn.closest('.user-item');
-                const id = userItem.dataset.id;
-                const nome = userItem.dataset.nome;
-                const email = userItem.dataset.email;
-                const papel = userItem.dataset.papel;
-
-                // Preencher formulário
-                usuarioIdInput.value = id;
-                nomeInput.value = nome;
-                emailInput.value = email;
-                papelSelect.value = papel;
-
-                // Limpar e desabilitar campo de senha (não deve ser alterado em edição)
-                senhaInput.value = '';
-                senhaInput.parentElement.querySelector('label').textContent = 'Nova senha';
-
-                // Mudar título
-                tituloFormulario.textContent = 'Atualizar usuário';
-
-                // Mudar ação do formulário
-                formulario.action = `/configuracoes/atualizar-usuario/${id}`;
-
-                // Mostrar botão de cancelar
-                btnCancelar.classList.remove('hidden');
-                btnLimpar.classList.add('hidden');
-
-                // Scroll até o formulário
-                formulario.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-
-        // ===== CANCELAR EDIÇÃO =====
-        btnCancelar.addEventListener('click', (e) => {
-            e.preventDefault();
-            cancelarEdicao();
-        });
-
-        function cancelarEdicao() {
-            // Resetar formulário
-            formulario.reset();
-            usuarioIdInput.value = '';
-
-            // Reabilitar campo de senha
-            senhaInput.parentElement.style.opacity = '1';
-            senhaInput.parentElement.querySelector('label').textContent = 'Senha *';
-
-            // Restaurar título
-            tituloFormulario.textContent = estadoPadrao.titulo;
-
-            // Restaurar ação do formulário
-            formulario.action = estadoPadrao.acao;
-
-            // Esconder botão de cancelar
-            btnCancelar.classList.add('hidden');
-            btnLimpar.classList.remove('hidden');
-
-            // Scroll até o topo do formulário
-            formulario.scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
 </main>
 </body>
 </html>

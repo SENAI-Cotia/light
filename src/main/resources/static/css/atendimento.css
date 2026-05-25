@@ -434,7 +434,7 @@
                     &[type="reset"] {
                         background-color: var(--vanilla);
                         color: var(--hot-brown);
-                        border: 1px solid #d4c5b0;
+                        text-align: center;
 
                         &:hover {
                             background-color: #f5ede0;
@@ -444,6 +444,7 @@
                     &[type="submit"] {
                         background-color: var(--hot-brown);
                         color: white;
+                        text-align: center;
 
                         &:hover {
                             background-color: var(--dark-hot-brown);
