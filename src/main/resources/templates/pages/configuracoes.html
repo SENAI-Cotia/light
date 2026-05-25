@@ -17,12 +17,12 @@
 <main>
     <th:block th:insert="~{fragments/header:: header('config-dark', 'CONFIGURAÇÕES')}"></th:block>
 
-    <div class="adm-container">
-        <div class="profile-container">
+    <div class="adm-container scrollable-container">
+        <div class="profile-container main-scrollable-container-child">
             <h2 class="section-title">Perfil Administrador</h2>
 
             <div class="avatar-wrapper">
-                <div class="avatar-placeholder"></div>
+                <img class="avatar-placeholder" th:src="@{/assets/icons/logo-btn.svg}" />
             </div>
 
             <form class="profile-form" th:action="@{/configuracoes/alterar-senha}" method="post">
@@ -66,18 +66,21 @@
                 <p th:if="${sucessoSenha}" th:text="${sucessoSenha}" style="color: green;"></p>
 
                 <div class="button-group">
-                    <button type="reset" class="">Limpar</button>
+                    <button type="reset" class="secondary-element">Limpar</button>
                     <button type="submit" class="primary-element">Salvar</button>
                 </div>
             </form>
         </div>
 
 
-        <div class="new-user-container">
+        <div class="new-user-container main-scrollable-container-child">
             <div class="register-section">
-                <h2 class="section-title">Cadastrar usuário</h2>
+                <h2 class="section-title" id="titulo-formulario">Cadastrar usuário</h2>
 
-                <form class="register-form" th:action="@{/cadastrar}" method="post">
+                <form class="register-form" id="form-usuarios" th:action="@{/configuracoes/novo-usuario}" method="post">
+                    <!-- Campo hidden para ID do usuário (edição) -->
+                    <input type="hidden" id="usuario-id" name="usuarioId" value="">
+
                     <div class="form-group">
                         <label for="novo-usuario-nome">Nome completo *</label>
                         <input type="text" id="novo-usuario-nome" class="form-input" required maxlength="100" name="nome" placeholder="Ex: John Doe">
@@ -98,30 +101,134 @@
                         <select id="papel" class="secondary-element" name="papel" required>
                             <option value="">-- Selecione --</option>
                             <option value="ADMIN">Administrador</option>
-                            <option value="ATENDENTE">Atendente</option>
-                            <option value="COZINHA">Cozinha</option>
+                            <option value="FUNCIONARIO">Funcionário</option>
                         </select>
                     </div>
 
-                    <button type="reset" class="">Limpar campos</button>
-                    <button type="submit" class="primary-element">Salvar</button>
+                    <div class="form-buttons">
+                        <button type="button" class="btn-cancelar hidden secondary-element" id="btn-cancelar">Cancelar</button>
+                        <button type="reset" class="secondary-element"  id="btn-limpar">Limpar campos</button>
+                        <button type="submit" class="primary-element" id="btn-salvar">Salvar</button>
+                    </div>
                 </form>
             </div>
 
             <div class="users-list-section">
                 <h3 class="users-list-title">Usuários cadastrados</h3>
 
-                <div class="users-list" th:each="usuario : ${usuarios}">
-                    <div class="user-item">
+                <div class="users-list">
+                    <div class="user-item" th:each="usuario : ${usuarios}"
+                         th:unless="${#authentication.principal.username == usuario.email}"
+                         th:data-id="${usuario.id}"
+                         th:data-nome="${usuario.nome}"
+                         th:data-email="${usuario.email}"
+                         th:data-papel="${usuario.papel}"
+                    >
                         <span class="user-name" th:text="${usuario.nome}"></span>
-                        <button class="" title="Editar usuário">
+                        <button class="btn-editar" type="button" title="Editar usuário">
                             <img th:src="@{/assets/icons/pen.svg}" alt="Editar usuário">
                         </button>
+                        <form th:action="@{|/configuracoes/${usuario.id}/deletar|}" method="post">
+                            <button type="submit" class="primary-element" id="btn-deletar">Deletar</button>
+                        </form>
+
+
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script defer>
+        const formulario = document.getElementById('form-usuarios');
+        const tituloFormulario = document.getElementById('titulo-formulario');
+        const usuarioIdInput = document.getElementById('usuario-id');
+        const nomeInput = document.getElementById('novo-usuario-nome');
+        const emailInput = document.getElementById('novo-usuario-email');
+        const senhaInput = document.getElementById('novo-usuario-senha');
+        const papelSelect = document.getElementById('papel');
+        const btnSalvar = document.getElementById('btn-salvar');
+        const btnCancelar = document.getElementById('btn-cancelar');
+        const btnLimpar = document.getElementById('btn-limpar');
+        const botoesEditar = document.querySelectorAll('.btn-editar');
+
+        // Estado padrão de criação
+        const estadoPadrao = {
+            titulo: 'Cadastrar usuário',
+            acao: '/cadastrar',
+            id: '',
+            nome: '',
+            email: '',
+            senha: '',
+            papel: ''
+        };
+
+        // ===== EDITAR USUÁRIO =====
+        botoesEditar.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const userItem = btn.closest('.user-item');
+                const id = userItem.dataset.id;
+                const nome = userItem.dataset.nome;
+                const email = userItem.dataset.email;
+                const papel = userItem.dataset.papel;
+
+                // Preencher formulário
+                usuarioIdInput.value = id;
+                nomeInput.value = nome;
+                emailInput.value = email;
+                papelSelect.value = papel;
+
+                // Limpar e desabilitar campo de senha (não deve ser alterado em edição)
+                senhaInput.value = '';
+                senhaInput.parentElement.querySelector('label').textContent = 'Nova senha';
+
+                // Mudar título
+                tituloFormulario.textContent = 'Atualizar usuário';
+
+                // Mudar ação do formulário
+                formulario.action = `/configuracoes/atualizar-usuario/${id}`;
+
+                // Mostrar botão de cancelar
+                btnCancelar.classList.remove('hidden');
+                btnLimpar.classList.add('hidden');
+
+                // Scroll até o formulário
+                formulario.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // ===== CANCELAR EDIÇÃO =====
+        btnCancelar.addEventListener('click', (e) => {
+            e.preventDefault();
+            cancelarEdicao();
+        });
+
+        function cancelarEdicao() {
+            // Resetar formulário
+            formulario.reset();
+            usuarioIdInput.value = '';
+
+            // Reabilitar campo de senha
+            senhaInput.parentElement.style.opacity = '1';
+            senhaInput.parentElement.querySelector('label').textContent = 'Senha *';
+
+            // Restaurar título
+            tituloFormulario.textContent = estadoPadrao.titulo;
+
+            // Restaurar ação do formulário
+            formulario.action = estadoPadrao.acao;
+
+            // Esconder botão de cancelar
+            btnCancelar.classList.add('hidden');
+            btnLimpar.classList.remove('hidden');
+
+            // Scroll até o topo do formulário
+            formulario.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </main>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package br.com.kofi.controllers;
 
+import br.com.kofi.models.enums.Papel;
 import br.com.kofi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,7 +11,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/configuracoes")
-
 public class ConfiguracoesController {
 
     @Autowired
@@ -38,4 +38,47 @@ public class ConfiguracoesController {
 
         return "redirect:/configuracoes";
     }
+
+    @PostMapping("/novo-usuario")
+    public String cadastrarFuncionario(
+            @RequestParam String nome,
+            @RequestParam String email,
+            @RequestParam String senha,
+            @RequestParam Papel papel,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            userService.cadastrar(nome, email, senha, papel);
+            redirectAttributes.addFlashAttribute("sucessoUsuario", "Usuário cadastrado com sucesso.");
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("erroUsuario", e.getMessage());
+        }
+
+        return "redirect:/configuracoes";
+    }
+
+    @PostMapping("/atualizar-usuario")
+    public String atualizarUsuario(
+            @RequestParam Long id,
+            @RequestParam String nome,
+            @RequestParam String email,
+            @RequestParam Papel papel,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            userService.atualizar(id, nome, email, papel);
+            redirectAttributes.addFlashAttribute("sucessoUsuario", "Usuário atualizado com sucesso.");
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("erroUsuario", e.getMessage());
+        }
+
+        return "redirect:/configuracoes";
+    }
+
+    @PostMapping("/{id}/deletar")
+    public String deletar(@PathVariable Long id) {
+        userService.deletar(id);
+        return "redirect:/configuracoes";
+    }
+
 }

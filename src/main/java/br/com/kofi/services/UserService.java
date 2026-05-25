@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -28,6 +30,10 @@ public class UserService implements UserDetailsService {
 	}
 
 	public void cadastrar(String nome, String email, String senha, Papel papel) {
+		if (userRepository.findByEmail(email).isPresent()) {
+			throw new RuntimeException("E-mail já está em uso.");
+		}
+
 		Usuario user = new Usuario();
 		user.setEmail(email);
 		user.setNome(nome);
@@ -62,4 +68,24 @@ public class UserService implements UserDetailsService {
 		user.setSenhaHash(passwordEncoder.encode(novaSenha));
 		userRepository.save(user);
 	}
+
+	public void atualizar(Long id, String nome, String email, Papel papel) {
+		Usuario user = userRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+
+		userRepository.findByEmail(email)
+				.filter(u -> !u.getId().equals(id))
+				.ifPresent(u -> { throw new RuntimeException("E-mail já está em uso."); });
+
+		user.setNome(nome);
+		user.setEmail(email);
+		user.setPapel(papel);
+
+		userRepository.save(user);
+	}
+
+	public void deletar(@PathVariable Long id) {
+		userRepository.deleteById(id);
+	}
+
 }

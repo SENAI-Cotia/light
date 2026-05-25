@@ -25,9 +25,6 @@ public class Usuario {
     @Column(nullable = false)
     private Papel papel;
 
-    @Column(nullable = false)
-    private boolean ativo = true;
-
     @Column(name = "criado_em", nullable = false, updatable = false)
     private LocalDateTime criadoEm;
 
@@ -39,13 +36,12 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, String email, String senhaHash, Papel papel, boolean ativo, LocalDateTime criadoEm) {
+    public Usuario(Long id, String nome, String email, String senhaHash, Papel papel, LocalDateTime criadoEm) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senhaHash = senhaHash;
         this.papel = papel;
-        this.ativo = ativo;
         this.criadoEm = criadoEm;
     }
 
@@ -87,14 +83,6 @@ public class Usuario {
 
     public void setPapel(Papel papel) {
         this.papel = papel;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
     }
 
     public LocalDateTime getCriadoEm() {

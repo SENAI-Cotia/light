@@ -38,4 +38,5 @@ public class AuthController {
         userService.cadastrar(nome, email, senha, papel);
         return "redirect:/login";
     }
+
 }
