@@ -1,0 +1,119 @@
+:root {
+    --hot-brown: #41210A;
+    --dark-hot-brown: #3A1D08;
+    --white: #FFFFFF;
+    --earth-brown: #8B7357;
+    --dark-mountain: #6A6863;
+    --mountain: #AAA396;
+    --vanilla: #F1EADA;
+    --tobacco: #B59E7D;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: var(--vanilla);
+    min-height: 100vh;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.registro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    background-color: var(--hot-brown);
+    border-radius: 30px;
+    color: var(--vanilla);
+
+    width: 80%;
+    max-width: 1200px;
+    height: auto;
+    min-height: 90vh;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+
+    padding: 2rem clamp(40px, 9vw, 80px) 40px;
+}
+
+.registro-container h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--vanilla);
+    margin-bottom: 20px;
+}
+
+.registro-form {
+    width: 100%;
+    max-width: 600px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: clamp(20px, 2vw, 30px);
+}
+
+.input-group label {
+    font-size: clamp(1.05rem, 1.15vw, 1.3rem);
+    margin-bottom: clamp(6px, 0.8vw, 10px);
+    text-align: left;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    height: clamp(55px, 4vw, 56px);
+    border-radius: clamp(25px, 2vw, 28px);
+    border: none;
+    background-color: var(--vanilla);
+    padding: 0 20px;
+    font-size: clamp(1rem, 1.1vw, 1.15rem);
+    color: var(--hot-brown);
+    outline: none;
+    font-family: inherit;
+}
+
+.input-group select {
+    appearance: none;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 18px;
+}
+
+.registro-form .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.registro-form button {
+    width: 200px;
+    height: 55px;
+    border-radius: 28px;
+    border: none;
+    background-color: var(--tobacco);
+    color: var(--white);
+    font-weight: bold;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.registro-form button:hover {
+    filter: brightness(0.9);
+}
