@@ -12,13 +12,13 @@ Pensando nisso, criamos o projeto Kofi, que tem como objetivo auxiliar cafeteria
 
 ## Tecnologias Utilizadas
 
-A COMBINAR. Previsto: HTML, CSS, JAVA/JavaScript.
+HTML, CSS, JAVA, JavaScript.
 
-## Objetivo 📍
+## Objetivo
 
 Criar um sistema web simples que permita registrar pedidos, acompanhar o andamento do preparo e consultar as vendas do dia, através navegador, sem papel e sem margem pra erro humano.
 
-## Público 🙋‍♀️
+## Público
 
 Os usuários do sistema são os próprios funcionários da cafeteria: o atendente que abre o pedido, a cozinha que acompanha a fila, e o gestor que quer saber como foi o dia.
 
