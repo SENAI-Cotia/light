@@ -58,9 +58,9 @@
     color: var(--vanilla);
 }
 
-.login-container > *:not(.coffee-boy-wrapper) {
-    padding-left: clamp(20px, 4vw, 60px);
-    padding-right: clamp(20px, 4vw, 60px);
+.login-container {
+    padding-left: clamp(40px, 9vw, 80px);
+    padding-right: clamp(40px, 9vw, 80px);
     box-sizing: border-box;
 }
 
@@ -75,11 +75,6 @@
     width: clamp(200px, 15vw, 267px);
 }
 
-.coffee-boy-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
 
 .coffee-boy {
     display: none;
@@ -112,15 +107,15 @@
 }
 
 .input-group label {
-    font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+    font-size: clamp(1.05rem, 1.15vw, 1.3rem);
     margin-bottom: clamp(6px, 0.8vw, 10px);
     text-align: left;
 }
 
 .input-group input {
     width: 100%;
-    height: clamp(44px, 4vw, 56px);
-    border-radius: clamp(22px, 2vw, 28px);
+    height: clamp(55px, 4vw, 56px);
+    border-radius: clamp(25px, 2vw, 28px);
     border: none;
     background-color: var(--vanilla);
     padding: 0 20px;
@@ -175,6 +170,77 @@
     margin-bottom: 16px;
     text-align: center;
 }
+@media (min-width: 993px) {
+    .login-container {
+        padding-top: clamp(6vh, 6vw, 9vh);
+    }
+
+    .login-container > *:not(.coffee-boy-wrapper) {
+        padding-left: clamp(35px, 4.5vw, 55px);
+        padding-right: clamp(35px, 4.5vw, 55px);
+        width: 100%;
+    }
+
+    .logo-header {
+        margin-bottom: clamp(30px, 4vw, 50px);
+        justify-content: center;
+    }
+
+    .coffee-icon {
+        width: clamp(260px, 18vw, 360px);
+    }
+
+    .welcome-section {
+        margin-bottom: clamp(30px, 4vw, 55px);
+    }
+
+    .welcome-section h1 {
+        font-size: clamp(2.2rem, 2.8vw, 3.2rem);
+        margin-bottom: clamp(10px, 1vw, 16px);
+        font-weight: 700;
+    }
+
+    .welcome-section p {
+        font-size: clamp(1.15rem, 1.3vw, 1.45rem);
+    }
+
+    .login-form {
+        max-width: 100%;
+    }
+
+    .input-group {
+        margin-bottom: clamp(24px, 2.5vw, 36px);
+    }
+
+    .input-group label {
+        font-size: clamp(1.1rem, 1.2vw, 2rem);
+        margin-bottom: clamp(8px, 0.8vw, 12px);
+    }
+
+    .input-group input {
+        height: clamp(54px, 4.8vw, 75px);
+        border-radius: clamp(27px, 2.4vw, 34px);
+        padding: 0 26px;
+        font-size: clamp(1.1rem, 1.2vw, 1.3rem);
+    }
+
+    .remember-me {
+        font-size: clamp(1.1rem, 1.2vw, 1.25rem);
+    }
+
+    .btn-entrar {
+        width: 75%;
+        height: clamp(52px, 4.8vw, 64px);
+        border-radius: clamp(26px, 2.4vw, 32px);
+        font-size: clamp(1.2rem, 1.3vw, 1.5rem);
+        line-height: clamp(52px, 4.8vw, 64px);
+        margin-top: clamp(60px, 7vw, 100px);
+    }
+
+    .msg-error {
+        font-size: 0.95rem;
+    }
+}
 
 @media (max-width: 992px) {
 
@@ -210,4 +276,19 @@
         max-width: 350px;
     }
 
+    @media (max-width: 400px) {
+        .coffee-boy {
+            max-width: 230px;
+            bottom: 10px;
+        }
+
+       .welcome-section h1 {
+           font-size: 1.4rem;
+           margin-bottom: 8px;
+       }
+
+       .welcome-section p {
+           font-size: 0.95rem;
+           margin-bottom: 6px;
+       }
 }
