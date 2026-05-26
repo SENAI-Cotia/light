@@ -1,34 +1,32 @@
 @import url(main.css);
 
+h1 {
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    text-align: center;
+}
+
 .novo-produto-container {
-    width: 100%;
-    height: 100%;
-    background-color: var(--white);
-    border-radius: .5rem;
+   width: 100%;
+   background-color: var(--white);
+   border-radius: .5rem;
+   padding: 2rem;
 
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+   /* Remova height: 100% e align-items daqui */
 
-    padding: 2rem;
+   @media (max-width: 768px) {
+       padding: 1.5rem 1rem;
+   }
 
-    @media (max-width: 768px) {
-        padding: 1.5rem 1rem;
-    }
-
-    @media (max-width: 480px) {
-        padding: 1rem;
-    }
+   @media (max-width: 480px) {
+       padding: 1rem;
+   }
 }
 
 .produto-form-wrapper {
     background-color: var(--vanilla);
     width: 100%;
-    max-width: 640px;
-    display: flex;
-    flex-direction: column;
+    /* Remova display: flex e align-items: center daqui */
     gap: 2rem;
-    align-items: center;
     padding: 3rem;
     border-radius: .5rem;
 
@@ -56,9 +54,25 @@
 
 .produto-form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
     width: 100%;
+
+    @media (max-width: 992px) {
+        flex-direction: column;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        padding: 0 2rem 0 2rem;
+        gap: 1rem;
+
+        @media (max-width: 1200px) {
+            padding: 0;
+        }
+    }
 }
 
 .field {
@@ -124,7 +138,7 @@
     cursor: pointer;
 }
 
-/* Disponibilidade — radio buttons */
+
 .field .radio-group {
     display: flex;
     gap: 1rem;
@@ -165,7 +179,16 @@
     width: 100%;
     margin-top: 0.5rem;
 
+    button {
+        min-width: 20%;
+    }
+
     @media (max-width: 768px) {
         flex-direction: column;
+        align-items: center;
+
+        button {
+            min-width: 50%;
+        }
     }
 }

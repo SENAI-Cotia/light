@@ -25,7 +25,7 @@
                 </button>
 
                 <input id="input-busca" aria-label="Busca" name="busca"
-                       placeholder="Pesquise por produto ou número do pedido"
+                       placeholder="Pesquise por produto ou n° do pedido"
                        type="text">
 
                 <button type="button" id="btn-limpar"
@@ -40,7 +40,8 @@
             </button>
         </div>
 
-        <form id="form-pedido" th:classappend="${modo == 'pedidos'} ? 'hidden' : ''" th:action="@{/atendimento/salvar}" method="post" class="painel-container">
+        <form id="form-pedido" th:classappend="${modo == 'pedidos'} ? 'hidden' : ''" th:action="@{/atendimento/salvar}"
+              method="post" class="painel-container">
 
             <div id="itens-ocultos"></div>
 
@@ -156,11 +157,11 @@
 
                 </div>
 
-                <div>
-                    <button type="reset">
+                <div class="form-buttons">
+                    <button type="reset" class="secondary-element">
                         Cancelar
                     </button>
-                    <button type="submit">
+                    <button type="submit" class="primary-element">
                         Confirmar pedido
                     </button>
                 </div>
@@ -168,36 +169,37 @@
         </form>
 
         <div class="pedidos-grid" th:classappend="${modo != 'pedidos'} ? 'hidden' : ''">
-                <div class="main-scrollable-container-child">
-                    <table class="pedidos-table">
-                        <thead>
-                        <tr>
-                            <th>Nº pedido</th>
-                            <th>Status</th>
-                            <th>Data de criação</th>
-                            <th>Hora de criação</th>
-                            <th>Valor total</th>
-                            <th>Ações</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="pedido : ${pedidos}">
-                            <td th:text="${pedido.numeroPedido}"></td>
-                            <td th:text="${pedido.status}"></td>
-                            <td th:text="${#temporals.format(pedido.criadoEm, 'dd/MM/yyyy')}"></td>
-                            <td th:text="${#temporals.format(pedido.criadoEm, 'HH:mm')}"></td>
-                            <td th:text="${'R$ ' + #aggregates.sum(pedido.itens.![quantidade * precoUnitario])}"></td>
-                            <td class="actions">
-                                <form th:action="@{|/atendimento/${pedido.id}/deletar|}" method="post" style="display:inline">
-                                    <button type="submit" class="icon-btn">
-                                        <img alt="delete" th:src="@{/assets/icons/trash.svg}"/>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="main-scrollable-container-child">
+                <table class="pedidos-table">
+                    <thead>
+                    <tr>
+                        <th>Nº pedido</th>
+                        <th>Status</th>
+                        <th>Data de criação</th>
+                        <th>Hora de criação</th>
+                        <th>Valor total</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pedido : ${pedidos}">
+                        <td th:text="${pedido.numeroPedido}"></td>
+                        <td th:text="${pedido.status}"></td>
+                        <td th:text="${#temporals.format(pedido.criadoEm, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#temporals.format(pedido.criadoEm, 'HH:mm')}"></td>
+                        <td th:text="${'R$ ' + #aggregates.sum(pedido.itens.![quantidade * precoUnitario])}"></td>
+                        <td class="actions">
+                            <form th:action="@{|/atendimento/${pedido.id}/deletar|}" method="post"
+                                  style="display:inline">
+                                <button type="submit" class="icon-btn">
+                                    <img alt="delete" th:src="@{/assets/icons/trash.svg}"/>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </main>

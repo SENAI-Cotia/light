@@ -44,18 +44,6 @@ main {
         background-color: var(--white);
         width: 100%;
 
-        button {
-            border-radius: .5rem;
-            padding: .8rem;
-            background-color: var(--hot-brown);
-            color: var(--vanilla);
-        }
-
-        button:hover {
-            background-color: var(--dark-hot-brown);
-            transition: all .3s linear;
-        }
-
 
         .order-details > *{
             font-size: 1.2rem;

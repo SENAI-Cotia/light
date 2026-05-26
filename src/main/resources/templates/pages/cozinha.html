@@ -43,7 +43,8 @@
                     <div class="order-details">
                         <h3 th:text="${'Pedido n°' + pedido.numeroPedido}"></h3>
                         <p th:text="'Criado em: ' + ${#temporals.format(pedido.criadoEm, 'dd/MM/yyyy HH:mm')}"></p>
-                        <p class="observacoes" th:if="${pedido.observacao != null and !#strings.isEmpty(pedido.observacao)}"
+                        <p class="observacoes"
+                           th:if="${pedido.observacao != null and !#strings.isEmpty(pedido.observacao)}"
                            th:text="${'Obs: ' + pedido.observacao}"></p>
                     </div>
 
@@ -51,12 +52,13 @@
                         <div class="product">
                             <span th:text="${item.quantidade + ' x '}"></span>
                             <span th:text="${item.produto.nome}"></span>
-                            <p class="tempo-preparo" th:text="${'Tempo estimado: ' + item.produto.tempoPreparoMin + 'min'}"></p>
+                            <p class="tempo-preparo"
+                               th:text="${'Tempo estimado: ' + item.produto.tempoPreparoMin + 'min'}"></p>
                         </div>
                     </div>
 
                     <form th:action="@{|/atendimento/${pedido.id}/concluir|}" method="post">
-                        <button>Concluir pedido</button>
+                        <button class="primary-element">Concluir pedido</button>
                     </form>
                 </div>
 
