@@ -35,10 +35,10 @@
     height: 100vh;
     width: 100vw;
     overflow-x: hidden;
+}
 
-    img {
-        min-height: 100%;
-    }
+.fundo img {
+    min-height: 100%;
 }
 
 .login-container {
@@ -48,9 +48,12 @@
     justify-content: flex-start;
     text-align: center;
     width: 40%;
-    padding-top: clamp(5vh, 8vw, 10vh);
+    padding-top: clamp(3vh, 6vh, 10vh);
+    padding-left: clamp(40px, 9vw, 80px);
+    padding-right: clamp(40px, 9vw, 80px);
+    padding-bottom: 0;
     position: absolute;
-    overflow: hidden;
+    overflow: visible;
     right: 20px;
     height: 95vh;
     max-width: 90vw;
@@ -58,11 +61,6 @@
     border-radius: 30px;
     margin: 0 auto;
     color: var(--vanilla);
-}
-
-.login-container {
-    padding-left: clamp(40px, 9vw, 80px);
-    padding-right: clamp(40px, 9vw, 80px);
     box-sizing: border-box;
 }
 
@@ -70,31 +68,30 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: clamp(24px, 3vw, 40px);
+    margin-bottom: clamp(10px, 4vh, 65px);
 }
 
 .coffee-icon {
     width: clamp(200px, 15vw, 267px);
 }
 
-
 .coffee-boy {
     display: none;
 }
 
 .welcome-section {
-    margin-bottom: clamp(24px, 3vw, 40px);
+    margin-bottom: clamp(10px, 4vh, 65px);
 }
 
 .welcome-section h1 {
-    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-    margin-bottom: clamp(8px, 1vw, 14px);
+    font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+    margin-bottom: clamp(4px, 1.5vh, 14px);
     color: var(--vanilla);
 }
 
 .welcome-section p {
-    font-size: clamp(1rem, 1.2vw, 1.2rem);
-    margin-bottom: clamp(8px, 1vw, 12px);
+    font-size: clamp(0.85rem, 1.2vw, 1.2rem);
+    margin-bottom: clamp(4px, 1.5vh, 12px);
 }
 
 .login-form {
@@ -105,18 +102,18 @@
 .input-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: clamp(20px, 2vw, 30px);
+    margin-bottom: clamp(8px, 3vh, 52px);
 }
 
 .input-group label {
     font-size: clamp(1.05rem, 1.15vw, 1.3rem);
-    margin-bottom: clamp(6px, 0.8vw, 10px);
+    margin-bottom: clamp(6px, 1.5vh, 18px);
     text-align: left;
 }
 
 .input-group input {
     width: 100%;
-    height: clamp(55px, 4vw, 56px);
+    height: clamp(40px, 5vh, 56px);
     border-radius: clamp(25px, 2vw, 28px);
     border: none;
     background-color: var(--vanilla);
@@ -134,7 +131,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: clamp(8px, 3vh, 45px);
     font-size: 1.2rem;
     line-height: 1;
 }
@@ -145,7 +142,7 @@
 
 .btn-entrar {
     width: 80%;
-    height: clamp(42px, 4vw, 54px);
+    height: clamp(36px, 5vh, 54px);
     border-radius: clamp(21px, 2vw, 27px);
     border: none;
     background-color: var(--vanilla);
@@ -155,8 +152,8 @@
     cursor: pointer;
     display: block;
     text-align: center;
-    line-height: clamp(42px, 4vw, 54px);
-    margin-top: clamp(30px, 4vw, 55px);
+    line-height: clamp(36px, 5vh, 54px);
+    margin-top: clamp(10px, 4vh, 70px);
     margin-left: auto;
     margin-right: auto;
     transition: filter 0.3s;
@@ -172,9 +169,11 @@
     margin-bottom: 16px;
     text-align: center;
 }
+
 @media (min-width: 993px) {
     .login-container {
-        padding-top: clamp(6vh, 6vw, 9vh);
+        padding-top: 0;
+        justify-content: center;
     }
 
     .login-container > *:not(.coffee-boy-wrapper) {
@@ -184,8 +183,8 @@
     }
 
     .logo-header {
-        margin-bottom: clamp(30px, 4vw, 50px);
         justify-content: center;
+        margin-bottom: clamp(10px, 6vh, 65px);
     }
 
     .coffee-icon {
@@ -193,12 +192,12 @@
     }
 
     .welcome-section {
-        margin-bottom: clamp(30px, 4vw, 55px);
+        margin-bottom: clamp(10px, 6vh, 65px);
     }
 
     .welcome-section h1 {
         font-size: clamp(2.2rem, 2.8vw, 3.2rem);
-        margin-bottom: clamp(10px, 1vw, 16px);
+        margin-bottom: clamp(4px, 1.5vh, 16px);
         font-weight: 700;
     }
 
@@ -211,16 +210,16 @@
     }
 
     .input-group {
-        margin-bottom: clamp(24px, 2.5vw, 36px);
+        margin-bottom: clamp(8px, 5vh, 52px);
     }
 
     .input-group label {
         font-size: clamp(1.1rem, 1.2vw, 2rem);
-        margin-bottom: clamp(8px, 0.8vw, 12px);
+        margin-bottom: clamp(6px, 2vh, 18px);
     }
 
     .input-group input {
-        height: clamp(54px, 4.8vw, 75px);
+        height: clamp(40px, 5vh, 75px);
         border-radius: clamp(27px, 2.4vw, 34px);
         padding: 0 26px;
         font-size: clamp(1.1rem, 1.2vw, 1.3rem);
@@ -228,15 +227,16 @@
 
     .remember-me {
         font-size: clamp(1.1rem, 1.2vw, 1.25rem);
+        margin-bottom: clamp(8px, 5vh, 45px);
     }
 
     .btn-entrar {
         width: 75%;
-        height: clamp(52px, 4.8vw, 64px);
+        height: clamp(36px, 5vh, 64px);
         border-radius: clamp(26px, 2.4vw, 32px);
         font-size: clamp(1.2rem, 1.3vw, 1.5rem);
-        line-height: clamp(52px, 4.8vw, 64px);
-        margin-top: clamp(60px, 7vw, 100px);
+        line-height: clamp(36px, 5vh, 64px);
+        margin-top: clamp(10px, 6vh, 100px);
     }
 
     .msg-error {
@@ -245,36 +245,25 @@
 }
 
 @media (max-width: 992px) {
-
     .body-login {
         justify-content: center;
         padding: 0;
-    }
-
-    .login-container {
-        position: relative;
-        right: auto;
-        margin: 0;
-        width: 90%;
-        width: 90vw;
-    }
-    .login-container {
-        position: relative;
-        right: auto;
-        margin: 0;
-        width: 90vw;
     }
 
     .fundo {
         display: none;
     }
 
-    .coffee-boy-wrapper {
-        position: absolute;
-        bottom: 5px;
-        left: 0;
-        width: 100%;
+    .login-container {
+        position: relative;
+        right: auto;
         margin: 0;
+        width: 90vw;
+    }
+
+    .coffee-boy-wrapper {
+        margin-top: auto;
+        width: 100%;
         display: flex;
         justify-content: center;
     }
@@ -284,21 +273,20 @@
         width: 100%;
         max-width: 350px;
     }
+}
 
-    @media (max-width: 400px) {
-        .coffee-boy {
-            max-width: 230px;
-            bottom: 10px;
-        }
-
-        .welcome-section h1 {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-        }
-
-        .welcome-section p {
-            font-size: 0.95rem;
-            margin-bottom: 6px;
-        }
+@media (max-width: 400px) {
+    .coffee-boy {
+        max-width: 230px;
     }
+
+       .welcome-section h1 {
+           font-size: 1.4rem;
+           margin-bottom: 8px;
+       }
+
+       .welcome-section p {
+           font-size: 0.95rem;
+           margin-bottom: 6px;
+       }
 }

@@ -94,7 +94,7 @@ public class RootController {
 
 		List<Pedido> pedidos = (busca != null && busca.length() >= 3)
 				? pedidoRepository.findByNumeroPedidoContainingIgnoreCase(busca)
-				: pedidoRepository.findAll();
+				: pedidoService.buscarPorStatus(StatusPedido.PENDENTE);;
 
 		model.addAttribute("pedidos", pedidos);
 		model.addAttribute("busca", busca);
