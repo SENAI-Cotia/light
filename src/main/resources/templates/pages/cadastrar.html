@@ -1,57 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" th:href="@{/css/cadastrar.css}" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro temporário | Kofi</title>
+    <link rel="stylesheet" th:href="@{/css/cadastrar.css}" />
+    <title>Cadastro | Kofi</title>
 </head>
 <body>
 
-<h1>Kofi Ctrl - Cadastro de Usuário</h1>
-<p><strong>Atenção:</strong> Página temporária para testes</p>
-
-<hr>
 <div class="registro-container">
-<form th:action="@{/cadastrar}" method="post" class="registro-form">
 
-        <legend>Dados do Usuário</legend>
+    <h2>Kofi Ctrl - Cadastro de Usuário</h2>
 
-        <p class="input-group">
-            <label for="nome">Nome completo: *</label><br>
+    <form th:action="@{/cadastrar}" method="post" class="registro-form">
+
+        <h3>Dados do Usuário</h3>
+
+        <div class="input-group">
+            <label for="nome">Nome completo: </label>
             <input type="text" id="nome" name="nome" required maxlength="100">
-        </p>
+        </div>
 
-        <p class="input-group">
-            <label for="email">E-mail: *</label><br>
+        <div class="input-group">
+            <label for="email">E-mail: </label>
             <input type="email" id="email" name="email" required maxlength="150">
-        </p>
+        </div>
 
-        <p class="input-group">
-            <label for="senha">Senha: *</label><br>
+        <div class="input-group">
+            <label for="senha">Senha: </label>
             <input type="password" id="senha" name="senha" required minlength="6">
-        </p>
+        </div>
 
-        <p class="input-group">
-            <label for="papel">Perfil de acesso: *</label><br>
+        <div class="input-group">
+            <label for="papel">Perfil de acesso: </label>
             <select id="papel" name="papel" required>
                 <option value="">-- Selecione --</option>
                 <option value="ADMIN">Administrador</option>
-                <option value="FUNCIONARIO">Funcionario</option>
+                <option value="FUNCIONARIO">Funcionário</option>
             </select>
-        </p>
+        </div>
 
-    <br>
-<div class="input-group">
-    <input type="submit" value="Cadastrar usuário">
-    <input type="reset" value="Limpar campos">
+        <div class="button-group">
+            <input type="submit" value="Cadastrar usuário" class="secondary-element">
+            <input type="reset" value="Limpar campos" class="secondary-element">
+        </div>
+
+    </form>
+
+    <p><a href="/login" style="color: var(--vanilla);">Voltar para o login</a></p>
+
 </div>
-
-</form>
-</div>
-<hr>
-
-<p><a href="/login">Voltar para o login</a></p>
 
 </body>
 </html>

@@ -1,3 +1,5 @@
+@import url(main.css);
+
 :root {
     --hot-brown: #41210A;
     --dark-hot-brown: #3A1D08;
@@ -17,7 +19,7 @@
 }
 
 body {
-    font-family: 'Nunito Sans', sans-serif;
+    font-family: 'Nunito', sans-serif;
     background-color: var(--vanilla);
     min-height: 100vh;
     padding: 1rem;
@@ -36,15 +38,12 @@ body {
     background-color: var(--hot-brown);
     border-radius: 30px;
     color: var(--vanilla);
-
     width: 80%;
     max-width: 1200px;
     height: auto;
     min-height: 90vh;
     position: relative;
     margin: 0 auto;
-    overflow: hidden;
-
     padding: 2rem clamp(40px, 9vw, 80px) 40px;
 }
 
@@ -53,6 +52,17 @@ body {
     font-weight: 700;
     color: var(--vanilla);
     margin-bottom: 20px;
+    border-bottom: 2px solid var(--vanilla);
+    width: 100%;
+}
+
+.registro-container h3 {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-size: 29px;
+    font-weight: 600;
+    color: var(--vanilla);
+    width: 100%;
 }
 
 .registro-form {
@@ -63,19 +73,19 @@ body {
 .input-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: clamp(20px, 2vw, 30px);
+    margin-bottom: clamp(20px, 3vw, 30px);
+    gap: 20px;
 }
 
 .input-group label {
     font-size: clamp(1.05rem, 1.15vw, 1.3rem);
-    margin-bottom: clamp(6px, 0.8vw, 10px);
     text-align: left;
 }
 
 .input-group input,
 .input-group select {
     width: 100%;
-    height: clamp(55px, 4vw, 56px);
+    height: 56px;
     border-radius: clamp(25px, 2vw, 28px);
     border: none;
     background-color: var(--vanilla);
@@ -83,37 +93,55 @@ body {
     font-size: clamp(1rem, 1.1vw, 1.15rem);
     color: var(--hot-brown);
     outline: none;
-    font-family: inherit;
 }
 
 .input-group select {
     appearance: none;
     cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2341210A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 20px center;
     background-size: 18px;
+    padding-right: 48px;
 }
 
 .registro-form .button-group {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     gap: 20px;
     margin-top: 30px;
     margin-bottom: 20px;
 }
 
-.registro-form button {
-    width: 200px;
-    height: 55px;
-    border-radius: 28px;
-    border: none;
-    background-color: var(--tobacco);
-    color: var(--white);
+.registro-form .button-group input[type="submit"],
+.registro-form .button-group input[type="reset"] {
     font-weight: bold;
-    cursor: pointer;
-    transition: filter 0.2s;
 }
 
-.registro-form button:hover {
-    filter: brightness(0.9);
+@media (max-width: 768px) {
+    .registro-container {
+        width: 95%;
+        padding: 2rem 1.5rem;
+        min-height: auto;
+    }
+
+    .registro-form .button-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .registro-form .button-group input[type="submit"],
+    .registro-form .button-group input[type="reset"] {
+        width: 100%;
+        height: 50px;
+    }
+
+    .registro-container h2 {
+        font-size: 24px;
+    }
+
+    .registro-container h3 {
+        font-size: 20px;
+    }
 }
