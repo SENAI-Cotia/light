@@ -16,7 +16,9 @@
     <th:block th:insert="~{fragments/header:: header('tea-cup-dark', 'CARDÁPIO')}"></th:block>
 
     <div class="cardapio-container scrollable-container">
-        <div id="msg-erro" th:if="${erro}" th:text="${erro}"></div>
+        <div id="msg-erro" th:if="${erro}" th:text="${erro}" class="alerta-msg"></div>
+        <div id="msg-sucesso" th:if="${sucesso}" th:text="${sucesso}" class="alerta-msg"></div>
+
         <div class="quick-actions">
             <form th:action="@{/cardapio}" method="get" class="search-bar">
                 <button class="search-button" type="submit">

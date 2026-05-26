@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro temporário | Kofi</title>
+    <script type="text/javascript" th:src="@{/js/alertas.js}" defer></script>
 </head>
 <body>
+
+<div id="msg-erro" th:if="${erro}" th:text="${erro}" class="alerta-msg"></div>
+<div id="msg-sucesso" th:if="${sucesso}" th:text="${sucesso}" class="alerta-msg"></div>
 
 <h1>Kofi Ctrl - Cadastro de Usuário</h1>
 <p><strong>Atenção:</strong> Página temporária para testes</p>

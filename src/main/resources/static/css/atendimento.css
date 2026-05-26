@@ -1,5 +1,5 @@
 @import url(main.css);
-
+@import url(alertas.css);
 
 .pedidos-container {
     display: flex;
@@ -665,4 +665,8 @@
             min-width: 50%;
         }
     }
+}
+
+.main-scrollable-container-child {
+    gap: 2rem;
 }

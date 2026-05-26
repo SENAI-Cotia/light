@@ -14,26 +14,25 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/cadastrar").permitAll() // <- produção
-                //.requestMatchers("/**").permitAll() // <- desenvolvimento
-                .requestMatchers("/css/**", "/js/**", "/assets/**").permitAll()
-                .anyRequest().authenticated()
-        ).formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/dashboard", true)
-                .permitAll()
-        ).logout(logout -> logout
-                .logoutSuccessUrl("/login")
-                .permitAll()
-        );
-        return http.build();
-    }
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http
+			.authorizeHttpRequests(auth ->
+				auth
+					.requestMatchers("/login", "/cadastrar")
+					.permitAll()
+					.requestMatchers("/css/**", "/js/**", "/assets/**")
+					.permitAll()
+					.anyRequest()
+					.authenticated()
+			)
+			.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/dashboard", true).permitAll())
+			.logout(logout -> logout.logoutSuccessUrl("/login").permitAll());
+		return http.build();
+	}
 }

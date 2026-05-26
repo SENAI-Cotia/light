@@ -5,6 +5,7 @@
 <head>
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Atendimento', 'atendimento')}"></th:block>
     <script type="text/javascript" th:src="@{/js/pedido-form.js}" defer></script>
+    <script type="text/javascript" th:src="@{/js/alertas.js}" defer></script>
 </head>
 <body>
 
@@ -18,6 +19,10 @@
     <th:block th:insert="~{fragments/header:: header('bell-dark', 'ATENDIMENTO')}"></th:block>
 
     <div class="pedidos-container scrollable-container">
+
+        <div id="msg-erro" th:if="${erro}" th:text="${erro}" class="alerta-msg"></div>
+        <div id="msg-sucesso" th:if="${sucesso}" th:text="${sucesso}" class="alerta-msg"></div>
+
         <div class="quick-actions">
             <form id="form-busca" class="search-bar">
                 <button class="search-button" type="submit">

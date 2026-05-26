@@ -2,6 +2,7 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Novo Produto', 'novo-produto')}"></th:block>
+    <script type="text/javascript" th:src="@{/js/alertas.js}" defer></script>
 </head>
 <body>
 <aside>
@@ -13,6 +14,9 @@
     <th:block th:insert="~{fragments/header:: header('tea-cup-dark', 'Novo produto')}"></th:block>
 
     <div class="novo-produto-container scrollable-container">
+        <div id="msg-erro" th:if="${erro}" th:text="${erro}" class="alerta-msg"></div>
+        <div id="msg-sucesso" th:if="${sucesso}" th:text="${sucesso}" class="alerta-msg"></div>
+
         <div class="produto-form-wrapper main-scrollable-container-child">
             <h1>Cadastrar novo produto</h1>
             <form class="produto-form" th:action="@{/cardapio/salvar}" th:object="${produto}" method="post">

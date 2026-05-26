@@ -22,8 +22,14 @@ public class ProdutoController {
 	}
 
 	@PostMapping("/salvar")
-	public String salvar(@ModelAttribute Produto produto) {
-		produtoService.salvar(produto);
+	public String salvar(@ModelAttribute Produto produto, RedirectAttributes redirectAttributes) {
+		try {
+			produtoService.salvar(produto);
+			redirectAttributes.addFlashAttribute("sucesso", "Produto salvo com sucesso!");
+		} catch (RuntimeException e) {
+			redirectAttributes.addFlashAttribute("erro", e.getMessage());
+		}
+
 		return "redirect:/cardapio";
 	}
 
@@ -37,6 +43,7 @@ public class ProdutoController {
 	public String deletar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		try {
 			produtoService.deletar(id);
+			redirectAttributes.addFlashAttribute("sucesso", "Produto excluído com sucesso!");
 		} catch (RuntimeException e) {
 			redirectAttributes.addFlashAttribute("erro", e.getMessage());
 		}
