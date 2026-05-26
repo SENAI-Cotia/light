@@ -44,7 +44,7 @@ botoesEditar.forEach(btn => {
 
         tituloFormulario.textContent = 'Atualizar usuário';
 
-        formulario.action = `/configuracoes/atualizar-usuario/${id}`;
+        formulario.action = `/configuracoes/atualizar-usuario`;
 
 
         btnCancelar.classList.remove('hidden');
@@ -80,6 +80,4 @@ function cancelarEdicao() {
     btnCancelar.classList.add('hidden');
     btnLimpar.classList.remove('hidden');
 
-
-//    formulario.scrollIntoView({ behavior: 'smooth' });
 }

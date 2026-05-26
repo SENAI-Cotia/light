@@ -1,7 +1,6 @@
 package br.com.kofi.controllers;
 
 import br.com.kofi.models.Produto;
-import br.com.kofi.repositories.ItemPedidoRepository;
 import br.com.kofi.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +33,7 @@ public class ProdutoController {
 		return "pages/novo-produto";
 	}
 
-	@GetMapping("/{id}/deletar")
+	@PostMapping("/{id}/deletar")
 	public String deletar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		try {
 			produtoService.deletar(id);

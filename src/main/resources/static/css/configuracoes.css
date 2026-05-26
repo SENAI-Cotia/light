@@ -14,21 +14,6 @@
 
     padding: 2rem;
 
-    .middle-divisor {
-        transform: rotate(180deg);
-
-        border: 0;
-        height: 50%;
-        width: 4px;
-        background: var(--vanilla);
-        border-radius: 1rem;
-
-        @media (max-width: 992px) {
-            transform: rotate(90deg);
-            height: 50vw;
-        }
-    }
-
     .profile-container {
         flex: 1;
         min-width: 350px;

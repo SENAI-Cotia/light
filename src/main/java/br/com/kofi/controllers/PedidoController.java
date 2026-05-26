@@ -1,6 +1,5 @@
 package br.com.kofi.controllers;
 
-import br.com.kofi.models.ItemPedido;
 import br.com.kofi.models.Pedido;
 import br.com.kofi.services.PedidoService;
 import br.com.kofi.services.ProdutoService;

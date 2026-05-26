@@ -1,4 +1,29 @@
 
+document.getElementById('form-busca').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const termo = document.getElementById('input-busca').value.trim();
+    const modoListagem = !painelItens.classList.contains('hidden');
+
+    if (termo.length === 0) {
+        window.location.href = `/atendimento?modo=${modoListagem ? 'pedidos' : 'produtos'}`;
+        return;
+    }
+
+    if (termo.length < 3) return;
+
+    if (modoListagem) {
+        window.location.href = `/atendimento?busca=${encodeURIComponent(termo)}&modo=pedidos`;
+    } else {
+        window.location.href = `/atendimento?busca=${encodeURIComponent(termo)}&modo=produtos`;
+    }
+});
+
+function limparBusca() {
+    const modoListagem = !painelItens.classList.contains('hidden');
+    window.location.href = `/atendimento?modo=${modoListagem ? 'pedidos' : 'produtos'}`;
+}
+
 const trocarConteudo = document.getElementById("main-content-switcher-button")
 const painelPedido = document.querySelector(".painel-container")
 const painelItens = document.querySelector(".pedidos-grid")
@@ -103,7 +128,9 @@ function renderizarConta() {
 function filtrar(categoria) {
     document.querySelectorAll('.produto-card').forEach(card => {
         const pertence = categoria === 'todos' || card.dataset.categoria === categoria;
-        card.style.display = pertence ? '' : 'none';
+
+        const parent = card.parentElement
+        parent.style.display = pertence ? '' : 'none';
     });
 }
 

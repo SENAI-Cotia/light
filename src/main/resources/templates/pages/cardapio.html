@@ -18,14 +18,16 @@
     <div class="cardapio-container scrollable-container">
         <div id="msg-erro" th:if="${erro}" th:text="${erro}"></div>
         <div class="quick-actions">
-            <div class="search-bar">
-                <button class="search-button" type="button">
+            <form th:action="@{/cardapio}" method="get" class="search-bar">
+                <button class="search-button" type="submit">
                     <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto"/>
                 </button>
 
-                <input aria-label="Busca por produtos" name="search"
-                       placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
-            </div>
+                <input aria-label="Busca por produtos" name="busca"
+                       th:value="${busca}"
+                       placeholder="Pesquise por produto. Digite pelo menos 3 caracteres"
+                       type="text">
+            </form>
 
             <a th:href="@{/cardapio/novo}" class="create-product primary-element">Cadastrar produto</a>
         </div>
@@ -62,10 +64,11 @@
                         <a th:href="${'/cardapio/' + produto.id + '/editar'}">
                             <img alt="edit product button" th:src="@{/assets/icons/pen.svg}"/>
                         </a>
-
-                        <a th:href="${'/cardapio/' + produto.id + '/deletar'}">
-                            <img alt="delete product button" th:src="@{/assets/icons/trash.svg}"/>
-                        </a>
+                        <form th:action="@{|/cardapio/${produto.id}/deletar|}" method="post" style="display:inline">
+                            <button type="submit" class="icon-btn">
+                                <img alt="delete" th:src="@{/assets/icons/trash.svg}"/>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

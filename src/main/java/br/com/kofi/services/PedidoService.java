@@ -49,6 +49,9 @@ public class PedidoService {
 			Produto produto = produtoRepository.findById(item.getProduto().getId())
 					.orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 			item.setPrecoUnitario(produto.getPreco());
+
+			produto.setEstoqueAtual(produto.getEstoqueAtual() - item.getQuantidade());
+			produtoRepository.save(produto);
 		}
 		pedidoRepository.save(pedido);
 	}

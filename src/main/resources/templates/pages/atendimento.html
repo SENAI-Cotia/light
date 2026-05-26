@@ -17,23 +17,30 @@
 <main>
     <th:block th:insert="~{fragments/header:: header('bell-dark', 'ATENDIMENTO')}"></th:block>
 
-    <div class="pedidos-container">
+    <div class="pedidos-container scrollable-container">
         <div class="quick-actions">
-            <div class="search-bar">
-                <button class="search-button" type="button">
-                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto"/>
+            <form id="form-busca" class="search-bar">
+                <button class="search-button" type="submit">
+                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar"/>
                 </button>
 
-                <input aria-label="Busca por produtos" name="search"
-                       placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
-            </div>
+                <input id="input-busca" aria-label="Busca" name="busca"
+                       placeholder="Pesquise por produto ou número do pedido"
+                       type="text">
 
-            <button type="button" class="create-product primary-element" id="main-content-switcher-button">Listar
-                pedidos
+                <button type="button" id="btn-limpar"
+                        th:if="${busca != null and !#strings.isEmpty(busca)}"
+                        onclick="limparBusca()" style="margin-right:20px;">
+                    ✕
+                </button>
+            </form>
+
+            <button type="button" class="create-product primary-element" id="main-content-switcher-button"
+                    th:text="${modo == 'pedidos'} ? 'Novo pedido' : 'Listar pedidos'">
             </button>
         </div>
 
-        <form id="form-pedido" th:action="@{/atendimento/salvar}" method="post" class="painel-container">
+        <form id="form-pedido" th:classappend="${modo == 'pedidos'} ? 'hidden' : ''" th:action="@{/atendimento/salvar}" method="post" class="painel-container">
 
             <div id="itens-ocultos"></div>
 
@@ -84,65 +91,69 @@
                 </div>
             </div>
 
-            <div class="novo-pedido-container">
+            <div class="novo-pedido-container scrollable-container">
                 <h3>Dados do pedido</h3>
-                <div class="field">
-                    <label for="campo-observacao-pedido">Observações do pedido</label>
-                    <textarea rows="2" id="campo-observacao-pedido"
-                              name="observacao"
-                    ></textarea>
-                </div>
 
-                <div id="lista-selecionados">
-                    <p id="msg-vazia">Nenhum item adicionado.</p>
-                </div>
-
-                <div class="totais">
-                    <span>Total: </span>
-                    <span id="valor-total">R$ 0,00</span>
-                </div>
-
-                <div class="forma-pagamento">
-                    <div class="titulo-card">
-                        <h4>Pagamento</h4>
+                <div class="main-scrollable-container-child">
+                    <div class="field">
+                        <label for="campo-observacao-pedido">Observações do pedido</label>
+                        <textarea rows="2" id="campo-observacao-pedido"
+                                  name="observacao"
+                        ></textarea>
                     </div>
 
-                    <div class="opcoes-pagamento">
-                        <label class="opcao-pagamento">
-                            <input type="radio" name="formaPagamento" value="DINHEIRO" required>
-                            <div class="card-pagamento">
-                                <div class="icon"><img th:src="@{/assets/icons/money.svg}"></div>
-                                <span>Dinheiro</span>
-                            </div>
-                        </label>
-
-                        <label class="opcao-pagamento">
-                            <input type="radio" name="formaPagamento" value="CARTAO_DEBITO" required>
-                            <div class="card-pagamento">
-                                <div class="icon"><img th:src="@{/assets/icons/debit-card.svg}"></div>
-                                <span>Débito</span>
-                            </div>
-                        </label>
-
-                        <label class="opcao-pagamento">
-                            <input type="radio" name="formaPagamento" value="PIX" required>
-                            <div class="card-pagamento">
-                                <div class="icon"><img th:src="@{/assets/icons/pix.svg}"></div>
-                                <span>Pix</span>
-                            </div>
-                        </label>
-
-                        <label class="opcao-pagamento">
-                            <input type="radio" name="formaPagamento" value="CARTAO_CREDITO" required>
-                            <div class="card-pagamento">
-                                <div class="icon"><img th:src="@{/assets/icons/credit-card.svg}"></div>
-                                <span>Crédito</span>
-                            </div>
-                        </label>
+                    <div id="lista-selecionados">
+                        <p id="msg-vazia">Nenhum item adicionado.</p>
                     </div>
 
-                    <!-- Campo hidden para enviar o total -->
-                    <input type="hidden" id="total-pedido" name="valorTotal" value="0">
+                    <div class="totais">
+                        <span>Total: </span>
+                        <span id="valor-total">R$ 0,00</span>
+                    </div>
+
+                    <div class="forma-pagamento">
+                        <div class="titulo-card">
+                            <h4>Pagamento</h4>
+                        </div>
+
+                        <div class="opcoes-pagamento">
+                            <label class="opcao-pagamento">
+                                <input type="radio" name="formaPagamento" value="DINHEIRO" required>
+                                <div class="card-pagamento">
+                                    <div class="icon"><img th:src="@{/assets/icons/money.svg}"></div>
+                                    <span>Dinheiro</span>
+                                </div>
+                            </label>
+
+                            <label class="opcao-pagamento">
+                                <input type="radio" name="formaPagamento" value="CARTAO_DEBITO" required>
+                                <div class="card-pagamento">
+                                    <div class="icon"><img th:src="@{/assets/icons/debit-card.svg}"></div>
+                                    <span>Débito</span>
+                                </div>
+                            </label>
+
+                            <label class="opcao-pagamento">
+                                <input type="radio" name="formaPagamento" value="PIX" required>
+                                <div class="card-pagamento">
+                                    <div class="icon"><img th:src="@{/assets/icons/pix.svg}"></div>
+                                    <span>Pix</span>
+                                </div>
+                            </label>
+
+                            <label class="opcao-pagamento">
+                                <input type="radio" name="formaPagamento" value="CARTAO_CREDITO" required>
+                                <div class="card-pagamento">
+                                    <div class="icon"><img th:src="@{/assets/icons/credit-card.svg}"></div>
+                                    <span>Crédito</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Campo hidden para enviar o total -->
+                        <input type="hidden" id="total-pedido" name="valorTotal" value="0">
+                    </div>
+
                 </div>
 
                 <div>
@@ -156,9 +167,7 @@
             </div>
         </form>
 
-        <div class="pedidos-grid hidden">
-            <div class="listagem-container scrollable-container">
-
+        <div class="pedidos-grid" th:classappend="${modo != 'pedidos'} ? 'hidden' : ''">
                 <div class="main-scrollable-container-child">
                     <table class="pedidos-table">
                         <thead>
@@ -179,18 +188,16 @@
                             <td th:text="${#temporals.format(pedido.criadoEm, 'HH:mm')}"></td>
                             <td th:text="${'R$ ' + #aggregates.sum(pedido.itens.![quantidade * precoUnitario])}"></td>
                             <td class="actions">
-                                <form th:action="@{|/atendimento/${pedido.id}/deletar|}" method="post">
-                                    <button type="submit" class="primary-element" id="btn-deletar">Deletar</button>
+                                <form th:action="@{|/atendimento/${pedido.id}/deletar|}" method="post" style="display:inline">
+                                    <button type="submit" class="icon-btn">
+                                        <img alt="delete" th:src="@{/assets/icons/trash.svg}"/>
+                                    </button>
                                 </form>
-                                <!--                                <a th:href="${'/atendimento/' + pedido.id + '/deletar'}">-->
-                                <!--                                    <img alt="delete product button" th:src="@{/assets/icons/trash.svg}"/>-->
-                                <!--                                </a>-->
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
         </div>
     </div>
 </main>

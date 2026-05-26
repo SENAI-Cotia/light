@@ -15,23 +15,48 @@
     <th:block th:insert="~{fragments/header:: header('POT-dark', 'COZINHA')}"></th:block>
 
     <div class="scrollable-container">
+        <div id="msg-erro" th:if="${erro}" th:text="${erro}"></div>
+
+        <div class="quick-actions">
+            <form th:action="@{/cozinha}" method="get" class="search-bar">
+                <button class="search-button" type="submit">
+                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar"/>
+                </button>
+
+                <input id="input-busca" name="busca"
+                       th:value="${busca}"
+                       placeholder="Busque pelo número do pedido"
+                       type="text">
+
+                <button type="button" id="btn-limpar"
+                        th:if="${busca != null and !#strings.isEmpty(busca)}"
+                        onclick="window.location.href='/cozinha'" style="margin-right:20px;">
+                    ✕
+                </button>
+            </form>
+        </div>
+
+
         <div class="main-scrollable-container-child">
             <div class="orders">
                 <div class="order-card" th:each="pedido : ${pedidos}">
                     <div class="order-details">
                         <h3 th:text="${'Pedido n°' + pedido.numeroPedido}"></h3>
+                        <p th:text="'Criado em: ' + ${#temporals.format(pedido.criadoEm, 'dd/MM/yyyy HH:mm')}"></p>
+                        <p class="observacoes" th:if="${pedido.observacao != null and !#strings.isEmpty(pedido.observacao)}"
+                           th:text="${'Obs: ' + pedido.observacao}"></p>
                     </div>
 
                     <div class="products" th:each="item : ${pedido.itens}">
                         <div class="product">
                             <span th:text="${item.quantidade + ' x '}"></span>
                             <span th:text="${item.produto.nome}"></span>
-                            <p th:text="${'Tempo estimado: ' + item.produto.tempoPreparoMin + 'min'}"></p>
+                            <p class="tempo-preparo" th:text="${'Tempo estimado: ' + item.produto.tempoPreparoMin + 'min'}"></p>
                         </div>
                     </div>
 
                     <form th:action="@{|/atendimento/${pedido.id}/concluir|}" method="post">
-                        <button>Concluir pedido!</button>
+                        <button>Concluir pedido</button>
                     </form>
                 </div>
 

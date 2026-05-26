@@ -78,6 +78,15 @@ button {
     gap: .5rem;
     font-size: 1.2rem;
     padding: 1rem 0;
+
+    .menu-link:hover {
+        background-color: transparent;
+
+    }
+
+    .menu-link.active {
+        background-color: transparent;
+    }
 }
 
 .menu-display-btn {
