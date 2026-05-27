@@ -29,25 +29,31 @@
             </div>
         </div>
 
-        <div class="ticket-container">
-            <div class="average-ticket">
+        <div class="dish-container">
+            <div class="dish-card">
                 <p>ticket médio</p>
-                <p>R$79,00</p>
+                <div class="quantity">
+
+                    <p>R$79,00</p>
+                </div>
             </div>
-            <div class="highest-ticket">
+            <div class="dish-card">
                 <p>maior pedido</p>
-                <p>R$109,00</p>
+                <div class="quantity">
+
+                    <p>R$109,00</p>
+                </div>
             </div>
         </div>
 
-        <div class="dish-status">
+        <div class="dish-container">
             <div class="dish-card"><p>Pedidos em preparo</p>
                 <div class="quantity">
                     <p>7</p>
                     <img th:src="@{/assets/icons/cup.svg}" alt="">
                 </div>
             </div>
-            <div class="dish-card"><p>Tempo médio</p>
+            <div class="dish-card"><p>Tempo médio de preparo</p>
                 <div class="quantity">
                     <p>7</p>
                     <img th:src="@{/assets/icons/time.svg}" alt="">
@@ -117,7 +123,7 @@
                 <canvas id="kofiChart"></canvas>
             </div>
         </div>
-        <div class="dish-status">
+        <div class="dish-container">
             <div class="dish-card"><p>Total vendido</p>
                 <div class="quantity">
                     <p>7</p>
