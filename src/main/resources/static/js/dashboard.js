@@ -19,6 +19,7 @@ new Chart(document.getElementById('kofiChart'), {
     options: {
         responsive: true,
         maintainAspectRatio: false,
+        resizeDelay: 100,
         plugins: {
             legend: { display: false },
             tooltip: {

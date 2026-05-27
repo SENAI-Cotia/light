@@ -34,4 +34,9 @@ public class ProdutoService {
 		}
 		produtoRepository.deleteById(id);
 	}
+
+	public List<Produto> buscarProdutosEmAlerta() {
+		return produtoRepository.findTop10ByOrderByEstoqueAtualAsc();
+	}
+
 }

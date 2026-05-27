@@ -49,7 +49,13 @@ public class RootController {
 	}
 
 	@GetMapping("/dashboard")
-	public String dashboard() {
+	public String dashboard(Model model) {
+		List<Produto> produtosEmAlerta = produtoService.buscarProdutosEmAlerta();
+		model.addAttribute("produtos", produtosEmAlerta);
+
+		List<Pedido> pedidosRecentes = pedidoRepository.findTop5ByOrderByCriadoEmDesc();
+		model.addAttribute("pedidos", pedidosRecentes);
+
 		return "pages/dashboard";
 	}
 

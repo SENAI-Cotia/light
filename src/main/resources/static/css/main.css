@@ -204,6 +204,10 @@ main {
                 margin: .3rem 0;
             }
         }
+
+        & > button, & > a{
+            margin: 0 auto;
+        }
     }
 }
 
