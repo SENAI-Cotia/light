@@ -16,49 +16,44 @@
     <th:block th:insert="~{fragments/header:: header('coffee-bean-dark', 'DASHBOARD')}"></th:block>
 
     <div class="dash-header">
-
-        <div>
-            <div class="revenue-card">
-
-                <div class="icon">
-                    <img th:src="@{/assets/images/coffee-pot.svg}" alt="">
-                </div>
-                <div class="monthly-content">
-                    <div class="total-earned">
-                        <h2>Total faturado</h2>
-                        <p>mês: jun</p>
-                        <h3>R$1.200,00</h3>
-                    </div>
-                    <div class="ticket-container">
-                        <div class="average-ticket">
-                            <p>ticket médio</p>
-                            <p>R$79,00</p>
-                        </div>
-                        <div class="highest-ticket">
-                            <p>maior pedido</p>
-                            <p>R$109,00</p>
-                        </div>
-                    </div>
+        <div class="revenue-card">
+            <div class="icon">
+                <img th:src="@{/assets/images/coffee-pot.svg}" alt="">
+            </div>
+            <div class="monthly-content">
+                <div class="total-earned">
+                    <h2>Total faturado</h2>
+                    <p>mês: jun</p>
+                    <h3>R$1.200,00</h3>
                 </div>
             </div>
         </div>
 
-        <div class="dish-status">
+        <div class="ticket-container">
+            <div class="average-ticket">
+                <p>ticket médio</p>
+                <p>R$79,00</p>
+            </div>
+            <div class="highest-ticket">
+                <p>maior pedido</p>
+                <p>R$109,00</p>
+            </div>
+        </div>
 
+        <div class="dish-status">
             <div class="dish-card"><p>Pedidos em preparo</p>
                 <div class="quantity">
                     <p>7</p>
                     <img th:src="@{/assets/icons/cup.svg}" alt="">
                 </div>
             </div>
-            <div class="dish-card"><p>Pedidos feitos hoje</p>
+            <div class="dish-card"><p>Tempo médio</p>
                 <div class="quantity">
                     <p>7</p>
-                    <img th:src="@{/assets/icons/dish.svg}" alt="">
+                    <img th:src="@{/assets/icons/time.svg}" alt="">
                 </div>
             </div>
         </div>
-
 
     </div>
 
@@ -107,7 +102,9 @@
                 <tbody>
                 <tr th:each="produto, iterStat : ${produtos}" th:if="${iterStat.index < 10}">
                     <td th:text="${produto.nome}">café</td>
-                    <td class="product-qtd" th:text="${produto.estoqueAtual}" th:style="${produto.estoqueAtual < 19} ? 'color: #900B09; font-weight: bold;' : ''">2</td>
+                    <td class="product-qtd" th:text="${produto.estoqueAtual}"
+                        th:style="${produto.estoqueAtual < 19} ? 'color: #900B09; font-weight: bold;' : ''">2
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -121,13 +118,13 @@
             </div>
         </div>
         <div class="dish-status">
-            <div class="dish-card"><p>Pedidos feitos hoje</p>
+            <div class="dish-card"><p>Total vendido</p>
                 <div class="quantity">
                     <p>7</p>
                     <img th:src="@{/assets/icons/dish.svg}" alt="">
                 </div>
             </div>
-            <div class="dish-card"><p>Pedidos feitos hoje</p>
+            <div class="dish-card"><p>Produto mais vendido</p>
                 <div class="quantity">
                     <p>7</p>
                     <img th:src="@{/assets/icons/dish.svg}" alt="">
