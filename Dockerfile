@@ -5,7 +5,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Estágio 2: Run (Executa a aplicação com uma imagem leve do Java)
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
