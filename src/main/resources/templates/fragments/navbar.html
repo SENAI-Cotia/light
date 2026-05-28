@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <link rel="stylesheet" th:href="@{/css/navbar.css}">
 </head>
@@ -25,31 +28,53 @@
     </div>
     <div class="menu-pages">
         <ul class="menu-items-container">
-            <li class="menu-item menu-link" th:classappend="${currentPage == 'dashboard'} ? 'active'">
-                <img th:src="@{/assets/icons/coffee-bean.svg}" alt="">
-                <a th:href="@{/dashboard}">Dashboard</a>
-            </li>
-            <li class="menu-item menu-link" th:classappend="${currentPage == 'cardapio'} ? 'active'">
-                <img th:src="@{/assets/icons/tea-cup.svg}" alt="">
-                <a th:href="@{/cardapio}">Cardápio</a>
-            </li>
-            <li class="menu-item menu-link" th:classappend="${currentPage == 'atendimento'} ? 'active'">
-                <img th:src="@{/assets/icons/bell.svg}" alt="">
-                <a th:href="@{/atendimento}">Atendimento</a>
-            </li>
-            <li class="menu-item menu-link" th:classappend="${currentPage == 'cozinha'} ? 'active'">
-                <img th:src="@{/assets/icons/pot.svg}" alt="">
-                <a th:href="@{/cozinha}">Cozinha</a>
-            </li>
+            <a th:href="@{/dashboard}">
+                <li class="menu-item menu-link" th:classappend="${currentPage == 'dashboard'} ? 'active'">
+                    <img th:src="@{/assets/icons/coffee-bean.svg}" alt="">
+                    <span>Dashboard</span>
+                </li>
+            </a>
+            <a th:href="@{/cardapio}">
+                <li class="menu-item menu-link" th:classappend="${currentPage == 'cardapio'} ? 'active'">
+                    <img th:src="@{/assets/icons/tea-cup.svg}" alt="">
+                    <span>Cardápio</span>
+                </li>
+            </a>
+            <a th:href="@{/atendimento}">
+                <li class="menu-item menu-link" th:classappend="${currentPage == 'atendimento'} ? 'active'">
+                    <img th:src="@{/assets/icons/bell.svg}" alt="">
+                    <span>Atendimento</span>
+                </li>
+            </a>
+            <a th:href="@{/cozinha}">
+                <li class="menu-item menu-link" th:classappend="${currentPage == 'cozinha'} ? 'active'">
+                    <img th:src="@{/assets/icons/pot.svg}" alt="">
+                    <span>Cozinha</span>
+                </li>
+            </a>
         </ul>
 
-        <div class="menu-config menu-link" th:classappend="${currentPage == 'configuracoes'} ? 'active'">
-            <img th:src="@{/assets/icons/config.svg}" alt="">
-            <a th:href="@{/configuracoes}">Configurações</a>
+        <div class="nav-actions">
+            <a class="menu-link" th:href="@{/configuracoes}">
+                <div class="" sec:authorize="hasRole('ADMIN')"
+                     th:classappend="${currentPage == 'configuracoes'} ? 'active'">
+                    <img th:src="@{/assets/icons/config.svg}" alt="">
+
+                    <span>Configurações</span>
+                </div>
+            </a>
+
+            <div class="menu-link">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn-logout">
+                        <img th:src="@{/assets/icons/logout.svg}" alt="">
+                        <span>Sair</span>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
-<!--    TODO: Botão para logout -->
 </nav>
 
 </body>

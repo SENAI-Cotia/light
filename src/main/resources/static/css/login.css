@@ -1,3 +1,5 @@
+@import url(alertas.css);
+
 :root {
     --hot-brown: #41210A;
     --dark-hot-brown: #3A1D08;
@@ -13,12 +15,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Nunito', Times New Roman;
+    font-family: 'Nunito', sans-serif;
     list-style: none;
 }
 
 .body-login {
     overflow: hidden;
+    position: relative;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -31,62 +34,64 @@
     padding: 2rem 0;
     height: 100vh;
     width: 100vw;
-    object-fit: cover;
     overflow-x: hidden;
-
-    img {
-        min-height: 100%;
-    }
 }
 
+.fundo img {
+    min-height: 100%;
+}
 
 .login-container {
-    position: absolute;
-    right: 0;
-    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
     width: 40%;
+    padding-top: clamp(3vh, 6vh, 10vh);
+    padding-left: clamp(40px, 9vw, 80px);
+    padding-right: clamp(40px, 9vw, 80px);
+    padding-bottom: 0;
+    position: absolute;
+    overflow: visible;
+    right: 20px;
+    height: 95vh;
     max-width: 90vw;
     background-color: var(--hot-brown);
     border-radius: 30px;
-    margin: auto 20px auto 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 60px;
-    color: var(--white);
+    margin: 0 auto;
+    color: var(--vanilla);
+    box-sizing: border-box;
 }
 
 .logo-header {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 40px;
+    margin-bottom: clamp(10px, 4vh, 65px);
 }
 
 .coffee-icon {
-    width: 267px;
+    width: clamp(200px, 15vw, 267px);
 }
 
-.brand-text {
-    font-size: 1.8rem;
-    font-weight: bold;
+.coffee-boy {
+    display: none;
 }
 
 .welcome-section {
-    text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: clamp(10px, 4vh, 65px);
 }
 
 .welcome-section h1 {
-    font-size: clamp(2.2rem, 3vw, 3rem);
-    margin-bottom: 10px;
-    text-wrap: no-wrap;
+    font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+    margin-bottom: clamp(4px, 1.5vh, 14px);
+    color: var(--vanilla);
 }
 
 .welcome-section p {
-    font-size: 1.67rem;
-    margin-bottom: 10px;
+    font-size: clamp(0.85rem, 1.2vw, 1.2rem);
+    margin-bottom: clamp(4px, 1.5vh, 12px);
 }
 
 .login-form {
@@ -97,84 +102,191 @@
 .input-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: clamp(8px, 3vh, 52px);
 }
 
 .input-group label {
-    margin-bottom: 8px;
-    font-size: 2rem;
+    font-size: clamp(1.05rem, 1.15vw, 1.3rem);
+    margin-bottom: clamp(6px, 1.5vh, 18px);
+    text-align: left;
 }
 
 .input-group input {
     width: 100%;
-    height: 50px;
-    border-radius: 25px; /* Bordas arredondadas dos campos */
+    height: clamp(40px, 5vh, 56px);
+    border-radius: clamp(25px, 2vw, 28px);
     border: none;
     background-color: var(--vanilla);
     padding: 0 20px;
-    font-size: 1rem;
+    font-size: clamp(1rem, 1.1vw, 1.15rem);
     color: var(--hot-brown);
     outline: none;
+}
+
+.input-group input:focus {
+    box-shadow: 0 0 0 3px var(--tobacco);
 }
 
 .remember-me {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: clamp(8px, 3vh, 45px);
     font-size: 1.2rem;
-    cursor: pointer; /* Melhora a experiência do usuário */
     line-height: 1;
 }
 
+.remember-me label {
+    cursor: pointer;
+}
+
 .btn-entrar {
-    width: 100%;
-    height: 45px;
-    border-radius: 25px;
+    width: 80%;
+    height: clamp(36px, 5vh, 54px);
+    border-radius: clamp(21px, 2vw, 27px);
     border: none;
     background-color: var(--vanilla);
     color: var(--hot-brown);
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: clamp(1.1rem, 1.2vw, 1.3rem);
     cursor: pointer;
-    transition: background 0.3s;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-
+    display: block;
+    text-align: center;
+    line-height: clamp(36px, 5vh, 54px);
+    margin-top: clamp(10px, 4vh, 70px);
+    margin-left: auto;
+    margin-right: auto;
+    transition: filter 0.3s;
 }
 
 .btn-entrar:hover {
     filter: brightness(0.9);
 }
 
-.forgot-link {
-    display: block;
+.msg-error {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
     text-align: center;
-    color: var(--white);
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: bold;
 }
 
-.forgot-link:hover {
-    text-decoration: underline;
+@media (min-width: 993px) {
+    .login-container {
+        padding-top: 0;
+        justify-content: center;
+    }
+
+    .login-container > *:not(.coffee-boy-wrapper) {
+        padding-left: clamp(35px, 4.5vw, 55px);
+        padding-right: clamp(35px, 4.5vw, 55px);
+        width: 100%;
+    }
+
+    .logo-header {
+        justify-content: center;
+        margin-bottom: clamp(10px, 6vh, 65px);
+    }
+
+    .coffee-icon {
+        width: clamp(260px, 18vw, 360px);
+    }
+
+    .welcome-section {
+        margin-bottom: clamp(10px, 6vh, 65px);
+    }
+
+    .welcome-section h1 {
+        font-size: clamp(2.2rem, 2.8vw, 3.2rem);
+        margin-bottom: clamp(4px, 1.5vh, 16px);
+        font-weight: 700;
+    }
+
+    .welcome-section p {
+        font-size: clamp(1.15rem, 1.3vw, 1.45rem);
+    }
+
+    .login-form {
+        max-width: 100%;
+    }
+
+    .input-group {
+        margin-bottom: clamp(8px, 5vh, 52px);
+    }
+
+    .input-group label {
+        font-size: clamp(1.1rem, 1.2vw, 2rem);
+        margin-bottom: clamp(6px, 2vh, 18px);
+    }
+
+    .input-group input {
+        height: clamp(40px, 5vh, 75px);
+        border-radius: clamp(27px, 2.4vw, 34px);
+        padding: 0 26px;
+        font-size: clamp(1.1rem, 1.2vw, 1.3rem);
+    }
+
+    .remember-me {
+        font-size: clamp(1.1rem, 1.2vw, 1.25rem);
+        margin-bottom: clamp(8px, 5vh, 45px);
+    }
+
+    .btn-entrar {
+        width: 75%;
+        height: clamp(36px, 5vh, 64px);
+        border-radius: clamp(26px, 2.4vw, 32px);
+        font-size: clamp(1.2rem, 1.3vw, 1.5rem);
+        line-height: clamp(36px, 5vh, 64px);
+        margin-top: clamp(10px, 6vh, 100px);
+    }
+
+    .msg-error {
+        font-size: 0.95rem;
+    }
 }
 
 @media (max-width: 992px) {
+    .body-login {
+        justify-content: center;
+        padding: 0;
+    }
 
-.login-container {
-    min-width: 92vw;
-    right: auto;
-    left: auto;
+    .fundo {
+        display: none;
+    }
+
+    .login-container {
+        position: relative;
+        right: auto;
+        margin: 0;
+        width: 90vw;
+    }
+
+    .coffee-boy-wrapper {
+        margin-top: auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .coffee-boy {
+        display: block;
+        width: 100%;
+        max-width: 350px;
+    }
 }
 
-.fundo {
-display: none;
-}
+@media (max-width: 400px) {
+    .coffee-boy {
+        max-width: 230px;
+    }
 
+       .welcome-section h1 {
+           font-size: 1.4rem;
+           margin-bottom: 8px;
+       }
 
-
+       .welcome-section p {
+           font-size: 0.95rem;
+           margin-bottom: 6px;
+       }
 }

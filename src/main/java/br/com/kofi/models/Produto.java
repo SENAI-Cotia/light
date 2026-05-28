@@ -32,15 +32,14 @@ public class Produto {
     @Column(name = "url_imagem", columnDefinition = "TEXT")
     private String urlImagem;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
+    @Column(name = "categoria")
+    private String categoria;
 
     public Produto() {
     }
 
     public Produto(Long id, String nome, String descricao, BigDecimal preco, Integer estoqueAtual,
-                   Integer tempoPreparoMin, boolean disponivel, String urlImagem, Categoria categoria) {
+                   Integer tempoPreparoMin, boolean disponivel, String urlImagem, String categoria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -52,7 +51,6 @@ public class Produto {
         this.categoria = categoria;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -117,11 +115,11 @@ public class Produto {
         this.urlImagem = urlImagem;
     }
 
-    public Categoria getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
 }

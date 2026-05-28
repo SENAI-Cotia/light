@@ -1,9 +1,5 @@
 @import url(fonts.css);
-@import url(cardapio.css);
 @import url(navbar.css);
-@import url(login.css);
-@import url(dashboard.css);
-@import url(atendimento.css);
 
 :root {
     --hot-brown: #41210A;
@@ -23,6 +19,28 @@
     list-style: none;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #41210A;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2d1607;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
 a, a:visited{
     text-decoration: none;
     color: var(--vanilla);
@@ -34,7 +52,6 @@ body {
     display: flex;
     flex-direction: row;
     padding: 1rem;
-    /*overflow: hidden;*/
 }
 
 .primary-element {
@@ -48,6 +65,11 @@ body {
 
     white-space: nowrap;
     height: 55px;
+
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         background-color: var(--tobacco);
@@ -64,11 +86,23 @@ body {
     padding: 0 1rem;
 
     white-space: nowrap;
-    height: 45px;
+    height: 55px;
+
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         background-color: var(--earth-brown);
         color: var(--white);
+    }
+}
+
+details {
+    summary {
+        cursor: pointer;
+        padding: .5rem;
     }
 }
 
@@ -84,23 +118,95 @@ select.secondary-element {
 main {
     display: flex;
     flex-direction: column;
-    /*padding: 0 0 2rem 1rem; <- esse espaçamento é para teste de melhor UI*/
     padding: 0 0 0 1rem;
     color: var(--hot-brown);
 
-    width: stretch;
-    height: stretch;
+    width: 100%;
+    height: 100%;
+
+    @media (max-width: 992px) {
+        height: fit-content;
+        padding-bottom: 3rem;
+        padding-left: 0;
+        gap: 0rem;
+
+        max-height: unset;
+        overflow: unset;
+    }
 
     overflow: hidden;
 
     .scrollable-container {
-        height: stretch;
+        display: flex;
+
+        flex: 1;
+        min-height: 0;
 
         .main-scrollable-container-child {
-            overflow: auto;
+            flex: 1;
+            min-height: 0;
 
-            max-height: stretch;
-            height: stretch;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 768px) {
+            flex: none;
+            height: auto;
+
+            .main-scrollable-container-child {
+                flex: none;
+                height: auto;
+            }
+        }
+    }
+
+
+    .quick-actions {
+        background-color: var(--white);
+        padding: 1rem .5rem;
+        border-radius: .5rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        width: 100%;
+        min-width: 100%;
+
+        .search-bar {
+            border: 1px solid var(--vanilla);
+            border-radius: .5rem;
+            flex-grow: 3;
+            overflow: hidden;
+
+            display: flex;
+            gap: .5rem;
+
+            .search-button {
+                border: 1px solid var(--vanilla);
+                border-radius: .5rem;
+                min-height: 100%;
+                width: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                img {
+                    height: 30px;
+                }
+            }
+
+            input {
+                border: none;
+                width: 100%;
+                padding: .5rem;
+                margin: .3rem 0;
+            }
+        }
+
+        & > button, & > a{
+            margin: 0 auto;
         }
     }
 }
@@ -125,14 +231,6 @@ header {
 
     body {
         overflow: auto;
-    }
-
-    main {
-        padding-left: 0;
-        gap: 2rem;
-
-        max-height: unset;
-        overflow: unset;
     }
 
     .page-title {

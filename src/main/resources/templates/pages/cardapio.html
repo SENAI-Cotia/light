@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Cardápio')}"></th:block>
+    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Cardápio', 'cardapio')}"></th:block>
+    <script type="text/javascript" th:src="@{/js/alertas.js}" defer></script>
 </head>
 <body>
 
@@ -14,130 +15,77 @@
 <main>
     <th:block th:insert="~{fragments/header:: header('tea-cup-dark', 'CARDÁPIO')}"></th:block>
 
-    <div class="cardapio-info scrollable-container">
+    <div class="cardapio-container scrollable-container">
+        <div id="msg-erro" th:if="${erro}" th:text="${erro}" class="alerta-msg"></div>
+        <div id="msg-sucesso" th:if="${sucesso}" th:text="${sucesso}" class="alerta-msg"></div>
+
         <div class="quick-actions">
-            <div class="search-bar">
-                <button class="search-button" type="button">
-                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto" />
+            <form th:action="@{/cardapio}" method="get" class="search-bar">
+                <button class="search-button" type="submit">
+                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto"/>
                 </button>
 
-                <input aria-label="Busca por produtos" name="search" placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
-            </div>
+                <input aria-label="Busca por produtos" name="busca"
+                       th:value="${busca}"
+                       placeholder="Pesquise por produto. Digite pelo menos 3 caracteres"
+                       type="text">
+            </form>
 
-            <button type="button" class="create-product primary-element">Cadastrar produto</button>
+            <a th:href="@{/cardapio/novo}" class="create-product primary-element">Cadastrar produto</a>
         </div>
 
         <div class="main-scrollable-container-child">
             <table class="products-table">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Produto</th>
-                        <th>Preço</th>
-                        <th>Estoque</th>
-                        <th>Tempo de preparo</th>
-                        <th>Disponível</th>
-                        <th>Categoria</th>
-                        <th>Ações</th>
-                    </tr>
+                <tr>
+                    <th>Item</th>
+                    <th>ID</th>
+                    <th>Produto</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                    <th>Tempo de preparo</th>
+                    <th>Disponível</th>
+                    <th>Categoria</th>
+                    <th>Ações</th>
+                </tr>
                 </thead>
-
                 <tbody>
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
-                        <td>
-                            <button>
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
+                <tr th:each="produto : ${produtos}">
+                    <td>
+                        <img class="product-preview"
+                             th:src="${produto.urlImagem}"
+                             th:alt="${produto.nome}"
+                             th:data-fallback="@{/assets/icons/tea-cup-dark.svg}"
+                             onerror="this.src=this.getAttribute('data-fallback')">
+                    </td>
+
+                    <td th:text="${'#' + produto.id}"></td>
+                    <td th:text="${produto.nome}"></td>
+                    <td th:text="${'R$ ' + produto.preco}"></td>
+                    <td th:text="${produto.estoqueAtual}"></td>
+                    <td th:text="${'~ ' + produto.tempoPreparoMin + 'min'}"></td>
+                    <td>
+
+                        <img th:src="${produto.disponivel} ? @{/assets/icons/check.svg} : @{/assets/icons/unchecked.svg}"
+                             alt="Status Disponibilidade"/>
+                    </td>
+                    <td th:text="${produto.categoria}"></td>
+                    <td class="actions">
+                        <a th:href="${'/cardapio/' + produto.id + '/editar'}">
+                            <img alt="edit product button" th:src="@{/assets/icons/pen.svg}"/>
+                        </a>
+                        <form th:action="@{|/cardapio/${produto.id}/deletar|}" method="post" style="display:inline">
+                            <button type="submit" class="icon-btn">
+                                <img alt="delete" th:src="@{/assets/icons/trash.svg}"/>
                             </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
-                        <td>
-                            <button>
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
-                        <td>
-                            <button>
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
-                        <td>
-                            <button>
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
-                        <td>
-                            <button>
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#1</td>
-                        <td>Ctrl ppucino</td>
-                        <td>R$ 18.50</td>
-                        <td>---</td>
-                        <td>~ 4min</td>
-                        <td><input type="checkbox" aria-label="disponibilidade" /></td>
-                        <td>Bebidas</td>
-                        <td>
-                            <button>
-                                <img alt="edit product button" th:src="@{/assets/icons/pen.svg}" />
-                            </button>
-                        </td>
-                    </tr>
-
-
+                        </form>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </main>
+
 </body>
 </html>

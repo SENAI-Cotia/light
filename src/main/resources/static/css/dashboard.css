@@ -1,80 +1,313 @@
-.revenue-card > * {
-    border: 1px solid red;
-}
+@import url(main.css);
 
 .dashboard-main {
     font-family: 'Nunito Sans', sans-serif;
-}
-
-.revenue-card {
-    background-color: var(--white);
+    gap: 0;
     width: 100%;
-    border-radius: 10px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: row;
-    /*align-items: center;*/
-    position: relative;
+    overflow-x: hidden;
 
-    .icon {
-        flex-basis: 35%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .scrollable-container {
+        overflow-x: auto;
 
-        img {
-            height: auto;
+        .main-scrollable-container-child {
+            flex-direction: column;
+            gap: 1rem;
             max-width: 100%;
         }
     }
+}
 
-    .monthly-content {
+.dash-header {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    gap: 1rem;
+
+    .revenue-card {
+        background-color: var(--white);
+        width: 100%;
+        max-width: 100%;
+        border-radius: 10px;
         display: flex;
-        flex-direction: column;
-        padding-left: clamp(1rem, 2.5vw, 1.3rem);
+        flex: 1;
         position: relative;
-        flex-basis: 65%;
-        gap: clamp(.5rem, 2.5vw, 1rem);
 
-        &::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 10%;
-            height: 80%;
-            width: 4px;
-            background-color: var(--vanilla);
-            border-radius: 10px;
+        .icon {
+            flex-basis: 40%;
+            flex-shrink: 0;
+            display: flex;
+            padding: 1rem;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                height: auto;
+                max-width: 100%;
+                min-width: 60px;
+            }
+        }
+
+        .monthly-content {
+            display: flex;
+            align-items: center;
+            padding-left: 1rem;;
+            position: relative;
+            justify-content: center;
+
+            &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 10%;
+                height: 80%;
+                width: 4px;
+                background-color: var(--vanilla);
+                border-radius: 10px;
+            }
+        }
+
+        .total-earned {
+
+            h2 {
+                font-size: clamp(1.2rem, 2.5vw, 1.3rem);
+            }
+
+            p{
+                font-size: clamp(1rem, 2.5vw, 1.1rem);
+            }
+
+            h3 {
+                font-size: clamp(1.5rem, 2.5vw, 2rem);
+            }
         }
     }
 
-    .total-earned {
-
-        h2 {
-            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-        }
-
-        p{
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-        }
-
-        h3 {
-            font-size: clamp(1.5rem, 2.5vw, 2.5rem);
-        }
-    }
-
-    .container {
+    .ticket-container {
         display: flex;
-        gap: 1.5rem;
+        gap: .5rem;
+        flex: 1;
 
         p {
-            font-size: clamp(.8rem, 2.5vw, 1.2rem);
+            font-size: clamp(.5rem, 2.5vw, 1rem);
         }
 
         .average-ticket, .highest-ticket {
             background-color: var(--vanilla);
-            padding: clamp(.3rem, 2.5vw, .8rem);
+            padding: clamp(.3rem, 2.5vw, .5rem);
             border-radius: 10px;
         }
+    }
+
+
+}
+
+.orders-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+
+    .orders-graph {
+        background-color: var(--white);
+        border-radius: 10px;
+        padding: 1rem;
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+
+        .chart-container {
+            position: relative;
+            flex-grow: 1;
+            min-height: 0;
+            width: 100%;
+        }
+    }
+}
+
+
+
+.dish-container {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    width: 100%;
+    gap: 1rem;
+
+    .dish-card {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        flex: 1;
+        padding: 1rem;
+        border-radius: 10px;
+
+        p {
+            font-size: clamp(.9rem, 2vw, 1.2rem);
+            margin-bottom: .8rem;
+            text-align: center;
+        }
+
+        .quantity {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            background-color: var(--vanilla);
+            padding: 2rem;
+            border-radius: 10px;
+
+            p {
+                font-weight: 700;
+                margin-bottom: 0;
+                font-size: clamp(1rem, 2vw, 1.5rem);
+            }
+
+            img {
+                width: clamp(2rem, 2vw, 3rem);
+                margin-bottom: .8rem;
+            }
+        }
+    }
+}
+
+
+.orders-tables {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+    background-color: var(--white);
+    border-radius: .5rem;
+    flex: 2;
+}
+
+
+.pedidos-table-container.scrollable-container {
+    flex: 2;
+
+    .pedidos-table {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        min-width: fit-content;
+
+        thead tr {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            th {
+                min-width: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                font-weight: bold;
+            }
+        }
+
+        tbody {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: .5rem;
+            font-size: 1rem;
+
+            tr {
+                width: 100%;
+                display: flex;
+                gap: 1rem;
+                min-height: 50px;
+                justify-content: space-between;
+                align-items: center;
+                background-color: var(--vanilla);
+                border-radius: .5rem;
+                padding: 0 .5rem;
+                transition: transform 0.2s;
+
+                &:hover {
+                    filter: brightness(0.95);
+                }
+
+                td {
+                    width: 100%;
+                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+
+                    .btn-view {
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                        color: var(--hot-brown);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.stock-alerts-card {
+    flex: 1;
+
+    h3 {
+        text-align: center;
+    }
+
+    .stock-table {
+        width: 100%;
+        text-align: left;
+
+        tbody tr td{
+            padding: .3rem 0;
+        }
+
+        .product-qtd {
+            text-align: center;
+        }
+    }
+}
+
+
+@media screen and (min-width: 1100px){
+    .dash-header {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: stretch;
+    }
+
+    .revenue-card, .dish-container {
+        min-width: 0;
+    }
+
+    .revenue-card {
+          .icon {
+                flex-basis: 30%;
+            }
+
+            .monthly-content {
+                flex-basis: 70%;
+                padding-left: 0;
+            }
+
+        }
+
+    .orders-info {
+        flex-direction: row;
+
+    }
+
+    .orders-tables {
+        flex-direction: row;
+        justify-content: space-between;
     }
 }

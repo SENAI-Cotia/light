@@ -1,58 +1,200 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
-    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Atendimento')}"></th:block>
+    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Atendimento', 'atendimento')}"></th:block>
+    <script type="text/javascript" th:src="@{/js/pedido-form.js}" defer></script>
+    <script type="text/javascript" th:src="@{/js/alertas.js}" defer></script>
 </head>
 <body>
 
 <aside>
     <div th:replace="~{fragments/navbar :: menu-toggle}"></div>
-
     <div th:replace="~{fragments/navbar :: navbar('atendimento')}"></div>
 </aside>
 
 <main>
     <th:block th:insert="~{fragments/header:: header('bell-dark', 'ATENDIMENTO')}"></th:block>
 
-    <div class="cardapio-info scrollable-container">
+    <div class="pedidos-container scrollable-container">
+
+        <div id="msg-erro" th:if="${erro}" th:text="${erro}" class="alerta-msg"></div>
+        <div id="msg-sucesso" th:if="${sucesso}" th:text="${sucesso}" class="alerta-msg"></div>
+
         <div class="quick-actions">
-            <div class="search-bar">
-                <button class="search-button" type="button">
-                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar produto" />
+            <form id="form-busca" class="search-bar">
+                <button class="search-button" type="submit">
+                    <img src="/assets/icons/magnifying.svg" alt="Pesquisar"/>
                 </button>
 
-                <input aria-label="Busca por produtos" name="search" placeholder="Pesquise por produto. Digite pelo menos 3 caracteres" type="text">
-            </div>
+                <input id="input-busca" aria-label="Busca" name="busca"
+                       placeholder="Pesquise por produto ou n° do pedido"
+                       type="text">
 
-            <button type="button" class="create-order primary-element">Novo pedido</button>
+                <button type="button" id="btn-limpar"
+                        th:if="${busca != null and !#strings.isEmpty(busca)}"
+                        onclick="limparBusca()" style="margin-right:20px;">
+                    ✕
+                </button>
+            </form>
+
+            <button type="button" class="create-product primary-element" id="main-content-switcher-button"
+                    th:text="${modo == 'pedidos'} ? 'Novo pedido' : 'Listar pedidos'">
+            </button>
         </div>
 
-        <div class="painel-container">
-            <div class="products-container">
-                <div class="products-filter">
-                    <button class="secondary-element ">Todos</button>
+        <form id="form-pedido" th:classappend="${modo == 'pedidos'} ? 'hidden' : ''"
+              th:action="@{/atendimento/salvar}" method="post" class="painel-container">
 
-                    <button class="secondary-element">Combos</button>
+            <div id="itens-ocultos"></div>
 
-                    <button class="secondary-element" >Promoções</button>
 
-                    <select aria-label="categoria" class="secondary-element">
-                        <option>Categorias</option>
-                        <option>Bebidas</option>
-                        <option>Lanches</option>
-                        <option>Acompanhamentos</option>
-                        <option>Sobremesas</option>
-                    </select>
+            <div class="produtos-container scrollable-container">
+                <div class="produtos-filtro">
+                    <button type="button" class="secondary-element filtro-btn ativo" data-filtro="todos">Todos</button>
+                    <button type="button" class="secondary-element filtro-btn" data-filtro="bebida">Bebidas</button>
+                    <button type="button" class="secondary-element filtro-btn" data-filtro="lanche">Lanches</button>
+                    <button type="button" class="secondary-element filtro-btn" data-filtro="acompanhamento">
+                        Acompanhamentos
+                    </button>
+                    <button type="button" class="secondary-element filtro-btn" data-filtro="sobremesa">Sobremesas</button>
                 </div>
 
-                <div class="products-list">
-                    <div class="product-card"></div>
-                    <div class="product-card grow-3"></div>
-                    <div class="product-card"></div>
+                <div class="main-scrollable-container-child">
+                    <div class="produtos-lista">
+                        <div th:each="produto : ${produtos}" th:unless="${produto.disponivel == false}">
+                            <div class="produto-card"
+                                 th:data-id="${produto.id}"
+                                 th:data-nome="${produto.nome}"
+                                 th:data-preco="${produto.preco}"
+                                 th:data-categoria="${produto.categoria}"
+                            >
+                                <div class="produto-imagem">
+                                    <img th:src="${produto.urlImagem}" th:alt="${produto.nome}">
+                                </div>
+
+                                <div class="produto-infos">
+                                    <div class="produto-detalhes">
+                                        <h3 th:text="${produto.nome}"></h3>
+                                        <h4 th:text="${'R$' + produto.preco}"></h4>
+                                    </div>
+
+                                    <button type="button" onclick="adicionar(this)">
+                                        <img th:src="@{/assets/icons/add-circle.svg}"
+                                             alt="Adicionar produto ao pedido"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="current-bill-container"></div>
+
+            <div class="novo-pedido-container scrollable-container">
+                <h3>Dados do pedido</h3>
+
+                <div class="main-scrollable-container-child">
+                    <div class="field">
+                        <label for="campo-observacao-pedido">Observações do pedido</label>
+                        <textarea rows="2" id="campo-observacao-pedido" name="observacao"></textarea>
+                    </div>
+
+                    <div id="lista-selecionados">
+                        <p id="msg-vazia">Nenhum item adicionado.</p>
+                    </div>
+
+                    <div class="totais">
+                        <span>Total: </span>
+                        <span id="valor-total">R$ 0,00</span>
+                    </div>
+
+                    <div class="forma-pagamento">
+                        <div class="titulo-card">
+                            <h4>Pagamento</h4>
+                        </div>
+
+                        <div class="opcoes-pagamento">
+                            <label class="opcao-pagamento">
+                                <input type="radio" name="formaPagamento" value="DINHEIRO" required>
+                                <div class="card-pagamento">
+                                    <div class="icon"><img th:src="@{/assets/icons/money.svg}"></div>
+                                    <span>Dinheiro</span>
+                                </div>
+                            </label>
+
+                            <label class="opcao-pagamento">
+                                <input type="radio" name="formaPagamento" value="CARTAO_DEBITO" required>
+                                <div class="card-pagamento">
+                                    <div class="icon"><img th:src="@{/assets/icons/debit-card.svg}"></div>
+                                    <span>Débito</span>
+                                </div>
+                            </label>
+
+                            <label class="opcao-pagamento">
+                                <input type="radio" name="formaPagamento" value="PIX" required>
+                                <div class="card-pagamento">
+                                    <div class="icon"><img th:src="@{/assets/icons/pix.svg}"></div>
+                                    <span>Pix</span>
+                                </div>
+                            </label>
+
+                            <label class="opcao-pagamento">
+                                <input type="radio" name="formaPagamento" value="CARTAO_CREDITO" required>
+                                <div class="card-pagamento">
+                                    <div class="icon"><img th:src="@{/assets/icons/credit-card.svg}"></div>
+                                    <span>Crédito</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <input type="hidden" id="total-pedido" name="valorTotal" value="0">
+                    </div>
+                </div>
+
+
+                <div class="form-buttons">
+                    <button type="reset" class="secondary-element">Cancelar</button>
+                    <button type="submit" class="primary-element">Confirmar pedido</button>
+                </div>
+            </div>
+        </form>
+
+
+        <div class="pedidos-grid" th:classappend="${modo != 'pedidos'} ? 'hidden' : ''">
+            <div class="main-scrollable-container-child">
+                <table class="pedidos-table">
+                    <thead>
+                    <tr>
+                        <th>Nº pedido</th>
+                        <th>Status</th>
+                        <th>Data de criação</th>
+                        <th>Hora de criação</th>
+                        <th>Valor total</th>
+                        <th>Forma de pagamento</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pedido : ${pedidos}">
+                        <td th:text="${pedido.numeroPedido}"></td>
+                        <td th:text="${pedido.status}"></td>
+                        <td th:text="${#temporals.format(pedido.criadoEm, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#temporals.format(pedido.criadoEm, 'HH:mm')}"></td>
+                        <td th:text="${'R$ ' + #aggregates.sum(pedido.itens.![quantidade * precoUnitario])}"></td>
+                        <td th:text="${pedido.formaPagamento}"></td>
+                        <td class="actions">
+                            <form th:action="@{|/atendimento/${pedido.id}/deletar|}" method="post" style="display:inline">
+                                <button type="submit" class="icon-btn">
+                                    <img alt="delete" th:src="@{/assets/icons/trash.svg}"/>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </main>

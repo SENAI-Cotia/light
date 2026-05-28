@@ -1,0 +1,202 @@
+@import url(main.css);
+@import url(alertas.css);
+
+h1 {
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    text-align: center;
+}
+
+.novo-produto-container {
+   width: 100%;
+   background-color: var(--white);
+   border-radius: .5rem;
+   padding: 2rem;
+
+   @media (max-width: 768px) {
+       padding: 1.5rem 1rem;
+   }
+
+   @media (max-width: 480px) {
+       padding: 1rem;
+   }
+}
+
+.produto-form-wrapper {
+    background-color: var(--vanilla);
+    width: 100%;
+    gap: 2rem;
+    padding: 3rem;
+    border-radius: .5rem;
+
+    @media (max-width: 768px) {
+        padding: 1.5rem 1rem;
+    }
+
+    @media (max-width: 480px) {
+        padding: 1rem;
+    }
+}
+
+.produto-form-wrapper .section-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--hot-brown, #5a3d32);
+    margin: 0;
+    text-align: center;
+    width: 100%;
+
+    @media (max-width: 768px) {
+        font-size: 0.95rem;
+    }
+}
+
+.produto-form {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+
+    @media (max-width: 992px) {
+        flex-direction: column;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        padding: 0 2rem 0 2rem;
+        gap: 1rem;
+
+        @media (max-width: 1200px) {
+            padding: 0;
+        }
+    }
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    label {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--hot-brown, #5a3d32);
+    }
+
+    h4 {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--hot-brown, #5a3d32);
+        margin: 0;
+    }
+
+    .product-preview {
+        height: 200px;
+        object-fit: cover;
+        border-radius: .5rem;
+    }
+}
+
+.field input[type="text"],
+.field input[type="url"],
+.field input[type="number"],
+.field textarea,
+.field select {
+    padding: .75rem 1rem;
+    border: none;
+    border-radius: 5rem;
+    background-color: var(--white);
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--hot-brown, #5a3d32);
+    transition: background-color 0.2s ease;
+    width: 100%;
+
+    &::placeholder {
+        color: #a89080;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+}
+
+.field textarea {
+    border-radius: .75rem;
+    resize: vertical;
+    min-height: 110px;
+}
+
+.field select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+
+.field .radio-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.field label:has(input[type="radio"]) {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .65rem 1.25rem;
+    border-radius: 5rem;
+    background-color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--hot-brown, #5a3d32);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: #f5ede0;
+    }
+
+    input[type="radio"] {
+        accent-color: var(--hot-brown, #5a3d32);
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+}
+
+.form-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 0.5rem;
+
+    button {
+        min-width: 20%;
+    }
+
+    button[type="reset"]{
+        background-color: var(--white);
+    }
+
+    button[type="reset"]:hover{
+         background-color: var(--tobacco    );
+         color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+
+        button {
+            min-width: 50%;
+        }
+    }
+}

@@ -1,6 +1,16 @@
+@import url(main.css);
+
 button {
   all: unset;
   cursor: pointer;
+}
+
+.menu-pages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: space-between;
 }
 
 .menu-container {
@@ -53,42 +63,85 @@ button {
         opacity: 0.5;
     }
 
-    a {
+    span {
+        transition: all .3s linear;
+        color: var(--earth-brown);
+    }
+
+    button {
         transition: all .3s linear;
         color: var(--earth-brown);
     }
 }
 
 
-.menu-config {
+.nav-actions {
     display: flex;
+    width: 100%;
+    flex-direction: column;
     align-items: center;
-    position: absolute;
-    bottom: 25px;
     justify-self: center;
     border-radius: 5px;
-    gap: 1rem;
+    gap: .5rem;
     font-size: 1.2rem;
-    padding: 1rem;
-}
+    padding: 1rem .5rem;
 
-.menu-config:hover {
-   background-color: var(--dark-hot-brown);
-}
+    .menu-link:hover {
+        background-color: transparent;
 
+    }
+
+    .menu-link.active {
+        background-color: transparent;
+    }
+}
 
 .menu-display-btn {
     display: none;
 }
 
+.nav-actions {
+
+    .menu-link{
+        min-width: 100%;
+        padding: .4rem;
+    }
+
+    .menu-link:hover {
+
+    }
+
+    form {
+        width: 100%;
+    }
+
+    form button {
+        display: flex;
+        min-width: 100%;
+        gap: .5rem;
+        color: var(--vanilla);
+    }
+
+}
+
 
 @media (max-width: 992px){
     .menu-display-btn {
-        position: absolute;
+        position: fixed;
         left: 16px;
         top: 24px;
         display: block;
         z-index: 1001;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-radius: 5px;
+        padding: 2px;
+
+    }
+
+    .menu-display-btn.open {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
     }
 
     .menu-display-btn svg {
@@ -125,5 +178,4 @@ button {
     .menu-container.menu-open {
         left: 0;
     }
-
 }

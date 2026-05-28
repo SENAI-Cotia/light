@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="~{fragments/head :: common-head('Kofi Ctrl | Novo Produto', 'novo-produto')}"></th:block>
+    <script type="text/javascript" th:src="@{/js/alertas.js}" defer></script>
+    <script type="text/javascript" th:src="@{/js/imagem-produto.js}" defer></script>
+</head>
+<body>
+<aside>
+    <div th:replace="~{fragments/navbar :: menu-toggle}"></div>
+    <div th:replace="~{fragments/navbar :: navbar('cardapio')}"></div>
+</aside>
+
+<main>
+    <th:block th:insert="~{fragments/header:: header('tea-cup-dark', 'CARDÁPIO - Registro')}"></th:block>
+
+    <div class="novo-produto-container scrollable-container">
+        <div id="msg-erro" th:if="${erro}" th:text="${erro}" class="alerta-msg"></div>
+        <div id="msg-sucesso" th:if="${sucesso}" th:text="${sucesso}" class="alerta-msg"></div>
+
+        <div class="produto-form-wrapper main-scrollable-container-child">
+            <h1>Informações do produto</h1>
+            <form class="produto-form" th:action="@{/cardapio/salvar}" th:object="${produto}" method="post">
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="column">
+                    <div class="field">
+                        <label for="campo-urlImagem">Foto (apenas url)</label>
+                        <input type="url" id="campo-urlImagem" th:field="*{urlImagem}" name="urlImagem" required>
+
+                        <img id="img-preview"
+                             class="product-preview"
+                             th:src="*{urlImagem}"
+                             th:data-fallback="@{/assets/images/img-placeholder.png}"
+                        >
+                        <p id="img-erro" style="color: red; display: none; margin-top: 8px; font-size: 14px;"></p>
+                    </div>
+
+
+                    <div class="field">
+                        <label for="campo-nome">Nome</label>
+                        <input type="text" id="campo-nome" th:field="*{nome}" name="nome" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="campo-descricao">Descrição</label>
+                        <textarea rows="6" id="campo-descricao" th:field="*{descricao}" name="descricao"
+                                  required></textarea>
+                    </div>
+
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label for="campo-preco">Preço</label>
+                        <input type="number" min="0.10" step="0.10" id="campo-preco" th:field="*{preco}" name="preco"
+                               required>
+                    </div>
+
+                    <div class="field">
+                        <label for="campo-estoqueAtual">Estoque</label>
+                        <input type="number" min="0" step="1" id="campo-estoqueAtual" th:field="*{estoqueAtual}"
+                               name="estoqueAtual" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="campo-tempoPreparoMin">Tempo de preparo (minutos)</label>
+                        <input type="number" min="1" step="1" id="campo-tempoPreparoMin" th:field="*{tempoPreparoMin}"
+                               name="tempoPreparoMin" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="campo-categoria">Categoria</label>
+                        <select id="campo-categoria" th:field="*{categoria}" name="categoria" class="secondary-element"
+                                required>
+                            <option value="bebida">Bebidas</option>
+                            <option value="lanche">Lanches</option>
+                            <option value="acompanhamento">Acompanhamentos</option>
+                            <option value="sobremesa">Sobremesas</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <h4>Disponibilidade</h4>
+
+                        <div class="radio-group">
+                            <label>
+                                Disponível
+                                <input type="radio" value="yes" th:field="*{disponivel}" name="disponivel" required>
+                            </label>
+
+                            <label>
+                                Não disponível
+                                <input type="radio" value="no" th:field="*{disponivel}" name="disponivel" required>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button class="secondary-element" type="reset" th:if="${produto.id == null}">Limpar</button>
+                        <button class="primary-element" type="submit">Salvar</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>

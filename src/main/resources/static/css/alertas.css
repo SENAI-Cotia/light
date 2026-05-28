@@ -1,0 +1,34 @@
+
+.alerta-msg {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 1.5rem 2rem;
+    background-color: var(--white);
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    z-index: 999;
+    opacity: 1;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+}
+
+.alerta-msg.hidden {
+    opacity: 0 !important;
+    transform: translateY(10px);
+}
+
+#msg-erro, .erro-alerta {
+    border-color: #900B09;
+    color: #900B09;
+    box-shadow: 0 4px 15px rgba(255, 77, 77, 0.2);
+}
+
+#msg-sucesso, .sucesso-alerta {
+    border-color: #02542D;
+    color: #02542D;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
+}
