@@ -15,129 +15,138 @@
 <main class="dashboard-main">
     <th:block th:insert="~{fragments/header:: header('coffee-bean-dark', 'DASHBOARD')}"></th:block>
 
-    <div class="dash-header">
-        <div class="revenue-card">
-            <div class="icon">
-                <img th:src="@{/assets/images/coffee-pot.svg}" alt="">
+    <div class="scrollable-container">
+
+        <div class="main-scrollable-container-child">
+
+            <div class="dash-header">
+                <div class="revenue-card">
+                    <div class="icon">
+                        <img th:src="@{/assets/images/coffee-pot.svg}" alt="">
+                    </div>
+                    <div class="monthly-content">
+                        <div class="total-earned">
+                            <h2>Total faturado</h2>
+                            <p>mês: jun</p>
+                            <h3>R$1.200,00</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dish-container">
+                    <div class="dish-card">
+                        <p>Ticket médio</p>
+                        <div class="quantity">
+
+                            <p>R$80</p>
+                        </div>
+                    </div>
+                    <div class="dish-card">
+                        <p>Maior pedido</p>
+                        <div class="quantity">
+
+                            <p>R$120</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dish-container">
+                    <div class="dish-card"><p>Em preparo</p>
+                        <div class="quantity">
+                            <p>7</p>
+                            <img th:src="@{/assets/icons/bell-dark.svg}" alt="">
+                        </div>
+                    </div>
+                    <div class="dish-card"><p>Tempo médio</p>
+                        <div class="quantity">
+                            <p>5 min</p>
+                            <img th:src="@{/assets/icons/time.svg}" alt="">
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="monthly-content">
-                <div class="total-earned">
-                    <h2>Total faturado</h2>
-                    <p>mês: jun</p>
-                    <h3>R$1.200,00</h3>
+
+            <div class="orders-tables">
+                <div class="pedidos-table-container scrollable-container">
+                    <table class="pedidos-table main-scrollable-container-child">
+                        <thead>
+                        <tr>
+                            <th>Nº pedido</th>
+                            <th>Status</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Ação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pedido : ${pedidos}">
+                            <td th:text="${pedido.numeroPedido}"></td>
+
+                            <td>
+                                <span th:text="${pedido.status}" th:class="pedido-pendente"></span>
+                            </td>
+
+                            <td th:text="${#temporals.format(pedido.criadoEm, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${#temporals.format(pedido.criadoEm, 'HH:mm')}"></td>
+
+                            <td>
+                                <a th:href="@{/atendimento(busca=${pedido.numeroPedido}, modo='pedidos')}" class="btn-view">
+                                    Ver detalhes
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="stock-alerts-card">
+                    <h3>Alerta de estoque</h3>
+
+                    <table class="stock-table">
+                        <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th class="product-qtd">Qtd</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="produto, iterStat : ${produtos}" th:if="${iterStat.index < 10}">
+                            <td th:text="${produto.nome}">café</td>
+                            <td class="product-qtd" th:text="${produto.estoqueAtual}"
+                                th:style="${produto.estoqueAtual < 19} ? 'color: #900B09; font-weight: bold;' : ''">2
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
+            <div class="orders-info">
+                <div class="orders-graph">
+                    <div class="chart-container">
+                        <canvas id="kofiChart"></canvas>
+                    </div>
+                </div>
+                <div class="dish-container">
+                    <div class="dish-card"><p>Total pedidos</p>
+                        <div class="quantity">
+                            <p>70</p>
+                            <img th:src="@{/assets/icons/dish.svg}" alt="">
+                        </div>
+                    </div>
+                    <div class="dish-card"><p>Produto mais vendido</p>
+                        <div class="quantity">
+                            <p>Espresso</p>
+                            <img th:src="@{/assets/icons/cup.svg}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-        <div class="dish-container">
-            <div class="dish-card">
-                <p>ticket médio</p>
-                <div class="quantity">
-
-                    <p>R$79,00</p>
-                </div>
-            </div>
-            <div class="dish-card">
-                <p>maior pedido</p>
-                <div class="quantity">
-
-                    <p>R$109,00</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="dish-container">
-            <div class="dish-card"><p>Pedidos em preparo</p>
-                <div class="quantity">
-                    <p>7</p>
-                    <img th:src="@{/assets/icons/cup.svg}" alt="">
-                </div>
-            </div>
-            <div class="dish-card"><p>Tempo médio de preparo</p>
-                <div class="quantity">
-                    <p>7</p>
-                    <img th:src="@{/assets/icons/time.svg}" alt="">
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <div class="orders-tables">
-        <table class="pedidos-table">
-            <thead>
-            <tr>
-                <th>Nº pedido</th>
-                <th>Status</th>
-                <th>Data</th>
-                <th>Hora</th>
-                <th>Valor total</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="pedido : ${pedidos}">
-                <td th:text="${pedido.numeroPedido}"></td>
-
-                <td>
-                    <span th:text="${pedido.status}" th:class="pedido-pendente"></span>
-                </td>
-
-                <td th:text="${#temporals.format(pedido.criadoEm, 'dd/MM/yyyy')}"></td>
-                <td th:text="${#temporals.format(pedido.criadoEm, 'HH:mm')}"></td>
-
-                <td th:text="${#numbers.formatCurrency(pedido.valorTotal)}"></td>
-
-                <td>
-                    <a th:href="@{/atendimento(busca=${pedido.numeroPedido}, modo='pedidos')}" class="btn-view">
-                        Ver detalhes
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="stock-alerts-card">
-            <h3>Alerta de estoque</h3>
-
-            <table class="stock-table">
-                <thead>
-                <tr>
-                    <th>Produto</th>
-                    <th>Qtd</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="produto, iterStat : ${produtos}" th:if="${iterStat.index < 10}">
-                    <td th:text="${produto.nome}">café</td>
-                    <td class="product-qtd" th:text="${produto.estoqueAtual}"
-                        th:style="${produto.estoqueAtual < 19} ? 'color: #900B09; font-weight: bold;' : ''">2
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="orders-info">
-        <div class="orders-graph">
-            <div class="chart-container">
-                <canvas id="kofiChart"></canvas>
-            </div>
-        </div>
-        <div class="dish-container">
-            <div class="dish-card"><p>Total vendido</p>
-                <div class="quantity">
-                    <p>7</p>
-                    <img th:src="@{/assets/icons/dish.svg}" alt="">
-                </div>
-            </div>
-            <div class="dish-card"><p>Produto mais vendido</p>
-                <div class="quantity">
-                    <p>7</p>
-                    <img th:src="@{/assets/icons/dish.svg}" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
 </main>
 
 </body>

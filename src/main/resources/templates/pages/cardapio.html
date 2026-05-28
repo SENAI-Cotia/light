@@ -38,6 +38,7 @@
             <table class="products-table">
                 <thead>
                 <tr>
+                    <th>Item</th>
                     <th>ID</th>
                     <th>Produto</th>
                     <th>Preço</th>
@@ -48,9 +49,16 @@
                     <th>Ações</th>
                 </tr>
                 </thead>
-                <!-- TODO: Pop up de confirmação-->
                 <tbody>
                 <tr th:each="produto : ${produtos}">
+                    <td>
+                        <img class="product-preview"
+                             th:src="${produto.urlImagem}"
+                             th:alt="${produto.nome}"
+                             th:data-fallback="@{/assets/icons/tea-cup-dark.svg}"
+                             onerror="this.src=this.getAttribute('data-fallback')">
+                    </td>
+
                     <td th:text="${'#' + produto.id}"></td>
                     <td th:text="${produto.nome}"></td>
                     <td th:text="${'R$ ' + produto.preco}"></td>

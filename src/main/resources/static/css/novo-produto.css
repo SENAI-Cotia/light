@@ -24,7 +24,6 @@ h1 {
 .produto-form-wrapper {
     background-color: var(--vanilla);
     width: 100%;
-    /* Remova display: flex e align-items: center daqui */
     gap: 2rem;
     padding: 3rem;
     border-radius: .5rem;
@@ -91,9 +90,16 @@ h1 {
         color: var(--hot-brown, #5a3d32);
         margin: 0;
     }
+
+    .product-preview {
+        height: 200px;
+        object-fit: cover;
+        border-radius: .5rem;
+    }
 }
 
 .field input[type="text"],
+.field input[type="url"],
 .field input[type="number"],
 .field textarea,
 .field select {

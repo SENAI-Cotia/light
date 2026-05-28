@@ -53,7 +53,7 @@ public class RootController {
 		List<Produto> produtosEmAlerta = produtoService.buscarProdutosEmAlerta();
 		model.addAttribute("produtos", produtosEmAlerta);
 
-		List<Pedido> pedidosRecentes = pedidoRepository.findTop5ByOrderByCriadoEmDesc();
+		List<Pedido> pedidosRecentes = pedidoRepository.findTop6ByOrderByCriadoEmDesc();
 		model.addAttribute("pedidos", pedidosRecentes);
 
 		return "pages/dashboard";
@@ -86,7 +86,7 @@ public class RootController {
 
 		List<Pedido> pedidos = (busca != null && busca.length() >= 3 && modo.equals("pedidos"))
 				? pedidoRepository.findByNumeroPedidoContainingIgnoreCase(busca)
-				: pedidoRepository.findAll();
+				: pedidoRepository.findAllByOrderByCriadoEmDesc();
 
 		model.addAttribute("produtos", produtos);
 		model.addAttribute("pedidos", pedidos);

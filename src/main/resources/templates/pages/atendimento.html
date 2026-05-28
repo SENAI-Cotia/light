@@ -49,7 +49,7 @@
 
             <div id="itens-ocultos"></div>
 
-            <!-- ✅ CONTAINER 1: PRODUTOS -->
+
             <div class="produtos-container scrollable-container">
                 <div class="produtos-filtro">
                     <button type="button" class="secondary-element filtro-btn ativo" data-filtro="todos">Todos</button>
@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <!-- ✅ CONTAINER 2: NOVO PEDIDO -->
+
             <div class="novo-pedido-container scrollable-container">
                 <h3>Dados do pedido</h3>
 
@@ -153,7 +153,7 @@
                     </div>
                 </div>
 
-                <!-- ✅ BUTTONS: Fora do scrollable para ficar fixo embaixo -->
+
                 <div class="form-buttons">
                     <button type="reset" class="secondary-element">Cancelar</button>
                     <button type="submit" class="primary-element">Confirmar pedido</button>
@@ -161,7 +161,7 @@
             </div>
         </form>
 
-        <!-- ✅ CONTAINER 3: LISTA DE PEDIDOS -->
+
         <div class="pedidos-grid" th:classappend="${modo != 'pedidos'} ? 'hidden' : ''">
             <div class="main-scrollable-container-child">
                 <table class="pedidos-table">
@@ -172,6 +172,7 @@
                         <th>Data de criação</th>
                         <th>Hora de criação</th>
                         <th>Valor total</th>
+                        <th>Forma de pagamento</th>
                         <th>Ações</th>
                     </tr>
                     </thead>
@@ -182,6 +183,7 @@
                         <td th:text="${#temporals.format(pedido.criadoEm, 'dd/MM/yyyy')}"></td>
                         <td th:text="${#temporals.format(pedido.criadoEm, 'HH:mm')}"></td>
                         <td th:text="${'R$ ' + #aggregates.sum(pedido.itens.![quantidade * precoUnitario])}"></td>
+                        <td th:text="${pedido.formaPagamento}"></td>
                         <td class="actions">
                             <form th:action="@{|/atendimento/${pedido.id}/deletar|}" method="post" style="display:inline">
                                 <button type="submit" class="icon-btn">

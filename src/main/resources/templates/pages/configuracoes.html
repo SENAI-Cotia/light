@@ -68,9 +68,6 @@
                     >
                 </div>
 
-                <!--                <p th:if="${erroSenha}" th:text="${erroSenha}" style="color: red;"></p>-->
-                <!--                <p th:if="${sucessoSenha}" th:text="${sucessoSenha}" style="color: green;"></p>-->
-
                 <div class="button-group">
                     <button type="reset" class="secondary-element">Limpar</button>
                     <button type="submit" class="primary-element">Salvar</button>
@@ -84,7 +81,6 @@
                 <h2 class="section-title" id="titulo-formulario">Cadastrar usuário</h2>
 
                 <form class="register-form" id="form-usuarios" th:action="@{/configuracoes/novo-usuario}" method="post">
-                    <!-- Campo hidden para ID do usuário (edição) -->
                     <input type="hidden" id="usuario-id" name="id" value="">
 
                     <div class="form-group">

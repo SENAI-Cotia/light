@@ -13,6 +13,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
 	List<Pedido> findByNumeroPedidoContainingIgnoreCase(String numeroPedido);
 
-	List<Pedido> findTop5ByOrderByCriadoEmDesc();
+	List<Pedido> findTop6ByOrderByCriadoEmDesc();
+
+	List<Pedido> findAllByOrderByCriadoEmDesc();
 
 }

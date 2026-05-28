@@ -7,7 +7,7 @@
 
     .main-scrollable-container-child {
         border-radius: .5rem;
-        padding: 1rem;
+        padding: 0 1rem 1rem 1rem;
         background-color: var(--white);
     }
 
@@ -18,20 +18,34 @@
 
         min-width: fit-content;
 
-        thead tr {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: space-between;
-            width: stretch;
+        thead {
+            position: sticky;
+            top: 0;
+            background-color: var(--white);
+            z-index: 10;
 
-            th {
-                min-width: 100px;
+            tr {
                 display: flex;
-                justify-content: center;
-                align-items: center;
+                gap: 1.5rem;
+                justify-content: space-between;
                 width: 100%;
+                padding: 1rem;
+                border-bottom: 2px solid var(--vanilla);
+
+                th {
+                    min-width: 100px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    font-weight: 600;
+                    color: var(--hot-brown);
+                    font-size: 0.95rem;
+                }
             }
         }
+
+
 
         tbody {
             display: flex;
@@ -52,12 +66,29 @@
                 background-color: var(--vanilla);
                 border-radius: .5rem;
 
+                &:hover {
+                    filter: brightness(0.95);
+                }
+
                 td {
                     width: stretch;
                     text-align: center;
 
                     img {
                         width: 1.5rem;
+
+                        &.product-preview {
+                            height: 40px;
+                            width: 40px;
+                            object-fit: cover;
+                            border-radius: .3rem;
+                        }
+                    }
+
+                    &:has( .product-preview) {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                     }
                 }
 

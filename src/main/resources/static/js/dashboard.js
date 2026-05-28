@@ -10,8 +10,8 @@ new Chart(document.getElementById('kofiChart'), {
             label: 'Vendas mensais',
             data: [95, 102, 132, 153, 185, 10, 0, 0, 0, 0, 0, 0],
             borderColor: '#41210A',
-            borderWidth: 3,
-            pointRadius: 1,
+            borderWidth: 4,
+            pointRadius: 4,
             pointHoverRadius: 5,
             tension: 0.4,
             fill: true,
@@ -41,8 +41,8 @@ new Chart(document.getElementById('kofiChart'), {
                     weight: 'regular'
                 },
                 padding: {
-                    top: 10,
-                    bottom: 20
+                    top: 0,
+                    bottom: 10
                 }
             }
         },
