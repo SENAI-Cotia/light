@@ -2,7 +2,7 @@
 FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
 COPY . .
-RUN mvn clean package -DskipTests -Dmaven.resources.filtering=false
+RUN mvn clean package -DskipTests -Dmaven.resources.skip=true
 
 # Estagio 2: Run (Executa a aplicacao com uma imagem leve do Java)
 FROM eclipse-temurin:17-jdk-alpine
